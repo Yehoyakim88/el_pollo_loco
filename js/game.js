@@ -1,12 +1,17 @@
+let canvas_height;
+
+
 let canvas;
 let world;
 
 
 function init() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas);
+    canvas_height = canvas.offsetHeight;
+    world = new World(canvas, canvas_height);
 
     console.log('My character is', world.character);
+    console.log('Canvas has a height of', canvas_height);
     world.draw();
 }
 
