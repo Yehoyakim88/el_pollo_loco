@@ -11,41 +11,31 @@ class World {
         new Cloud('img/5_background/layers/4_clouds/1.png')
     ];
     backgroundObjects = [
-        new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 0, this.canvas_height),
-        new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 0, this.canvas_height),
-        new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0, this.canvas_height)
+        new BackgroundObject('img/5_background/layers/air.png', 0, canvas_height),
+        new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0, canvas_height),
+        new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 0, canvas_height),
+        new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 0, canvas_height),
     ];
     canvas;
-    canvas_height;
     ctx;
     // backgroundObjects;
+    // canvas_height;
 
-    constructor(canvas, c_height) {
+    constructor(canvas) {
         console.log('constructor of class World');
         
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
-        this.canvas_height = c_height;
-
-        console.log('c_height: ', c_height);
-        console.log('this.canvas_height: ', this.canvas_height);
     }
 
-    // backgroundObjects = [
-    //     new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 0, this.canvas_height),
-    //     new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 0, this.canvas_height),
-    //     new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0, this.canvas_height)
-    // ];
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.clouds);
-        this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.backgroundObjects);
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
-        
+        this.addObjectsToMap(this.clouds);
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.enemies);
         
         // draw() wird immer wieder aufgerufen
         let self = this;
