@@ -18,14 +18,22 @@ class World {
     ];
     canvas;
     ctx;
-    // backgroundObjects;
-    // canvas_height;
+    keyboard;
 
-    constructor(canvas) {
+
+    constructor(canvas, keyboard) {
         console.log('constructor of class World');
         
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.draw();
+        this.keyboard = keyboard;
+        this.setWorld();
+    }
+
+
+    setWorld() {
+        this.character.world = this;
     }
 
 
