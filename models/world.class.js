@@ -29,6 +29,7 @@ class World {
         this.draw();
         this.keyboard = keyboard;
         this.setWorld();
+        console.log('this.keyboard: ', this.keyboard);
     }
 
 
@@ -59,6 +60,26 @@ class World {
     }
 
     addToMap(movObject) {
+        if(movObject.otherDirection) {
+            this.flipImage(movObject);
+        }
         this.ctx.drawImage(movObject.img, movObject.x, movObject.y, movObject.width, movObject.height);
+        if(movObject.otherDirection) {
+            this.flipImageBack(movObject);
+        }
+    }
+
+
+    flipImage(movObject) {
+        this.ctx.save();
+        this.ctx.translate(movObject.width, 0);
+        this.ctx.scale(-1, 1);
+        movObject.x = movObject.x * -1;
+    }
+
+
+    flipImageBack(movObject) {
+        this.ctx.restore();
+        movObject.x = movObject.x * -1;
     }
 }

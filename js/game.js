@@ -11,7 +11,6 @@ function init() {
 
     console.log('My character is', world.character);
     console.log('Canvas has a height of', canvas_height);
-    // world.draw();
 }
 
 
@@ -37,7 +36,7 @@ window.addEventListener("keydown", (e) => {
         keyboard.DOWN = true;
     }
 
-    console.log(e);
+    // console.log(e);
 });
 
 window.addEventListener("keyup", (e) => {
@@ -62,7 +61,7 @@ window.addEventListener("keyup", (e) => {
         keyboard.DOWN = false;
     }
 
-    console.log(e);
+    // console.log(e);
 });
 
 // document.onkeydown = checkKey;
