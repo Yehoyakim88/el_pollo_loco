@@ -1,5 +1,6 @@
-let canvas_height;
 let canvas;
+let canvas_height;
+let canvas_width;
 let world;
 let keyboard = new Keyboard();
 
@@ -7,6 +8,7 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById('canvas');
     canvas_height = canvas.offsetHeight;
+    canvas_width = canvas.offsetWidth;
     world = new World(canvas, keyboard);
 
     console.log('My character is', world.character);
