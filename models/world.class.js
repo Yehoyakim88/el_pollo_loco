@@ -1,16 +1,10 @@
 class World {
 
     character = new Character();
-    enemies = [
-    new Chicken(),
-    new Chicken(),
-    new Chicken()
-];
+    enemies = level1.enemies;
 
-    clouds = [
-        new Cloud('img/5_background/layers/4_clouds/1.png')
-    ];
-    backgroundObjects = [];
+    clouds = level1.clouds;
+    backgroundObjects = generateBackground(this.backgroundObjects);
     // // backgroundObjects = [
     //     new BackgroundObject('img/5_background/layers/air.png', 0, canvas_height),
     //     new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0, canvas_height),
@@ -53,11 +47,11 @@ class World {
         
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
-        this.generateBackground();
-        setTimeout(() => {
-            this.draw();
-          }, 2000)
-        // this.draw();
+        // this.generateBackground();
+        // setTimeout(() => {
+        //     this.draw();
+        //   }, 2000)
+        this.draw();
         this.keyboard = keyboard;
         this.setWorld();
         console.log('this.keyboard: ', this.keyboard);
