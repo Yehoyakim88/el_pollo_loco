@@ -34,6 +34,7 @@ class MovableObject {
 
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        this.drawFrame(ctx);
     }
 
 
@@ -79,6 +80,4 @@ class MovableObject {
     jump() {
         this.speedY = 40;
     }
-
-
 }
