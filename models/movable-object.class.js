@@ -32,6 +32,31 @@ class MovableObject {
     }
 
 
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+
+    drawFrame(ctx) {
+        if(this.width < canvas_width) {
+            ctx.beginPath();
+            ctx.linewidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
+
+
+    loadImages(arr) {
+        arr.forEach((path) => {
+            let img = new Image();
+            img.src = path;
+            this.imageCache[path] = img;
+        });
+    }
+
+
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;
@@ -43,14 +68,6 @@ class MovableObject {
         this.otherDirection = true;
     }
 
-
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
 
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 7 % 6; => 1, Rest 1

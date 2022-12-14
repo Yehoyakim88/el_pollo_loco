@@ -89,13 +89,9 @@ class World {
     }
 
     addToMap(movObject) {
-        if(movObject.otherDirection) {
-            this.flipImage(movObject);
-        }
-        this.ctx.drawImage(movObject.img, movObject.x, movObject.y, movObject.width, movObject.height);
-        if(movObject.otherDirection) {
-            this.flipImageBack(movObject);
-        }
+        if(movObject.otherDirection) {this.flipImage(movObject);}
+        movObject.draw(this.ctx);
+        if(movObject.otherDirection) {this.flipImageBack(movObject);}
     }
 
 
