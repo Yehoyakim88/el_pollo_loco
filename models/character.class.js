@@ -1,8 +1,10 @@
 class Character extends MovableObject {
     // y = 260;
+    x = 100;
     y = 100;         // for testing gravitation function
     height = 300;
     speed = 15;
+
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -24,6 +26,14 @@ class Character extends MovableObject {
     ];
     world;
     walking_sound = new Audio('./audio/step.mp3');
+    hurt_sound = new Audio('./audio/pain.mp3');
+
+    // offset = {
+    //     top: 120,
+    //     bottom: 30,
+    //     left: 40,
+    //     right: 30
+    // };
     
 
     constructor() {
@@ -51,9 +61,7 @@ class Character extends MovableObject {
             if(this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
             }
-            this.world.camera_x = - this.x + 100;
-            console.log('this.x: ', this.x);
-            
+            this.world.camera_x = - this.x + 100;            
         }, 1000 / 60);
 
         setInterval(() => {

@@ -10,6 +10,14 @@ class MovableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
+    energy = 100;
+
+    offset = {
+        top: 120,
+        bottom: 30,
+        left: 40,
+        right: 30
+    };
 
 
     applyGravity(){
@@ -40,11 +48,13 @@ class MovableObject {
 
     drawFrame(ctx) {
         if(this.width < canvas_width) {
-            ctx.beginPath();
-            ctx.linewidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
+            if(this instanceof Character || this instanceof Chicken || this instanceof EndBoss) {
+                ctx.beginPath();
+                ctx.linewidth = '5';
+                ctx.strokeStyle = 'blue';
+                ctx.rect(this.x, this.y, this.width, this.height);
+                ctx.stroke();
+            }
         }
     }
 
@@ -77,7 +87,38 @@ class MovableObject {
         this.currentImage++;
     }
 
+
     jump() {
         this.speedY = 40;
     }
+
+    isColliding(obj, i) {
+        let dx1 = obj.x - (this.x + this.width);
+        let dx2 = this.x - (obj.x + obj.width);
+        let dx3 = obj.x + obj.width - this.x;
+        let dy = obj.y - (this.y+this.height);
+
+        console.log(`dy: ${dy}`);
+
+        if((dx1 <= -25.0 && dx3 >= 26.0 && dy < 0) || (dx2 >= -12.0 && dx3 >= 26.0 && dy < 0)) {
+            console.log(`Collision with chicken #${i} !!!!!!!!!!!!!!`);
+            this.hurt_sound.play();        
+        }
+    }
+
+
+    // isColliding (obj) {
+    //     return   this.x+25 + this.width-65 > obj.x && 
+    //              this.y+115 + this.height - 128 > obj.y &&
+    //              this.x < obj.x && 
+    //              this.y < obj.y + obj.height;
+    //  }
+
+
+//     isColliding (obj) {
+//       return   this.x + this.width - this.offset.right > obj.x + obj.offset.left && 
+//                this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
+//                this.x + this.offset.left < obj.x + obj.width -obj.offset.right && 
+//                this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
+//    }
 }
