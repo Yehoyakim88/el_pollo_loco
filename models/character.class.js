@@ -1,9 +1,10 @@
 class Character extends MovableObject {
-    // y = 260;
+    y = 260;
     x = 100;
-    y = 100;         // for testing gravitation function
+    // y = 100;         // for testing gravitation function
     height = 300;
     speed = 15;
+    framerate = 50;
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -80,11 +81,13 @@ class Character extends MovableObject {
 
             if(this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
+                this.framerate = 250;
             }
             this.world.camera_x = - this.x + 100;            
         }, 1000 / 60);
 
         setInterval(() => {
+            console.log('this.framerate: ', this.framerate);
             if(this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             }
@@ -92,7 +95,9 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT);
             }
             else if(this.isAboveGround()) {
+                
                 this.playAnimation(this.IMAGES_JUMPING);
+                this.framerate = 50;
             }
             else {
                 if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -105,6 +110,7 @@ class Character extends MovableObject {
 
 
     jump() {
-        this.speedY = 40;
+        this.speedY = 40; // original
+        // this.speedY = 2; // for testing
     }
 }

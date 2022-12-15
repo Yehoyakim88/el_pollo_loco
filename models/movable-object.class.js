@@ -10,6 +10,7 @@ class MovableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
+    // acceleration = 2.25;
     energy = 100;
 
     lastHit = 0;
@@ -28,7 +29,7 @@ class MovableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             } 
-        }, 1000 / 25);
+        }, 1000 / 60);   // original 1000 / 25
     }
 
     
