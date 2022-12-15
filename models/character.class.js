@@ -87,9 +87,10 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            console.log('this.framerate: ', this.framerate);
+            // console.log('this.framerate: ', this.framerate);
             if(this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                return;
             }
             else if(this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);

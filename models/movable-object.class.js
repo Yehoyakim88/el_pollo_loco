@@ -1,11 +1,12 @@
-class MovableObject {
-    x = 100;
-    y = 300;
-    img;
-    height = 360;
-    width = 200;
-    imageCache = {};
-    currentImage = 0;
+class MovableObject extends DrawableObject {
+    // x = 100; // moved to drawable-object.class.js
+    // y = 300; // moved to drawable-object.class.js
+    // height = 360; // moved to drawable-object.class.js
+    // width = 200; // moved to drawable-object.class.js
+    // img; // moved to drawable-object.class.js
+    // imageCache = {}; // moved to drawable-object.class.js
+    // currentImage = 0; // moved to drawable-object.class.js
+    
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
@@ -23,6 +24,11 @@ class MovableObject {
     };
 
 
+    constructor() {
+        super();
+    }
+
+
     applyGravity(){
         setInterval(() => {
             if(this.isAboveGround() || this.speedY > 0) {
@@ -38,16 +44,18 @@ class MovableObject {
     }
 
 
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
+    // moved to drawable-object.class.js
+    // loadImage(path) {
+    //     this.img = new Image();
+    //     this.img.src = path;
+    // }
 
 
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-        this.drawFrame(ctx);
-    }
+    // moved to drawable-object.class.js
+    // draw(ctx) {
+    //     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    //     this.drawFrame(ctx);
+    // }
 
 
     drawFrame(ctx) {
@@ -62,14 +70,14 @@ class MovableObject {
         }
     }
 
-
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
+    // moved to drawable-object.class.js
+    // loadImages(arr) {
+    //     arr.forEach((path) => {
+    //         let img = new Image();
+    //         img.src = path;
+    //         this.imageCache[path] = img;
+    //     });
+    // }
 
 
     moveRight() {
@@ -85,8 +93,8 @@ class MovableObject {
 
 
     playAnimation(images) {
-        console.log('playAnimation() ', images);
-        console.log(this.currentImage);
+        // console.log('playAnimation() ', images);
+        // console.log(this.currentImage);
         let i = this.currentImage % images.length; // let i = 7 % 6; => 1, Rest 1
         let path = images[i];
         this.img = this.imageCache[path];
@@ -117,8 +125,8 @@ class MovableObject {
 
 
     hit() {
-        this.energy -= 5;
-        if(this.enery < 0) {
+        this.energy -= 20;
+        if(this.energy < 0) {
             this.energy = 0;
         }
         else {
