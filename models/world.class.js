@@ -33,25 +33,13 @@ class World {
         setInterval(() => {
             // console.log('checking for collision...');
             this.level.enemies.forEach((enemy, index) => {
-                this.character.isColliding(enemy, index);
-                // let dx1 = enemy.x - (this.character.x + this.character.width);
-                // let dx2 = this.character.x - (enemy.x + enemy.width);
-                // let dx3 = enemy.x + enemy.width - this.character.x;
-                // console.log('dx3: ', dx3);
-
-                // if((dx1 <= -25.0 && dx3 >= 26.0) || (dx2 >= -12.0 && dx3 >= 26.0)) {
-                //     console.log('Collision !!!!!!!!!!!!!!!!!!!!!!!!!');
-
-                // }
-                // else {
-                //     console.log('ALL OKAY :)');
-                // }
-
-
-                // if(this.character.isColliding(enemy)){
-                //     console.log('Collision with character ', enemy);
-                //     this.character.energy -= 2;
-                // }
+                if(this.character.isColliding(enemy, index)) {
+                    this.character.hit();
+                }
+                else {
+                    console.log('Wieder GUT :)');
+                    // this.character.loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
+                }
             });
         }, 250);   
     }

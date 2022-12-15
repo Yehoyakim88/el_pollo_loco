@@ -56,3 +56,20 @@ world.class.js
     //         this.backgroundObjects.push(new BackgroundObject('img/5_background/layers/1_first_layer/2.png', canvas_width-1 + 2*i*(canvas_width-1), canvas_height));
     //     }
     // }
+
+
+    movable-object.class.js
+    // isColliding (obj) {
+    //     return   this.x+25 + this.width-65 > obj.x && 
+    //              this.y+115 + this.height - 128 > obj.y &&
+    //              this.x < obj.x && 
+    //              this.y < obj.y + obj.height;
+    //  }
+
+
+//     isColliding (obj) {
+//       return   this.x + this.width - this.offset.right > obj.x + obj.offset.left && 
+//                this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
+//                this.x + this.offset.left < obj.x + obj.width -obj.offset.right && 
+//                this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
+//    }

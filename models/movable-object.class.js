@@ -12,6 +12,8 @@ class MovableObject {
     acceleration = 2.5;
     energy = 100;
 
+    lastHit = 0;
+
     offset = {
         top: 120,
         bottom: 30,
@@ -29,6 +31,7 @@ class MovableObject {
         }, 1000 / 25);
     }
 
+    
     isAboveGround() {
         return this.y < 260;
     }
@@ -51,7 +54,7 @@ class MovableObject {
             if(this instanceof Character || this instanceof Chicken || this instanceof EndBoss) {
                 ctx.beginPath();
                 ctx.linewidth = '5';
-                ctx.strokeStyle = 'blue';
+                ctx.strokeStyle = 'red';
                 ctx.rect(this.x, this.y, this.width, this.height);
                 ctx.stroke();
             }
@@ -81,6 +84,8 @@ class MovableObject {
 
 
     playAnimation(images) {
+        console.log('playAnimation() ', images);
+        console.log(this.currentImage);
         let i = this.currentImage % images.length; // let i = 7 % 6; => 1, Rest 1
         let path = images[i];
         this.img = this.imageCache[path];
@@ -92,33 +97,44 @@ class MovableObject {
         this.speedY = 40;
     }
 
+
     isColliding(obj, i) {
         let dx1 = obj.x - (this.x + this.width);
         let dx2 = this.x - (obj.x + obj.width);
         let dx3 = obj.x + obj.width - this.x;
         let dy = obj.y - (this.y+this.height);
 
-        console.log(`dy: ${dy}`);
-
         if((dx1 <= -25.0 && dx3 >= 26.0 && dy < 0) || (dx2 >= -12.0 && dx3 >= 26.0 && dy < 0)) {
-            console.log(`Collision with chicken #${i} !!!!!!!!!!!!!!`);
-            this.hurt_sound.play();        
+            // console.log(`Collision with chicken #${i} !!!!!!!!!!!!!!`);
+            this.hurt_sound.play();
+            return true        
+        }
+        else {
+            return false;
         }
     }
 
 
-    // isColliding (obj) {
-    //     return   this.x+25 + this.width-65 > obj.x && 
-    //              this.y+115 + this.height - 128 > obj.y &&
-    //              this.x < obj.x && 
-    //              this.y < obj.y + obj.height;
-    //  }
+    hit() {
+        this.energy -= 5;
+        if(this.enery < 0) {
+            this.energy = 0;
+        }
+        else {
+            this.lastHit = new Date().getTime();
+        }
+        console.log('energy: ', this.energy);
+    }
 
 
-//     isColliding (obj) {
-//       return   this.x + this.width - this.offset.right > obj.x + obj.offset.left && 
-//                this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
-//                this.x + this.offset.left < obj.x + obj.width -obj.offset.right && 
-//                this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
-//    }
+    isDead() {
+        return this.energy == 0;
+    }
+
+
+    isHurt() {
+        let timePassed = new Date().getTime() - this.lastHit; // Difference in ms
+        timePassed = timePassed / 1000;
+        return timePassed < 1.5;
+    }
 }
