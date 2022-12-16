@@ -15,6 +15,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
 
     lastHit = 0;
+    timePassed;
 
     offset = {
         top: 120,
@@ -40,7 +41,12 @@ class MovableObject extends DrawableObject {
 
     
     isAboveGround() {
-        return this.y < 260;
+        if(this instanceof ThrowableObject) {
+            return true;
+        }
+        else {
+            return this.y < 260;
+        }   
     }
 
 
@@ -58,17 +64,18 @@ class MovableObject extends DrawableObject {
     // }
 
 
-    drawFrame(ctx) {
-        if(this.width < canvas_width) {
-            if(this instanceof Character || this instanceof Chicken || this instanceof EndBoss) {
-                ctx.beginPath();
-                ctx.linewidth = '5';
-                ctx.strokeStyle = 'red';
-                ctx.rect(this.x, this.y, this.width, this.height);
-                ctx.stroke();
-            }
-        }
-    }
+    // moved to drawable-object.class.js
+    // drawFrame(ctx) {
+    //     if(this.width < canvas_width) {
+    //         if(this instanceof Character || this instanceof Chicken || this instanceof EndBoss) {
+    //             ctx.beginPath();
+    //             ctx.linewidth = '5';
+    //             ctx.strokeStyle = 'red';
+    //             ctx.rect(this.x, this.y, this.width, this.height);
+    //             ctx.stroke();
+    //         }
+    //     }
+    // }
 
     // moved to drawable-object.class.js
     // loadImages(arr) {
@@ -142,8 +149,8 @@ class MovableObject extends DrawableObject {
 
 
     isHurt() {
-        let timePassed = new Date().getTime() - this.lastHit; // Difference in ms
-        timePassed = timePassed / 1000;
-        return timePassed < 1.5;
+        this.timePassed = new Date().getTime() - this.lastHit; // Difference in ms
+        this.timePassed = this.timePassed / 1000;
+        return this.timePassed < 1.5;
     }
 }
