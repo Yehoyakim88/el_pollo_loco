@@ -3,6 +3,8 @@ let canvas_height;
 let canvas_width;
 let world;
 let keyboard = new Keyboard();
+let music = false;
+let backgroundMusic = new Audio('./audio/cumbia-mexican-banda-2716.mp3');
 
 
 function init() {
@@ -78,3 +80,20 @@ window.addEventListener("keyup", (e) => {
 
     // console.log(e);
 });
+
+
+function toggleMusic(){
+    console.log('toggleMusic() call!');
+    if(!music) {
+        document.getElementById('music-on-off').src= './img/musicon.png';
+
+        backgroundMusic.play();
+        music = true;
+    }
+    else if(music){
+        document.getElementById('music-on-off').src= './img/musicoff.png';
+        backgroundMusic.pause();
+        music = false;
+    }
+    console.log('music ', music);
+}
