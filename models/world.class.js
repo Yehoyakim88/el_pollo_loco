@@ -1,18 +1,19 @@
 class World {
 
     character = new Character();
-
+    
     backgroundObjects = generateBackground(this.backgroundObjects);
-    level = level1;
+    // level = level1;
+    level = initLevel();
+    
     
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
-    throwableObjects = [
-        new ThrowableObject()
-    ];
+    throwableObjects = [];
+    DEBUG_COLLISION = false;
 
 
     constructor(canvas, keyboard) {
@@ -23,7 +24,6 @@ class World {
         this.draw();
         this.keyboard = keyboard;
         this.setWorld();
-        // this.checkCollisions();
         this.run();
         console.log('this.keyboard: ', this.keyboard);
     }
@@ -100,7 +100,7 @@ class World {
     addToMap(movObject) {
         if(movObject.otherDirection) {this.flipImage(movObject);}
         movObject.draw(this.ctx);
-        movObject.drawFrame(this.ctx);
+        if(this.DEBUG_COLLISION) {movObject.drawFrame(this.ctx);}
         if(movObject.otherDirection) {this.flipImageBack(movObject);}
     }
 

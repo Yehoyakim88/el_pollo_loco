@@ -9,10 +9,14 @@ function init() {
     canvas = document.getElementById('canvas');
     canvas_height = canvas.offsetHeight;
     canvas_width = canvas.offsetWidth;
+    // initLevel();
     world = new World(canvas, keyboard);
 
     console.log('My character is', world.character);
     console.log('Canvas has a height of', canvas_height);
+
+    // start game
+    // initLevel();
 }
 
 
@@ -74,26 +78,3 @@ window.addEventListener("keyup", (e) => {
 
     // console.log(e);
 });
-
-// document.onkeydown = checkKey;
-
-// function checkKey(e) {
-
-//     e = e || window.event;
-
-//     if (e.keyCode == '38') {
-//         console.log('up arrow');
-//     }
-//     else if (e.keyCode == '40') {
-//         console.log('down arrow');
-//     }
-//     else if (e.keyCode == '37') {
-//         console.log('left arrow');
-//         world.character.x -= 10;
-//     }
-//     else if (e.keyCode == '39') {
-//         console.log('right arrow');
-//         world.character.x += 10;
-//     }
-// }
-

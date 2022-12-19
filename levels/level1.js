@@ -1,4 +1,5 @@
 let bg = [];
+let level1;
 
 function generateBackground(x) {
     for(let i = 0; i < 20; i++) {
@@ -16,15 +17,33 @@ function generateBackground(x) {
 }
 
 
-const level1 = new Level(
-    [
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new EndBoss()
-    ],
-    [
-        new Cloud('img/5_background/layers/4_clouds/1.png')
-    ],
-    bg
-);
+function initLevel() {
+    level1 = new Level(
+        [
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new EndBoss()
+        ],
+        [
+            new Cloud('img/5_background/layers/4_clouds/1.png')
+        ],
+        bg
+    );
+    return level1;
+    
+}
+
+console.log('level1.js line 36 calling');
+// const level1 = new Level(
+//     [
+//         new Chicken(),
+//         new Chicken(),
+//         new Chicken(),
+//         new EndBoss()
+//     ],
+//     [
+//         new Cloud('img/5_background/layers/4_clouds/1.png')
+//     ],
+//     bg
+// );

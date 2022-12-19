@@ -1,17 +1,8 @@
-class MovableObject extends DrawableObject {
-    // x = 100; // moved to drawable-object.class.js
-    // y = 300; // moved to drawable-object.class.js
-    // height = 360; // moved to drawable-object.class.js
-    // width = 200; // moved to drawable-object.class.js
-    // img; // moved to drawable-object.class.js
-    // imageCache = {}; // moved to drawable-object.class.js
-    // currentImage = 0; // moved to drawable-object.class.js
-    
+class MovableObject extends DrawableObject {    
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
-    // acceleration = 2.25;
     energy = 100;
 
     lastHit = 0;
@@ -48,43 +39,6 @@ class MovableObject extends DrawableObject {
             return this.y < 260;
         }   
     }
-
-
-    // moved to drawable-object.class.js
-    // loadImage(path) {
-    //     this.img = new Image();
-    //     this.img.src = path;
-    // }
-
-
-    // moved to drawable-object.class.js
-    // draw(ctx) {
-    //     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    //     this.drawFrame(ctx);
-    // }
-
-
-    // moved to drawable-object.class.js
-    // drawFrame(ctx) {
-    //     if(this.width < canvas_width) {
-    //         if(this instanceof Character || this instanceof Chicken || this instanceof EndBoss) {
-    //             ctx.beginPath();
-    //             ctx.linewidth = '5';
-    //             ctx.strokeStyle = 'red';
-    //             ctx.rect(this.x, this.y, this.width, this.height);
-    //             ctx.stroke();
-    //         }
-    //     }
-    // }
-
-    // moved to drawable-object.class.js
-    // loadImages(arr) {
-    //     arr.forEach((path) => {
-    //         let img = new Image();
-    //         img.src = path;
-    //         this.imageCache[path] = img;
-    //     });
-    // }
 
 
     moveRight() {

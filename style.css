@@ -1,10 +1,36 @@
+@font-face {
+    font-family: 'zabars';
+    src: url('./fonts/zabars/zabars.ttf') format('truetype');
+}
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0;
+    background-image: url('./img/page_bg.jpeg');
+    background-position: center;
+    font-family: 'zabars', Arial, Helvetica, sans-serif;
+    letter-spacing: 4px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 canvas {
     background-color: black;
+    display: block;
+}
+
+/* Smartphones --------------------*/
+@media only screen and (max-width: 1280px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+
+/* Smartphones --------------------*/
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
 }

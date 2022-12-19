@@ -1,7 +1,6 @@
 class Character extends MovableObject {
     y = 260;
     x = 100;
-    // y = 100;         // for testing gravitation function
     height = 300;
     speed = 15;
     framerate = 50;
