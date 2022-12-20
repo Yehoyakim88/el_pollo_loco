@@ -1,12 +1,8 @@
 class World {
 
     character = new Character();
-    
-    backgroundObjects = generateBackground(this.backgroundObjects);
-    // level = level1;
+    // level = level1; // code-loesung von dveloper akademie
     level = initLevel();
-    
-    
     canvas;
     ctx;
     keyboard;
@@ -17,7 +13,7 @@ class World {
 
 
     constructor(canvas, keyboard) {
-        console.log('constructor of class World');
+        // console.log('constructor of class World');
         
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -81,6 +77,8 @@ class World {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
+        // this.addObjectsToMap(this.coins);
+        this.addObjectsToMap(this.level.coins);
         this.ctx.translate(-this.camera_x, 0);
         // draw() wird immer wieder aufgerufen
         let self = this;
