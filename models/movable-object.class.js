@@ -85,7 +85,6 @@ class MovableObject extends DrawableObject {
             this.coin_sound.play();
             return true;
         }
-        // else {return false;}
     }
 
 
