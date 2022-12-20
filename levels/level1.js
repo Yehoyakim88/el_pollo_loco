@@ -19,7 +19,7 @@ function generateBackground() {
 
 
 function generateCoins(){
-    for (let index = 0; index < 400; index++) {
+    for (let index = 0; index < 100; index++) {
         levelCoins.push(new Coin());
     }
     return levelCoins;
@@ -43,5 +43,4 @@ function initLevel() {
         levelCoins
     );
     return level1;
-    
 }

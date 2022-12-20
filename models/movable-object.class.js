@@ -60,16 +60,32 @@ class MovableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
-        if(this instanceof Coin) {
-            console.log('i ', i);
-            console.log('path ', path);
-            console.log('this.img ', this.img);
-        }
+        // if(this instanceof Coin) {
+        //     console.log('i ', i);
+        //     console.log('path ', path);
+        //     console.log('this.img ', this.img);
+        // }
     }
 
 
     jump() {
         this.speedY = 40;
+    }
+
+
+    isCollecting(obj) {
+        let dx = obj.x - this.x;
+        let dy = obj.y - this.y;
+        console.log('dy = ', dy);
+        // console.log('movObject.isCollecting()');
+        console.log('dx = ', dx);
+        if((dx >= -80 && dx <= 60 && dy >= 0 && dy <= 200))
+        {
+            console.log('Coin geeeeeeeeeeesammelt');
+            this.coin_sound.play();
+            return true;
+        }
+        // else {return false;}
     }
 
 
@@ -100,6 +116,7 @@ class MovableObject extends DrawableObject {
         }
         console.log('energy: ', this.energy);
     }
+
 
 
     isDead() {

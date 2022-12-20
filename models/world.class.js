@@ -37,7 +37,17 @@ class World {
             // console.log('checking for collision...');
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 200);   
+            this.checkForCoins();
+        }, 100);   
+    }
+
+    checkForCoins() {
+        console.log('Checking for coins...');
+        this.level.coins.forEach((coin) => {
+            if(this.character.isCollecting(coin)) {
+                console.log('Coin collected :)');
+            }
+        });
     }
 
 
@@ -47,9 +57,9 @@ class World {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
-            else {
-                console.log('Wieder GUT :)');
-            }
+            // else {
+            //     console.log('Wieder GUT :)');
+            // }
         });
     }
 

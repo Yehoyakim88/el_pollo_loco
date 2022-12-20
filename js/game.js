@@ -5,6 +5,7 @@ let world;
 let keyboard = new Keyboard();
 let music = false;
 let backgroundMusic = new Audio('./audio/cumbia-mexican-banda-2716.mp3');
+backgroundMusic.volume = 0.75;
 
 
 function init() {
@@ -23,7 +24,7 @@ function init() {
 
 
 window.addEventListener("keydown", (e) => {
-    console.log(e.keyCode);
+    // console.log(e.keyCode);
 
     if(e.keyCode == 32) {
         keyboard.SPACE = true;
