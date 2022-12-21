@@ -17,7 +17,7 @@ class Chicken extends MovableObject {
         this.speed = 0.15 + Math.random() * 0.5;
         // console.log('chicken constructor, this.speed: ', this.speed);
         
-        this.animate();
+        // this.animate();
     }
 
 

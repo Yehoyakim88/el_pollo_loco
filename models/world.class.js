@@ -7,7 +7,9 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    statusBar = new StatusBar();
+    healthBar = new StatusBar('health');
+    bottleBar = new StatusBar('bottle');
+    coinBar = new StatusBar('coins');
     throwableObjects = [];
     DEBUG_COLLISION = false;
 
@@ -38,14 +40,15 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkForCoins();
-        }, 100);   
+        }, 200);   
     }
 
     checkForCoins() {
         console.log('Checking for coins...');
-        this.level.coins.forEach((coin) => {
+        this.level.coins.forEach((coin, index) => {
             if(this.character.isCollecting(coin)) {
                 console.log('Coin collected :)');
+                this.removeCoinFromMap(index);
             }
         });
     }
@@ -55,7 +58,8 @@ class World {
         this.level.enemies.forEach((enemy, index) => {
             if(this.character.isColliding(enemy, index) && this.character.timePassed > 1.0) {
                 this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
+                this.healthBar.setPercentage(this.character.energy);
+                return true; // testing !!!
             }
             // else {
             //     console.log('Wieder GUT :)');
@@ -65,7 +69,7 @@ class World {
 
 
     checkThrowObjects() {
-        if(this.keyboard.D) {
+        if(this.keyboard.SPACE) {
             console.log('Falsche werfen :)');
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
@@ -82,7 +86,9 @@ class World {
 
         // ---------- following lines for fixed objects ---------- //
         this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBar);
+        this.addToMap(this.healthBar);
+        this.addToMap(this.bottleBar);
+        this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
@@ -110,6 +116,11 @@ class World {
         movObject.draw(this.ctx);
         if(this.DEBUG_COLLISION) {movObject.drawFrame(this.ctx);}
         if(movObject.otherDirection) {this.flipImageBack(movObject);}
+    }
+
+
+    removeCoinFromMap(index) {
+        this.level.coins.splice(index, 1);
     }
 
 

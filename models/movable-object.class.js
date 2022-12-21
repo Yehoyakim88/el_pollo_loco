@@ -76,9 +76,9 @@ class MovableObject extends DrawableObject {
     isCollecting(obj) {
         let dx = obj.x - this.x;
         let dy = obj.y - this.y;
-        console.log('dy = ', dy);
+        // console.log('dy = ', dy);
         // console.log('movObject.isCollecting()');
-        console.log('dx = ', dx);
+        // console.log('dx = ', dx);
         if((dx >= -80 && dx <= 60 && dy >= 0 && dy <= 200))
         {
             console.log('Coin geeeeeeeeeeesammelt');

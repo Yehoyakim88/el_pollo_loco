@@ -2,7 +2,7 @@ class StatusBar extends DrawableObject {
     height = 50;
     width = 200;
 
-    IMAGES = [
+    IMAGES_HEALTHBAR = [
         './img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png',   // 0
         './img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
         './img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
@@ -11,22 +11,49 @@ class StatusBar extends DrawableObject {
         './img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png'      // 5
     ];
 
+    IMAGE_BOTTLEBAR = './img/7_statusbars/3_icons/icon_salsa_bottle.png';
+
+    IMAGE_COINBAR = 'img/8_coin/coin_1.png';
+
     precentage = 100;
 
 
-    constructor() {
-        super();
-        this.loadImages(this.IMAGES);
-        this.x = 40;
-        this.y = 20;
-        this.setPercentage(100);
+    constructor(barType) {
+        if(barType == 'health') {
+            console.log('statusBar for health to add...');
+            super();
+            this.loadImages(this.IMAGES_HEALTHBAR);
+            this.x = 40;
+            this.y = 20;
+            this.setPercentage(100);
+        }
+        else if(barType == 'bottle') {
+            console.log('statusBar for coins to add...')
+            super().loadImage(this.IMAGE_BOTTLEBAR);
+            // this.setBottleImage();
+            this.x = 20;
+            this.y = 70;
+            this.height = 60;
+            this.width = 70;
+        }
+        else if(barType == 'coins') {
+            super().loadImage(this.IMAGE_COINBAR);
+            this.x = -10;
+            this.y = 90;
+            this.width = 150;
+            this.height = 150;
+
+        }
+        // this.setBottleImage();
     }
 
 
     setPercentage(percentage) {
         this.percentage = percentage;
-        let imagePath = this.IMAGES[this.resolveImageIndex()];
+        let imagePath = this.IMAGES_HEALTHBAR[this.resolveImageIndex()];
         this.img = this.imageCache[imagePath];
+        console.log('setPercentage(), this.img: ', this.img);
+        console.log('imagePath: ', imagePath);
     }
 
 

@@ -12,42 +12,34 @@ function init() {
     canvas = document.getElementById('canvas');
     canvas_height = canvas.offsetHeight;
     canvas_width = canvas.offsetWidth;
-    // initLevel();
     world = new World(canvas, keyboard);
 
     console.log('My character is', world.character);
     console.log('Canvas has a height of', canvas_height);
-
-    // start game
-    // initLevel();
 }
 
 
 window.addEventListener("keydown", (e) => {
-    // console.log(e.keyCode);
+    console.log(e.keyCode);
 
-    if(e.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
-
-    if(e.keyCode == 37) {
+    if(e.keyCode == 65) {
         keyboard.LEFT = true;
     }
 
-    if(e.keyCode == 38) {
+    if(e.keyCode == 87) {
         keyboard.UP = true;
     }
 
-    if(e.keyCode == 39) {
+    if(e.keyCode == 68) {
         keyboard.RIGHT = true;
     }
 
-    if(e.keyCode == 40) {
+    if(e.keyCode == 83) {
         keyboard.DOWN = true;
     }
 
-    if(e.keyCode == 68) {
-        keyboard.D = true;
+    if(e.keyCode == 32) {
+        keyboard.SPACE = true;
     }
 
     // console.log(e);
@@ -55,28 +47,24 @@ window.addEventListener("keydown", (e) => {
 
 window.addEventListener("keyup", (e) => {
 
-    if(e.keyCode == 32) {
-        keyboard.SPACE = false;
-    }
-
-    if(e.keyCode == 37) {
+    if(e.keyCode == 65) {
         keyboard.LEFT = false;
     }
 
-    if(e.keyCode == 38) {
+    if(e.keyCode == 87) {
         keyboard.UP = false;
     }
 
-    if(e.keyCode == 39) {
+    if(e.keyCode == 68) {
         keyboard.RIGHT = false;
     }
 
-    if(e.keyCode == 40) {
+    if(e.keyCode == 83) {
         keyboard.DOWN = false;
     }
 
-    if(e.keyCode == 68) {
-        keyboard.D = false;
+    if(e.keyCode == 32) {
+        keyboard.SPACE = false;
     }
 
     // console.log(e);
