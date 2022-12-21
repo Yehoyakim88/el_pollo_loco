@@ -38,7 +38,7 @@ class StatusBar extends DrawableObject {
         }
         else if(barType == 'coins') {
             super().loadImage(this.IMAGE_COINBAR);
-            this.x = -10;
+            this.x = -18;
             this.y = 90;
             this.width = 150;
             this.height = 150;

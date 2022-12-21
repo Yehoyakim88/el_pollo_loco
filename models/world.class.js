@@ -9,6 +9,8 @@ class World {
     camera_x = 0;
     healthBar = new StatusBar('health');
     bottleBar = new StatusBar('bottle');
+    numBottlesCollected = 0;
+    numCoinsCollected = 0;
     coinBar = new StatusBar('coins');
     throwableObjects = [];
     DEBUG_COLLISION = false;
@@ -49,6 +51,7 @@ class World {
             if(this.character.isCollecting(coin)) {
                 console.log('Coin collected :)');
                 this.removeCoinFromMap(index);
+                this.numCoinsCollected++;
             }
         });
     }
@@ -86,6 +89,12 @@ class World {
 
         // ---------- following lines for fixed objects ---------- //
         this.ctx.translate(-this.camera_x, 0);
+        this.ctx.font = "36px Ezra SIL";
+        this.ctx.fillStyle = "white";
+        let coinText = `x${this.numCoinsCollected}`;
+        let bottleText = `x${this.numBottlesCollected}`;
+        this.ctx.fillText(coinText, 100, 175);
+        this.ctx.fillText(bottleText, 100, 115);
         this.addToMap(this.healthBar);
         this.addToMap(this.bottleBar);
         this.addToMap(this.coinBar);
