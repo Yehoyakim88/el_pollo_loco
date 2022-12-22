@@ -15,6 +15,8 @@ class World {
     throwableObjects = [];
     DEBUG_COLLISION = false;
 
+    intervalIds = [];
+
 
     constructor(canvas, keyboard) {
         // console.log('constructor of class World');
@@ -31,6 +33,17 @@ class World {
 
     setWorld() {
         this.character.world = this;
+    }
+
+
+    setStoppableInterval(func, interValInMilliseconds) {
+        let id = setInterval(func, interValInMilliseconds);
+        this.intervalIds.push(id);
+    }
+
+    
+    stopGame() {
+        this.intervalIds.forEach(clearInterval);
     }
 
 

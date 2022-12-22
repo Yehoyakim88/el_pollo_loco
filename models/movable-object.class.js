@@ -8,6 +8,9 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     timePassed;
 
+    dies_sound = new Audio('./audio/whuuaaaaaaaaa_1.mp3');
+    died_sound = new Audio('./audio/lose1.mp3');
+
     offset = {
         top: 120,
         bottom: 30,
@@ -27,7 +30,7 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             } 
-        }, 1000 / 60);   // original 1000 / 25
+        }, 1000 / 25);   // original 1000 / 25
     }
 
     
@@ -54,17 +57,21 @@ class MovableObject extends DrawableObject {
 
 
     playAnimation(images) {
-        // console.log('playAnimation() ', images);
-        // console.log(this.currentImage);
         let i = this.currentImage % images.length; // let i = 7 % 6; => 1, Rest 1
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
-        // if(this instanceof Coin) {
-        //     console.log('i ', i);
-        //     console.log('path ', path);
-        //     console.log('this.img ', this.img);
-        // }
+    }
+
+
+    jumpAnimation(images) {
+        setTimeout(() => {
+            let i = this.currentImage % images.length; // let i = 7 % 6; => 1, Rest 1
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+            
+        }, 1000);
     }
 
 
@@ -89,18 +96,20 @@ class MovableObject extends DrawableObject {
 
 
     isColliding(obj, i) {
-        let dx1 = obj.x - (this.x + this.width);
-        let dx2 = this.x - (obj.x + obj.width);
-        let dx3 = obj.x + obj.width - this.x;
-        let dy = obj.y - (this.y+this.height);
+        if(!this.alreadyDead) {
+            let dx1 = obj.x - (this.x + this.width);
+            let dx2 = this.x - (obj.x + obj.width);
+            let dx3 = obj.x + obj.width - this.x;
+            let dy = obj.y - (this.y+this.height);
 
-        if((dx1 <= -25.0 && dx3 >= 26.0 && dy < 0) || (dx2 >= -12.0 && dx3 >= 26.0 && dy < 0)) {
-            // console.log(`Collision with chicken #${i} !!!!!!!!!!!!!!`);
-            this.hurt_sound.play();
-            return true        
-        }
-        else {
-            return false;
+            if((dx1 <= -25.0 && dx3 >= 26.0 && dy < 0) || (dx2 >= -12.0 && dx3 >= 26.0 && dy < 0)) {
+                // console.log(`Collision with chicken #${i} !!!!!!!!!!!!!!`);
+                this.hurt_sound.play();
+                return true        
+            }
+            else {
+                return false;
+            }
         }
     }
 
