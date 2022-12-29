@@ -43,6 +43,9 @@ class DrawableObject {
 
     // outsourced from ovable-object.class.js
     draw(ctx) {
+        if(this instanceof BackgroundObject) {
+            console.log('this.img :', this.img);
+        }
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 }

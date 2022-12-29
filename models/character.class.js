@@ -2,7 +2,8 @@ class Character extends MovableObject {
     y = 260;
     x = 100;
     height = 300;
-    speed = 12;
+    // speed = 12;         // character's speed before edit
+    speed = 2;
     framerate = 50;
 
     IMAGES_WALKING = [

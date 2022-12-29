@@ -4,6 +4,7 @@ class BackgroundObject extends MovableObject {
     width = 1280;
     height = 640;
 
+
     constructor(imagePath, x, canvas_height) {
         // console.log('constructor of class BackgroundObject');
         // console.log('height of canvas: ', canvas_height);
