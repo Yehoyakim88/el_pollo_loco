@@ -1,7 +1,7 @@
 class World {
 
     character = new Character();
-    // level = level1; // code-loesung von developer akademie
+    // level = level1; // code-loesung von developer akademie, obsolet
     level = initLevel();
     canvas;
     ctx;
@@ -17,16 +17,20 @@ class World {
 
     intervalIds = [];
 
-    // some test code from YouTube
-    x1 = 0;
-    x2 = canvas_width;
+    //----------------------------------------------------------
+    //----------------------------------------------------------
+    // only available in game version 2.0-----------------------
+    // delta_x = [0, 0, canvas.width, 0, canvas.width, 0, canvas.width, -canvas_width];
+    // characterWalking = false;
 
-    x3 = 0;
-    x4 = canvas_width;
-
-    x5 = 0;
-    x6 = canvas_width
-    // end of YouTube test code
+    // backgroundImagesA_B = {
+    //     0:[],
+    //     1:[],
+    //     2:[]
+    // };
+    //----------------------------------------------------------
+    //----------------------------------------------------------
+    //----------------------------------------------------------
 
 
     constructor(canvas, keyboard) {
@@ -35,11 +39,17 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+
+        // only available in game version 2.0
+        // this.getBackgroundImage(2);
+        // this.getBackgroundImage(1);
+        // this.getBackgroundImage(0);
+        //----------------------------------------------------------
+        //----------------------------------------------------------
+        //----------------------------------------------------------
         this.draw();
-        // this.keyboard = keyboard; // original position before edit
         this.setWorld();
         this.run();
-        console.log('this.keyboard: ', this.keyboard);
     }
 
 
@@ -61,17 +71,16 @@ class World {
 
     run() {
         setInterval(() => {
-
             // checkCollisions with enemies
             // console.log('checking for collision...');
-            this.checkCollisions();
+            // this.checkCollisions();
             this.checkThrowObjects();
             this.checkForCoins();
         }, 200);   
     }
 
     checkForCoins() {
-        console.log('Checking for coins...');
+        // console.log('Checking for coins...');
         this.level.coins.forEach((coin, index) => {
             if(this.character.isCollecting(coin)) {
                 console.log('Coin collected :)');
@@ -98,7 +107,7 @@ class World {
 
     checkThrowObjects() {
         if(this.keyboard.SPACE) {
-            console.log('Falsche werfen :)');
+            console.log('Flasche werfen :)');
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
             bottle.throw(this.character.x + 100, this.character.y + 100);
@@ -109,16 +118,15 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.level.backgroundObjects); // comment in again for DA version
 
-        //
-        // this.addObjectsToMap(this.level.backgroundObjects);
-        // this.drawBackground();   // alternative function from L. Michilena for dynamic background
-        this.animateLayer3();
-        this.animateLayer2();
-        this.animateLayer1();
-        
-        
-        //
+        // only available in game version 2.0
+        // this.animateLayer(2);   // comment out for DA version
+        // this.animateLayer(1);   // comment out for DA version
+        // this.animateLayer(0);   // comment out for DA version        
+        //----------------------------------------------------------
+        //----------------------------------------------------------
+        //----------------------------------------------------------
         this.addObjectsToMap(this.level.clouds);
 
         // ---------- following lines for fixed objects ---------- //
@@ -134,9 +142,8 @@ class World {
         this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.level.enemies);
+        // this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
-        // this.addObjectsToMap(this.coins);
         this.addObjectsToMap(this.level.coins);
         this.ctx.translate(-this.camera_x, 0);
         // draw() wird immer wieder aufgerufen
@@ -181,100 +188,106 @@ class World {
     }
 
 
+
+
+
+
+
+
+
+
+
+    // the following functions are only for game version 2.0
     getBackgroundImage(layer) {
-        let backgroundImagesA_B = [];
+        // console.log('getBackgroundImage')
         let bgImageA = new Image();
-        bgImageA.src = `img/background/${layer}-1.png`;
+        bgImageA.src = `img/background/${layer+1}-1.png`;
 
         let bgImageB = new Image();
-        bgImageB.src = `img/background/${layer}-2.png`;
+        bgImageB.src = `img/background/${layer+1}-2.png`;
 
-        backgroundImagesA_B.push(bgImageA);
-        backgroundImagesA_B.push(bgImageB);
+        let bgImageC = new Image();
+        bgImageC.src = `img/background/${layer+1}-2.png`;
 
-        return backgroundImagesA_B;
+        this.backgroundImagesA_B[layer].push(bgImageA);
+        this.backgroundImagesA_B[layer].push(bgImageB);
+        this.backgroundImagesA_B[layer].push(bgImageC);
+
+        // console.log('getBackgroundImage backgroundImagesA_B', backgroundImagesA_B);
+        // console.log('getBackgroundImage backgroundImagesA_B[0]', backgroundImagesA_B[0]);
+        // console.log('getBackgroundImage backgroundImagesA_B[1]', backgroundImagesA_B[1]);
+        // console.log('getBackgroundImage backgroundImagesA_B[2]', backgroundImagesA_B[2]);
     }
 
 
-    animateLayer1() {
-        // let img1 = new Image();
-        // img1.src = 'img/5_background/layers/1_first_layer/1.png';
-
-        // let img2 = new Image();
-        // img2.src = 'img/5_background/layers/1_first_layer/2.png';
+    // function only for game version 2.0
+    animateLayer(layer) {
+        let movSpeed;
+        let direction;
         let bgImages = [];
-        bgImages = this.getBackgroundImage('1');
+        let index = 2*(Number(layer)) + 1;
 
-        if(this.x1 < -this.canvas.width+10) {
-            this.x1 = this.canvas.width;
+        // console.log('animateLayer, this.characterWalking ', this.characterWalking);
+        if(this.characterWalking) {
+            movSpeed = 9 - 4 * Number(layer);
+            // movSpeed = 5;    // only for DEBUG PURPOSE
         }
         else {
-            this.x1 -= 5;
+            movSpeed = 0;
         }
 
-        if(this.x2 < -this.canvas.width+10) {
-            this.x2 = this.canvas.width;
-        }
-        else {
-            this.x2 -= 5;
-        }
+        console.log('movSpeed: ', movSpeed);
+        
+        let yOffset = 0 - 50 * layer;
 
-        this.ctx.drawImage(bgImages[0], this.x1, 0, this.canvas.width, 640);
-        this.ctx.drawImage(bgImages[1], this.x2, 0, this.canvas.width, 640);
-        requestAnimationFrame(this.animateLayer1);
-    }
+        // console.log('layer ', layer);
+        // console.log('index ', index);
+        // console.log('index+1 ', index+1);
+        // console.log('dynamic ', dynamic);
+        // console.log('yOffset ', yOffset);
 
-
-    animateLayer2() {
-        let img1 = new Image();
-        img1.src = 'img/5_background/layers/2_second_layer/1.png';
-
-        let img2 = new Image();
-        img2.src = 'img/5_background/layers/2_second_layer/2.png';
-
-        if(this.x3 < -this.canvas.width+10) {
-            this.x3 = this.canvas.width;
+        if(this.character.otherDirection) {
+            direction = 1;
         }
         else {
-            this.x3 -= 2;
+            direction = -1;
+        }
+        
+        if(direction == 1) {
+            if(this.delta_x[index] > canvas_width - movSpeed) {
+                this.delta_x[index] = -canvas_width + movSpeed;
+            }
+            else {
+                this.delta_x[index] += movSpeed * direction;
+            }
+
+            if(this.delta_x[index+1] > canvas_width - movSpeed) {
+                this.delta_x[index+1] = -canvas_width + movSpeed;
+            }
+            else {
+                this.delta_x[index+1] += movSpeed * direction;
+            }
         }
 
-        if(this.x4 < -this.canvas.width+10) {
-            this.x4 = this.canvas.width;
-        }
-        else {
-            this.x4 -= 2;
-        }
+        if(direction == -1) {
+            if(this.delta_x[index] >= -canvas_width + movSpeed) {
+                this.delta_x[index] += movSpeed * direction;
+            }
+            else {
+                this.delta_x[index] = canvas_width - movSpeed;
+            }
 
-        this.ctx.drawImage(img1, this.x3, -50, this.canvas.width, 640);
-        this.ctx.drawImage(img2, this.x4, -50, this.canvas.width, 640);
-        requestAnimationFrame(this.animateLayer2);
-    }
-
-
-    animateLayer3() {
-        let img1 = new Image();
-        img1.src = 'img/5_background/layers/3_third_layer/1.png';
-
-        let img2 = new Image();
-        img2.src = 'img/5_background/layers/3_third_layer/2.png';
-
-        if(this.x5 < -this.canvas.width+10) {
-            this.x5 = this.canvas.width;
-        }
-        else {
-            this.x5 -= 1;
+            if(this.delta_x[index+1] >= -canvas_width + movSpeed) {
+                this.delta_x[index+1] += movSpeed * direction;
+            }
+            else {
+                this.delta_x[index+1] = canvas_width - movSpeed;
+            }
         }
 
-        if(this.x6 < -this.canvas.width+10) {
-            this.x6 = this.canvas.width;
-        }
-        else {
-            this.x6 -= 1;
-        }
-
-        this.ctx.drawImage(img1, this.x5, -100, this.canvas.width, 640);
-        this.ctx.drawImage(img2, this.x6, -100, this.canvas.width, 640);
-        requestAnimationFrame(this.animateLayer3);
+        this.ctx.drawImage(this.backgroundImagesA_B[layer][0], this.delta_x[index], yOffset, canvas_width, 640);
+        this.ctx.drawImage(this.backgroundImagesA_B[layer][1], this.delta_x[index+1], yOffset, canvas_width, 640);
+        this.ctx.drawImage(this.backgroundImagesA_B[layer][2], this.delta_x[index]-this.canvas.width, yOffset, canvas_width, 640);
+        this.ctx.drawImage(this.backgroundImagesA_B[layer][0], this.delta_x[index]-2*this.canvas.width, yOffset, canvas_width, 640);
     }
 }

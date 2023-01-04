@@ -39,8 +39,18 @@ class MovableObject extends DrawableObject {
             return true;
         }
         else {
+            console.log('this.y: ', this.y);
             return this.y < 260;
         }   
+    }
+
+
+    setCharacterIdle() {
+        this.playAnimation(this.IMAGES_IDLE);
+    }
+
+    setCharacterLongIdle() {
+        this.playAnimation(this.IMAGES_LONG_IDLE);
     }
 
 
@@ -57,10 +67,13 @@ class MovableObject extends DrawableObject {
 
 
     playAnimation(images) {
+        // console.log('playAnimation, images: ', images);
         let i = this.currentImage % images.length; // let i = 7 % 6; => 1, Rest 1
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+        // console.log('path', path);
+        // console.log('this.img', this.img);
     }
 
 
@@ -81,12 +94,13 @@ class MovableObject extends DrawableObject {
 
 
     isCollecting(obj) {
-        let dx = obj.x - this.x;
+        let dx = obj.x - this.x;    //obj is coin and this points to character
         let dy = obj.y - this.y;
         // console.log('dy = ', dy);
         // console.log('movObject.isCollecting()');
         // console.log('dx = ', dx);
-        if((dx >= -80 && dx <= 60 && dy >= 0 && dy <= 200))
+        if((dx >= -80 && dx <= 80 && dy >= 0 && dy <= 200))
+        // if((dx >= -80 && dx <= 60 && dy >= 0 && dy <= 200))
         {
             console.log('Coin geeeeeeeeeeesammelt');
             this.coin_sound.play();

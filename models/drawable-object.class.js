@@ -1,5 +1,5 @@
 class DrawableObject {
-    // the following class members are originally from ovable-object.class.js
+    // the following class members are originally from movable-object.class.js
     img;
     imageCache = {};
     currentImage = 0;
@@ -11,14 +11,14 @@ class DrawableObject {
     statusBarX = 50;
 
 
-    // outsourced from ovable-object.class.js
+    // outsourced from movable-object.class.js
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
 
-    // outsourced from ovable-object.class.js
+    // outsourced from movable-object.class.js
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
@@ -41,11 +41,11 @@ class DrawableObject {
     }
 
 
-    // outsourced from ovable-object.class.js
+    // outsourced from movable-object.class.js
     draw(ctx) {
-        if(this instanceof BackgroundObject) {
-            console.log('this.img :', this.img);
-        }
+        // if(this instanceof BackgroundObject) {
+        //     console.log('this.img :', this.img);
+        // }
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 }
