@@ -73,7 +73,7 @@ class World {
         setInterval(() => {
             // checkCollisions with enemies
             // console.log('checking for collision...');
-            // this.checkCollisions();
+            this.checkCollisions();
             this.checkThrowObjects();
             this.checkForCoins();
         }, 200);   
@@ -93,7 +93,8 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy, index) => {
-            if(this.character.isColliding(enemy, index) && this.character.timePassed > 1.0) {
+            // if(this instanceof Chicken)
+            if(this instanceof Chicken && this.character.isColliding(enemy, index) && this.character.timePassed > 1.0) {
                 this.character.hit();
                 this.healthBar.setPercentage(this.character.energy);
                 return true; // testing !!!
@@ -142,7 +143,7 @@ class World {
         this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
-        // this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
         this.ctx.translate(-this.camera_x, 0);

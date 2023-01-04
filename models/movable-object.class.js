@@ -39,7 +39,7 @@ class MovableObject extends DrawableObject {
             return true;
         }
         else {
-            console.log('this.y: ', this.y);
+            // console.log('this.y: ', this.y);
             return this.y < 260;
         }   
     }

@@ -24,7 +24,8 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-36.png',
         'img/2_character_pepe/3_jump/J-37.png',
         'img/2_character_pepe/3_jump/J-38.png',
-        'img/2_character_pepe/3_jump/J-39.png'
+        'img/2_character_pepe/3_jump/J-39.png',
+        'img/2_character_pepe/3_jump/J-31.png'
     ];
 
     IMAGES_HURT = [
@@ -79,6 +80,11 @@ class Character extends MovableObject {
     alreadyDead = false;
     snoreTimer = 0;
     isSnoring = false;
+    jumpStartTime;
+    jumpEndTime;
+    jumpDuration;
+    isJumping = false;
+    jumpAction = false;
 
     // offset = {
     //     top: 120,
@@ -106,7 +112,7 @@ class Character extends MovableObject {
 
         setInterval(() => {
 
-            console.log('snoreTimer value: ', this.snoreTimer);
+            // console.log('snoreTimer value: ', this.snoreTimer);
 
             if(this.snoreTimer > 19) {
                 this.isSnoring = true;
@@ -127,7 +133,7 @@ class Character extends MovableObject {
             else {
                 this.world.characterWalking = false;
                 
-                if(!this.isSnoring) {
+                if(!this.isSnoring && !this.isAboveGround()) {
                     this.setCharacterIdle();
                     this.snoreTimer++;}
             }
@@ -136,14 +142,6 @@ class Character extends MovableObject {
         
         setInterval(() => {
             this.walking_sound.pause();
-
-            // if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-            //     this.world.characterWalking = true;
-            // }
-            // else {
-            //     this.world.characterWalking = false;
-            //     this.setCharacterIdle();
-            // }
 
             if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
@@ -156,12 +154,27 @@ class Character extends MovableObject {
             }
 
             if(this.world.keyboard.UP && !this.isAboveGround()) {
+                this.jumpStartTime = new Date();
+                console.log('Jump start time: ', Math.round(this.jumpStartTime/1000));
                 this.jump();
+                console.log('ABSPRUNG!');
+                this.jumpAction = true;
                 this.isSnoring = false;
                 this.snoreTimer = 0;
                 // this.framerate = 250;
                 // setTimeout(() => {console.log('.')}, 100);
             }
+
+            if(this.jumpAction && this.y == 260 && !this.world.keyboard.UP) {
+                console.log('GELAAAANDEEEEEEEET');
+                this.jumpAction = false;
+                this.jumpEndTime = new Date();
+                this.jumpDuration = this.jumpEndTime - this.jumpStartTime;
+                // this.jumpDuration /= 1000;
+                this.jumpDuration = Math.round(this.jumpDuration);
+                console.log('Jump duration: ', this.jumpDuration);
+            }
+
             this.world.camera_x = - this.x + 100;            
         }, 1000 / 60);   // original: 1000 / 60
 
@@ -188,10 +201,10 @@ class Character extends MovableObject {
             if(this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             }
-            // else if(this.isAboveGround()) {
+            else if(this.isAboveGround()) {
                 
-            //     this.playAnimation(this.IMAGES_JUMPING);
-            // }
+                this.playAnimation(this.IMAGES_JUMPING);
+            }
             else {
                 if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     // Walk animation
