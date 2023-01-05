@@ -239,7 +239,10 @@ class World {
 
         console.log('movSpeed: ', movSpeed);
         
-        let yOffset = 0 - 50 * layer;
+        let yOffset = 0 - 50 * layer; // layer_1 -> 0, layer_2 -> -50, layer_3 -> 150
+        
+
+        // -50 entspricht + 590, also 
 
         // console.log('layer ', layer);
         // console.log('index ', index);

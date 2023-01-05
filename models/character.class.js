@@ -1,7 +1,11 @@
 class Character extends MovableObject {
-    y = 260;
+    // y = 260;    // = 640 - 380 => canvas_height - 380;
+    y = canvas_height - 380;
     x = 120;
     height = 300;
+
+    // height = canvas_height - 340;
+
     // speed = 12;         // character's speed before edit
     speed = 6;
     framerate = 50;
@@ -96,6 +100,7 @@ class Character extends MovableObject {
     
 
     constructor() {
+        console.log('canvas_height ', canvas_height);
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
