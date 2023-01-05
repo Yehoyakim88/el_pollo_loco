@@ -14,8 +14,8 @@ function init() {
     canvas_width = canvas.offsetWidth;
     world = new World(canvas, keyboard);
 
-    console.log('My character is', world.character);
-    console.log('Canvas has a height of', canvas_height);
+    // console.log('My character is', world.character);
+    console.log('Canvas has a height of ' + canvas_height + ' pixels.');
 }
 
 

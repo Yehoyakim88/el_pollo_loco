@@ -100,9 +100,9 @@ class MovableObject extends DrawableObject {
         // console.log('movObject.isCollecting()');
         // console.log('dx = ', dx);
         if((dx >= -80 && dx <= 80 && dy >= 0 && dy <= 200))
-        // if((dx >= -80 && dx <= 60 && dy >= 0 && dy <= 200))
+        // if((dx >= -80 && dx <= 60 && dy >= 0 && dy <= 200)) // first values tried
         {
-            console.log('Coin geeeeeeeeeeesammelt');
+            // console.log('Coin geeeeeeeeeeesammelt');
             this.coin_sound.play();
             return true;
         }
@@ -136,7 +136,7 @@ class MovableObject extends DrawableObject {
         else {
             this.lastHit = new Date().getTime();
         }
-        console.log('energy: ', this.energy);
+        // console.log('energy: ', this.energy);
     }
 
 

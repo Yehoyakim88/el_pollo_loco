@@ -80,6 +80,7 @@ class Character extends MovableObject {
     alreadyDead = false;
     snoreTimer = 0;
     isSnoring = false;
+    snoreLogSet = false;
     jumpStartTime;
     jumpEndTime;
     jumpDuration;
@@ -111,8 +112,10 @@ class Character extends MovableObject {
         console.log('animate() is running...');
 
         setInterval(() => {
+            console.log(100*Math.random());
 
             // console.log('snoreTimer value: ', this.snoreTimer);
+            // console.log('this.isSnoring ', this.isSnoring);
 
             if(this.snoreTimer > 19) {
                 this.isSnoring = true;
@@ -120,15 +123,22 @@ class Character extends MovableObject {
             }
 
             if(this.isSnoring) {
-                console.log('LONG IDLE !!!');
+                if(!this.snoreLogSet) {
+                    console.log('LONG IDLE !!!');
+                    this.snoreLogSet = true;
+                }
+                
                 this.setCharacterLongIdle();
+            }
+
+            if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT ||this.world.keyboard.SPACE || this.world.keyboard.UP) {
+                this.snoreTimer = 0;
+                this.isSnoring = false;
             }
 
 
             if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.world.characterWalking = true;
-                this.isSnoring = false;
-                this.snoreTimer = 0;
             }
             else {
                 this.world.characterWalking = false;
@@ -145,34 +155,38 @@ class Character extends MovableObject {
 
             if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
-                this.walking_sound.play();
+                if(!this.world.keyboard.UP && !this.isAboveGround()) {
+                    this.walking_sound.play();
+                }
             }
             
             if(this.world.keyboard.LEFT && this.x > 100) {
                 this.moveLeft();
-                this.walking_sound.play();
+                if(!this.world.keyboard.UP && !this.isAboveGround()) {
+                    this.walking_sound.play();
+                }
             }
 
             if(this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jumpStartTime = new Date();
-                console.log('Jump start time: ', Math.round(this.jumpStartTime/1000));
+                // console.log('Jump start time: ', Math.round(this.jumpStartTime/1000));
                 this.jump();
-                console.log('ABSPRUNG!');
+                // console.log('ABSPRUNG!');
                 this.jumpAction = true;
-                this.isSnoring = false;
-                this.snoreTimer = 0;
+                // this.isSnoring = false;
+                // this.snoreTimer = 0;
                 // this.framerate = 250;
                 // setTimeout(() => {console.log('.')}, 100);
             }
 
             if(this.jumpAction && this.y == 260 && !this.world.keyboard.UP) {
-                console.log('GELAAAANDEEEEEEEET');
+                // console.log('GELAAAANDEEEEEEEET');
                 this.jumpAction = false;
                 this.jumpEndTime = new Date();
                 this.jumpDuration = this.jumpEndTime - this.jumpStartTime;
                 // this.jumpDuration /= 1000;
                 this.jumpDuration = Math.round(this.jumpDuration);
-                console.log('Jump duration: ', this.jumpDuration);
+                // console.log('Jump duration: ', this.jumpDuration);
             }
 
             this.world.camera_x = - this.x + 100;            
@@ -180,7 +194,7 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if(this.isDead() && !this.alreadyDead) {
-                console.log('this.playAnimation(this.IMAGES_DEAD);');
+                // console.log('this.playAnimation(this.IMAGES_DEAD);');
                 this.alreadyDead = true;
                 this.playAnimation(this.IMAGES_DEAD);
                 // this.dies_sound.play();
@@ -198,7 +212,7 @@ class Character extends MovableObject {
             //     this.died_sound.play();
             //     // return;
             // }
-            if(this.isHurt()) {
+            if(this.isHurt() && !this.jumpAction && !this.world.characterWalking) {
                 this.playAnimation(this.IMAGES_HURT);
             }
             else if(this.isAboveGround()) {

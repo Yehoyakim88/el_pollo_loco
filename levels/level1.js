@@ -29,22 +29,31 @@ function generateCoins(){
 function initLevel() {
     generateBackground();
     generateCoins();
+    let bossPosition;
+    tmp = new Level();
+    bossPosition = tmp.level_end_x - 600;
+
     level1 = new Level(
-        // [
-        //     new Chicken(),
-        //     new Chicken(),
-        //     new Chicken(),
-        //     new Chicken(),
-        //     new Chicken(),
-        //     new Chicken(),
-        //     new Chicken(),
-        //     new Chicken(),
-        //     new Chicken(),
-        //     new EndBoss()
-        // ],
-        levelCoins,
         [
-            new Cloud('img/5_background/layers/4_clouds/1.png')
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new EndBoss(bossPosition)
+        ],
+        // levelCoins,
+        [
+            new Cloud(1),
+            new Cloud(2),
+            new Cloud(1),
+            new Cloud(2),
+            new Cloud(1),
+            new Cloud(2)
         ],
         bg,
         levelCoins

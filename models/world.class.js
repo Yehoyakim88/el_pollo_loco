@@ -94,10 +94,10 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach((enemy, index) => {
             // if(this instanceof Chicken)
-            if(this instanceof Chicken && this.character.isColliding(enemy, index) && this.character.timePassed > 1.0) {
+            if(!this.character.isAboveGround() && (enemy instanceof Chicken || enemy instanceof EndBoss) && this.character.isColliding(enemy, index) && this.character.timePassed > 1.0) {
                 this.character.hit();
                 this.healthBar.setPercentage(this.character.energy);
-                return true; // testing !!!
+                // return true; // testing !!!
             }
             // else {
             //     console.log('Wieder GUT :)');
