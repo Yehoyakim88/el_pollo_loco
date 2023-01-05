@@ -20,6 +20,11 @@ class Chicken extends MovableObject {
         this.x = 500 + Math.random() * 1000; // Zufallszahl zwischen 200 und 700
         this.speed = 0.15 + Math.random() * 0.5;
         // console.log('chicken constructor, this.speed: ', this.speed);
+
+        console.log('Chicken x: ', this.x);
+        console.log('Chicken y: ', this.y);
+        console.log('Chicken width: ', this.width);
+        console.log('Chicken height: ', this.height);
         
         this.animate();
     }

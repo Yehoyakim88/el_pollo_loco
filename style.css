@@ -6,6 +6,7 @@
 body {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     margin: 0;
     background-image: url('./img/page_bg.jpeg');
@@ -13,18 +14,24 @@ body {
     font-family: 'zabars', Arial, Helvetica, sans-serif;
     letter-spacing: 4px;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    /* folgende Zeilen abgeschaut aus anderem El Pollo Loco*/
+    /* height: 100vh;
+    width: 100vw;
+    overflow: hidden; */
+    /* ---------------- */
 }
 
 canvas {
     background-color: black;
-    display: block;
-    margin-top: 20px;
+    /* display: block;
+    margin-top: 20px; */
 }
 
 /* Smartphones --------------------*/
 @media only screen and (max-width: 1280px) {
     canvas {
-        width: 100%;
+        width: 100vw;
+        /* width: 100vw; */
     }
 }
 

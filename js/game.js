@@ -10,12 +10,15 @@ backgroundMusic.volume = 0.75;
 
 function init() {
     canvas = document.getElementById('canvas');
+    // canvas.setAttribute("height", "600px");
+    // canvas.setAttribute("width", "600px");
     canvas_height = canvas.offsetHeight;
     canvas_width = canvas.offsetWidth;
     world = new World(canvas, keyboard);
 
     // console.log('My character is', world.character);
-    console.log('Canvas has a height of ' + canvas_height + ' pixels.');
+    console.log('Canvas has a height ( canvas_height ) of ' + canvas_height + ' pixels.');
+    console.log('Canvas has a height ( canvas.height ) of ' + canvas.height + ' pixels.');
 }
 
 

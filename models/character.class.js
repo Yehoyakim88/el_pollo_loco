@@ -1,7 +1,8 @@
 class Character extends MovableObject {
     // y = 260;    // = 640 - 380 => canvas_height - 380;
-    y = canvas_height - 380;
-    x = 120;
+    // y = canvas_height - 380; // 0.59375*canvas_height
+    y = 0.40625*canvas_height;
+    x = 100;
     height = 300;
 
     // height = canvas_height - 340;
@@ -109,6 +110,13 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.applyGravity();    // implemented for testing
+
+
+        console.log('Character x: ', this.x);
+        console.log('Character y: ', this.y);
+        console.log('Character width: ', this.width);
+        console.log('Character height: ', this.height);
+
         this.animate();
     }
 

@@ -20,6 +20,12 @@ class Coin extends MovableObject {
         // this.y = 480;                                 // only for testing
         // console.log('coin at x: ', this.x);
         // console.log('and at y: ', this.y);
+
+        console.log('Coin x: ', this.x);
+        console.log('Coin y: ', this.y);
+        console.log('Coin width: ', this.width);
+        console.log('Coin height: ', this.height);
+
         this.animate();
     }
 

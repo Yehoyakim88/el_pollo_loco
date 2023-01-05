@@ -92,16 +92,51 @@ class World {
 
 
     checkCollisions() {
+        this.collidingEnemy();
+        // this.collidingBottle();
+        // this.collidingCoin();
+        this.collidingEnemyJump();
+        // approach by F. Caspers
+
+        // end of approach by F. Caspers
+
+
+        // my own approach
+        // this.level.enemies.forEach((enemy, index) => {
+        //     // if(this instanceof Chicken)
+        //     if(!this.character.isAboveGround() && (enemy instanceof Chicken || enemy instanceof EndBoss) && this.character.isColliding(enemy, index) && this.character.timePassed > 1.0) {
+        //         this.character.hit();
+        //         this.healthBar.setPercentage(this.character.energy);
+        //     }
+        // });
+    }
+
+
+    collidingEnemy() {
         this.level.enemies.forEach((enemy, index) => {
-            // if(this instanceof Chicken)
-            if(!this.character.isAboveGround() && (enemy instanceof Chicken || enemy instanceof EndBoss) && this.character.isColliding(enemy, index) && this.character.timePassed > 1.0) {
+            if (this.character.isColliding(enemy, index) && !this.character.isAboveGround() && (enemy instanceof Chicken || enemy instanceof EndBoss)) {
                 this.character.hit();
-                this.healthBar.setPercentage(this.character.energy);
-                // return true; // testing !!!
+                this.healthBar.setPercentage(this.character.energy)
             }
-            // else {
-            //     console.log('Wieder GUT :)');
-            // }
+        });
+    }
+
+
+    collidingEnemyJump() {
+        this.level.enemies.forEach((enemy) => {
+            if (!this.character.isHurt() && this.character.speedY <0 && this.character.isColliding(enemy) && this.character.isAboveGround() && (enemy instanceof Chicken || enemy instanceof SmallChicken)) {
+                console.log('ENEMY HIT!');
+                enemy.hit();
+                setTimeout(() => {
+                    const index = this.level.enemies.indexOf(enemy);
+                    console.log(index);
+                    this.level.enemies.splice(index, 1);
+                }, 200);
+                this.character.jump();
+                // if (!stopAudio) {
+                //     this.jump_sound.play();
+                // }
+            }
         });
     }
 

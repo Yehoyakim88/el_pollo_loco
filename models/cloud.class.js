@@ -2,6 +2,10 @@ class Cloud extends MovableObject {
     y = 20;
     width = 500;
     height = 500;
+    // width = 0.78125*canvas.width;
+    // height = 0.78125*canvas.height;
+    
+    
     last_x = 0;
 
     constructor(cloudType) {
@@ -10,6 +14,13 @@ class Cloud extends MovableObject {
         this.x = 50 + 100*Math.random() * 10;
         this.last_x = this.x;
         this.speed = 0.15;
+
+
+        console.log('Cloud x: ', this.x);
+        console.log('Cloud y: ', this.y);
+        console.log('Cloud width: ', this.width);
+        console.log('Cloud height: ', this.height);
+
         this.animate();
     }
 
