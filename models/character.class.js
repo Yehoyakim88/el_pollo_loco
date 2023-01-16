@@ -125,7 +125,7 @@ class Character extends MovableObject {
         console.log('animate() is running...');
 
         setInterval(() => {
-            console.log(100*Math.random());
+            // console.log(100*Math.random());
 
             // console.log('snoreTimer value: ', this.snoreTimer);
             // console.log('this.isSnoring ', this.isSnoring);
