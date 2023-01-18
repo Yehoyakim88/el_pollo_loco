@@ -97,7 +97,8 @@ class MovableObject extends DrawableObject {
         // if((dx >= -80 && dx <= 60 && dy >= 0 && dy <= 200)) // first values tried
         {
             // console.log('Coin geeeeeeeeeeesammelt');
-            this.coin_sound.play();
+            if(obj instanceof Coin) {this.coin_sound.play();}
+            else if(obj instanceof Bottle) {this.bottle_sound.play();}
             return true;
         }
     }

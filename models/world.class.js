@@ -7,15 +7,23 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    healthBar = new StatusBar('health');
-    bottleBar = new StatusBar('bottle');
+    // healthBar = new StatusBar('health');
+    // bottleBar = new StatusBar('bottle');
+    healthBar = new HealthBar();
+    bottleBar = new BottleBar();
+    coinBar = new Coinbar();
+
     numBottlesCollected = 0;
+    bottleThrowing = false;
     numCoinsCollected = 0;
-    coinBar = new StatusBar('coins');
+    
     throwableObjects = [];
-    DEBUG_COLLISION = false;
+    DEBUG_COLLISION = true;
 
     intervalIds = [];
+    approached = false;
+    boss_approaching_sound = new Audio('audio/boss_approaching.mp3');
+    bossanova = new Audio('audio/latin-100882.mp3');
     
 
     //----------------------------------------------------------
@@ -72,13 +80,59 @@ class World {
 
     run() {
         setInterval(() => {
-            if(this.DEBUG_COLLISION) {console.log('this.character.y: ', this.character.y);}
             // checkCollisions with enemies
             this.checkCollisionsChicken();
             this.checkThrowObjects();
             this.checkForCoins();
+            this.checkForBottles();
+            this.checkApproachingBoss();
         }, 1000/25);   // original 200
     }
+
+
+    
+
+
+    checkApproachingBoss() {
+        if(this.character.x >= 2700) {
+            console.log('Boss approaching :(')
+            if(!this.approached) {
+                this.boss_approaching_sound.play();
+                this.approached = true;
+            }
+            // this.boss_approaching_sound.play();
+            // this.approached = true;
+        }
+        else {
+            console.log('Wiedersehen xD');
+            this.approached = false;
+            this.boss_approaching_sound.pause();
+            this.boss_approaching_sound.currentTime = 0.0;
+        }
+        if(this.character.x >= 3300) {
+            if(!this.boss_seen) {
+                this.bossanova.play();
+                this.boss_seen = true;
+            }
+        }
+        else {
+            this.bossanova.pause();
+            this.bossanova.currentTime = 0.0;
+            this.boss_seen = false;
+        }
+    }
+
+
+    checkForBottles() {
+        this.level.bottles.forEach((bottle, index) => {
+            if(this.character.isCollecting(bottle)) {
+                if(this.DEBUG_COLLISION) {console.log('Coin collected :)');}
+                this.removeBottleFromMap(index);
+                this.numBottlesCollected++;
+            }
+        });
+    }
+
 
     checkForCoins() {
         // console.log('Checking for coins...');
@@ -195,11 +249,16 @@ class World {
 
 
     checkThrowObjects() {
-        if(this.keyboard.SPACE) {
+        if(this.keyboard.SPACE && this.numBottlesCollected > 0 && !this.bottleThrowing) {
             console.log('Flasche werfen :)');
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
             bottle.throw(this.character.x + 100, this.character.y + 100);
+            this.numBottlesCollected -= 1;
+            this.bottleThrowing = true;
+        }
+        else if(!this.keyboard.SPACE && this.bottleThrowing) {
+            this.bottleThrowing = false;
         }
     }
 
@@ -224,6 +283,10 @@ class World {
         this.ctx.fillStyle = "white";
         let coinText = `x${this.numCoinsCollected}`;
         let bottleText = `x${this.numBottlesCollected}`;
+        if(this.DEBUG_COLLISION) {
+            let char_coordinates = `pepe_x: ${this.character.x}  pepe_y: ${this.character.y}`;
+            this.ctx.fillText(char_coordinates, 300, 40);
+        }
         this.ctx.fillText(coinText, 100, 175);
         this.ctx.fillText(bottleText, 100, 115);
         this.addToMap(this.healthBar);
@@ -264,6 +327,11 @@ class World {
     }
 
 
+    removeBottleFromMap(index) {
+        this.level.bottles.splice(index, 1);
+    }
+
+
     flipImage(movObject) {
         this.ctx.save();
         this.ctx.translate(movObject.width, 0);
@@ -276,15 +344,6 @@ class World {
         this.ctx.restore();
         movObject.x = movObject.x * -1;
     }
-
-
-
-
-
-
-
-
-
 
 
     // the following functions are only for game version 2.0
