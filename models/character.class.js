@@ -1,15 +1,30 @@
 class Character extends MovableObject {
-    // y = 260;    // = 640 - 380 => canvas_height - 380;
-    // y = canvas_height - 380; // 0.59375*canvas_height
-    y = 0.40625*canvas_height;
+    // y = 0.40625*canvas_height;
+    y = 260;
     x = 100;
     height = 300;
-
-    // height = canvas_height - 340;
-
+    bottom = this.y + this.height;
     // speed = 12;         // character's speed before edit
     speed = 6;
     framerate = 50;
+
+    jumpedOnEnemy = false;
+
+    // code snippet from Firat Yildirim
+    // height = 200;
+    // width = 100;
+    offset = {
+        top: 70,
+        bottom: 10,
+        left: 35,
+        right: 35,
+    }
+
+
+    // -----------------------
+
+    
+
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -82,6 +97,7 @@ class Character extends MovableObject {
     jump_sound = new Audio('./audio/jumpy-sonikku_short.mp3');
     dies_sound = new Audio('./audio/whuuaaaaaaaaa_1.mp3');
     died_sound = new Audio('./audio/lose1.mp3');
+    snore_sound = new Audio('./audio/snoring.mp3');
     alreadyDead = false;
     snoreTimer = 0;
     isSnoring = false;
@@ -98,6 +114,10 @@ class Character extends MovableObject {
     //     left: 40,
     //     right: 30
     // };
+
+    // offset = {
+    //     top: 195.53125
+    // }
     
 
     constructor() {
@@ -130,7 +150,7 @@ class Character extends MovableObject {
             // console.log('snoreTimer value: ', this.snoreTimer);
             // console.log('this.isSnoring ', this.isSnoring);
 
-            if(this.snoreTimer > 19) {
+            if(this.snoreTimer > 39) {
                 this.isSnoring = true;
                 this.snoreTimer = 0;
             }
@@ -142,11 +162,14 @@ class Character extends MovableObject {
                 }
                 
                 this.setCharacterLongIdle();
+                this.snore_sound.play();
             }
 
             if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT ||this.world.keyboard.SPACE || this.world.keyboard.UP) {
                 this.snoreTimer = 0;
                 this.isSnoring = false;
+                this.snore_sound.pause();
+                this.snore_sound.currentTime = 0;
             }
 
 
@@ -243,8 +266,13 @@ class Character extends MovableObject {
 
 
     jump() {
-        this.speedY = 40; // original
+        // if(this.jumpedOnEnemy) {
+        //     console.log('Da vom Hühnchen, nun acceleration: ', this.acceleration);
+        //     this.acceleration = 1.5;
+        // }
+        this.speedY = 30; // original 40
         this.jump_sound.play();
+        this.jump_sound.currentTime = 0;
         // this.speedY = 2; // for testing
     }
 }

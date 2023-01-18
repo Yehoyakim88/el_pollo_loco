@@ -15,7 +15,7 @@ class StatusBar extends DrawableObject {
 
     IMAGE_COINBAR = 'img/8_coin/coin_1.png';
 
-    precentage = 100;
+    percentage = 100;
 
 
     constructor(barType) {

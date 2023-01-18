@@ -10,6 +10,13 @@ class DrawableObject {
     // ---------------------------------------------------------------------
     statusBarX = 50;
 
+    // code snippet from F. Caspers
+    // x = 50;
+    // y = 230;
+    // height = 200;
+    // width = 150;
+    // --------------------------------
+
 
     // outsourced from movable-object.class.js
     loadImage(path) {
@@ -32,7 +39,7 @@ class DrawableObject {
         if(this.width < canvas_width) {
             if(this instanceof Character || this instanceof Chicken || this instanceof EndBoss || this instanceof Coin) {
                 ctx.beginPath();
-                ctx.linewidth = '5';
+                ctx.linewidth = '10px';
                 ctx.strokeStyle = 'red';
                 ctx.rect(this.x, this.y, this.width, this.height);
                 ctx.stroke();

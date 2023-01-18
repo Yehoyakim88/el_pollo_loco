@@ -22,37 +22,33 @@
     <script src="./levels/level1.js"></script>
     <script src="./models/status-bar.class.js"></script>
     <script src="./models/coins.class.js"></script>
+    <script src="./models/bottle.class.js"></script>
     <script src="./js/game.js"></script>
 </head>
 <body onload="init()">
     <!-- <h1 class="gameTitle">El Pollo Loco</h1> -->
 
-    <canvas class="canvas" id="canvas" width="1280px" height="640px"></canvas>
+    <div class="gameWindow">
+        <!-- before edit and testing with F. Caspers snippets: 1280x640 -->
+        <canvas class="canvas" id="canvas" width="1280px" height="640px"></canvas>
     <!-- <canvas class="canvas" id="canvas"></canvas> -->
-    <img id="music-on-off" class="speakerOnOff" src="./img/musicoff.png" onclick="toggleMusic()">
+        <img id="music-on-off" class="speakerOnOff" src="./img/musicoff.png" onclick="toggleMusic()">
 
-    <div id="touch-controls" class="touch-controls">
+        <div id="touch-controls" class="touch-controls">
         
             <div class="touch-controls-left-hand">
-                <div class="touch-controls-walk">
-                    <img height="80px" width="80px" id="btnLeft" class="touch-arrow-left touch-control-icon" src="img/arrow_left.png" alt="arrow-left">
-                </div>
-
-                <div class="touch-controls-jump">
-                    <img height="80px" width="80px" id="btnUp" class="touch-arrow-up touch-control-icon" src="img/arrow_up.png" alt="arrow-up">
-                </div>
+                <img id="btnLeft" class="touchIcon" src="img/arrow_left.png" alt="arrow-left">
+                <img id="btnUp" class="touchIcon" src="img/arrow_up.png" alt="arrow-up">
             </div>
             
             <div class="touch-controls-right-hand">
-                <div class="touch-controls-throw">
-                    <img height="80px" width="80px" id="btnSpace" class="touch-arrow-throw touch-control-icon" src="img/arrow_throw_bottle.png" alt="arrow-throw">
-                </div>
-
-                <div class="touch-controls-walk">
-                    <img height="80px" width="80px" id="btnRight" class="touch-arrow-right touch-control-icon" src="img/arrow_right.png" alt="arrow-right">
-                </div>
+                <img id="btnSpace" class="touchIcon" src="img/arrow_throw_bottle.png" alt="arrow-throw">
+                <img id="btnRight" class="touchIcon" src="img/arrow_right.png" alt="arrow-right">
             </div>
+            
         </div>
+    </div>
+    
     
 </body>
 </html>

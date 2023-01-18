@@ -14,6 +14,8 @@ body {
     font-family: 'zabars', Arial, Helvetica, sans-serif;
     letter-spacing: 4px;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    width: 100vw;
     /* folgende Zeilen abgeschaut aus anderem El Pollo Loco*/
     /* height: 100vh;
     width: 100vw;
@@ -21,10 +23,15 @@ body {
     /* ---------------- */
 }
 
+.gameWindow {
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    position: relative;
+}
+
 canvas {
     background-color: black;
-    /* display: block;
-    margin-top: 20px; */
 }
 
 /* Smartphones --------------------*/
@@ -52,10 +59,10 @@ canvas {
 .speakerOnOff {
     position: absolute;
     z-index: 1;
-    top: 100px;
-    right: 120px;
-    height: 64px;
-    width: 64px;
+    top: 5vh;
+    right: 5vw;
+    height: 48px;       /* originally 64px*/
+    width: 48px;        /* originally 64px*/
     object-fit: cover;
 }
 
@@ -65,40 +72,50 @@ canvas {
 .touch-controls {
     position: absolute;
     z-index: 1;
-    bottom: 105px;
+    bottom: 0;
     left: 0;
     right: 0;
-    height: 80px;
-    width: 1280px;
+    height: 8vh;   /* about 10vh, 80px set initially */
+    width: 80vw;
     /* max-width: 100vw; */
     background-color: rgba(255, 255, 255, 0.1);
     display: flex;
     justify-content: space-between;
-    /* display: none; */
+}
+
+.touchIcon {
+    height: 6vh;
+    width: 6vw;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 
 .touch-controls-left-hand, .touch-controls-right-hand {
     display: flex;
     margin-left: 50px;
     margin-right: 50px;
+    width:fit-content;
 }
 
 .touch-controls-walk {
-    height: 80px;
+    height: 10vh;
+    width: 10vw;
     margin-left: 40px;
     margin-right: 40px;
     cursor: pointer;
 }
 
 .touch-controls-jump {
-    height: 80px;
+    height: 10vh;
+    width: 6vw;
     margin-left: 40px;
     margin-right: 40px;
     cursor: pointer;
 }
 
 .touch-controls-throw {
-    height: 80px;
+    height: 10vh;
+    width: 6vw;
     margin-right: 40px;
     margin-left: 40px;
     cursor: pointer;
@@ -134,3 +151,4 @@ canvas {
     font-size: 1.4em;
     order: 3;
 }
+
