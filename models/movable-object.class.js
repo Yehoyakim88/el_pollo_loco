@@ -2,7 +2,7 @@ class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
-    acceleration = 3;     // my before 2.5
+    acceleration = 2.5;     // Firats 3, my last was 2.5
     energy = 100;
 
     lastHit = 0;
@@ -105,9 +105,9 @@ class MovableObject extends DrawableObject {
     }
 
 
-    jump() {
-        this.speedY = 40;
-    }
+    // jump() {
+    //     this.speedY = 40;
+    // }
 
 
     isCollecting(obj) {
@@ -171,63 +171,6 @@ class MovableObject extends DrawableObject {
     return this.energy = 0;
 }
    // ------------------------------------
-
-
-
-    // code snipped from F.C.
-    isCollidingWithEnemy(mo) {
-        // this.hurt_sound.play();
-        return this.isHorizontalIntersection(mo) && this.isVerticalIntersection(mo);
-        
-      }
-    
-      
-      isVerticalIntersection(mo){
-        return !(this.isAbove(mo) || this.isBelow(mo));
-      }
-    
-      isHorizontalIntersection(mo){
-        return !(this.isLeftSide(mo) || this.isRightSide(mo));
-      }
-    
-      isAbove(mo){
-                //(this.y + this.height - this.offset.bottom)
-        return !(this.getHitBoxBottomPos() > mo.getHitBoxTopPos());
-      }                                      // mo.y + mo.offset.top
-    
-      isBelow(mo){
-                 // this.y + this.offset.top
-        return !(this.getHitBoxTopPos() < mo.getHitBoxBottomPos());
-      }                                   // mo.y + mo.height - mo.offset.bottom
-    
-      isLeftSide(mo){
-                // this.x + this.width - this.offset.right 
-        return !(this.getHitBoxRightPos() > mo.getHitBoxLeftPos());
-      }                                     // mo.x + mo.offset.left
-    
-      isRightSide(mo){
-                // this.x + this.offset.left
-        return !(this.getHitBoxLeftPos() < mo.getHitBoxRightPos());
-      }                                    // mo.x + mo.width - mo.offset.right
-    
-      getHitBoxRightPos(){
-        return this.x + this.width - this.offset.right;
-      }
-    
-      getHitBoxLeftPos(){
-        return this.x + this.offset.left;
-      }
-    
-      getHitBoxTopPos(){
-        return this.y + this.offset.top;
-      }
-    
-      getHitBoxBottomPos(){
-        return this.y + this.height - this.offset.bottom;
-      }
-
-
-    // -----------------------------------------------------------------------
 
 
     hit() {

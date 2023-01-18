@@ -72,6 +72,7 @@ class World {
 
     run() {
         setInterval(() => {
+            console.log('this.character.y: ', this.character.y);
             // checkCollisions with enemies
             // console.log('checking for collision...');
             // this.checkCollisions();  // obsolete
@@ -181,12 +182,18 @@ class World {
      * @param {string} enemy 
      */
     killChickenWithJumpFromTop(enemy, index) {
+        let y_pos = this.character.y;
+        console.log('Jumped on enemy on y: ', y_pos);
         enemy.chickenKilled();
-        this.character.speedY = 30;
+        // this.character.speedY = 20;     // originally at Firats Code 40
+        this.character.acceleration = 1;
+        this.character.jump(5);
+        // this.character.acceleration = 1;
         // audioDeadChicken.play();
         // audioDeadChicken.volume = 0.3
         setTimeout(() => {
             this.eraseEnemyFromArray(index);
+            this.character.acceleration = 2.5     // reset acceleration after jumped on enemy
         }, 1000 / 60);
         
     }

@@ -8,8 +8,6 @@ class Character extends MovableObject {
     speed = 6;
     framerate = 50;
 
-    jumpedOnEnemy = false;
-
     // code snippet from Firat Yildirim
     // height = 200;
     // width = 100;
@@ -265,12 +263,12 @@ class Character extends MovableObject {
     }
 
 
-    jump() {
+    jump(theSpeed=30) {
         // if(this.jumpedOnEnemy) {
         //     console.log('Da vom Hühnchen, nun acceleration: ', this.acceleration);
         //     this.acceleration = 1.5;
         // }
-        this.speedY = 30; // original 40
+        this.speedY = theSpeed; // original 40
         this.jump_sound.play();
         this.jump_sound.currentTime = 0;
         // this.speedY = 2; // for testing
