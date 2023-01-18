@@ -185,10 +185,8 @@ class World {
         let y_pos = this.character.y;
         console.log('Jumped on enemy on y: ', y_pos);
         enemy.chickenKilled();
-        // this.character.speedY = 20;     // originally at Firats Code 40
-        this.character.acceleration = 1;
-        this.character.jump(5);
-        // this.character.acceleration = 1;
+        this.character.acceleration = 2.5;  // perfect acceleration
+        this.character.jump(5);             // speedY match
         // audioDeadChicken.play();
         // audioDeadChicken.volume = 0.3
         setTimeout(() => {
