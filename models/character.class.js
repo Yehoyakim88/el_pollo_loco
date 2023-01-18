@@ -1,29 +1,20 @@
 class Character extends MovableObject {
-    // y = 0.40625*canvas_height;
-    y = 260;
+    DEBUG = false;
+    y = 260;                        // or y = 0.40625*canvas_height;
     x = 100;
     height = 300;
     bottom = this.y + this.height;
-    // speed = 12;         // character's speed before edit
-    speed = 6;
+    speed = 6;                      // character's speed before edit: 12
     framerate = 50;
-
-    // code snippet from Firat Yildirim
-    // height = 200;
-    // width = 100;
     offset = {
         top: 70,
         bottom: 10,
         left: 35,
         right: 35,
     }
-
-
     // -----------------------
 
     
-
-
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -105,21 +96,10 @@ class Character extends MovableObject {
     jumpDuration;
     isJumping = false;
     jumpAction = false;
-
-    // offset = {
-    //     top: 120,
-    //     bottom: 30,
-    //     left: 40,
-    //     right: 30
-    // };
-
-    // offset = {
-    //     top: 195.53125
-    // }
-    
+    userInteraction = false;
+  
 
     constructor() {
-        console.log('canvas_height ', canvas_height);
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
@@ -129,41 +109,40 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.applyGravity();    // implemented for testing
 
-
-        console.log('Character x: ', this.x);
-        console.log('Character y: ', this.y);
-        console.log('Character width: ', this.width);
-        console.log('Character height: ', this.height);
-
+        if(this.DEBUG) {
+            console.log('Character x: ', this.x);
+            console.log('Character y: ', this.y);
+            console.log('Character width: ', this.width);
+            console.log('Character height: ', this.height);
+            console.log('canvas_height ', canvas_height);
+        }
+        
         this.animate();
     }
 
 
     animate() {
-        console.log('animate() is running...');
+        if(this.DEBUG) {console.log('animate() is running...');}
+        
 
         setInterval(() => {
-            // console.log(100*Math.random());
 
-            // console.log('snoreTimer value: ', this.snoreTimer);
-            // console.log('this.isSnoring ', this.isSnoring);
-
-            if(this.snoreTimer > 39) {
+            if(this.snoreTimer > 59) {
                 this.isSnoring = true;
                 this.snoreTimer = 0;
             }
 
             if(this.isSnoring) {
                 if(!this.snoreLogSet) {
-                    console.log('LONG IDLE !!!');
+                    if(this.DEBUG) {console.log('LONG IDLE !!!');}
                     this.snoreLogSet = true;
                 }
-                
                 this.setCharacterLongIdle();
                 this.snore_sound.play();
             }
 
             if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT ||this.world.keyboard.SPACE || this.world.keyboard.UP) {
+                this.userInteraction = true;
                 this.snoreTimer = 0;
                 this.isSnoring = false;
                 this.snore_sound.pause();
@@ -175,14 +154,19 @@ class Character extends MovableObject {
                 this.world.characterWalking = true;
             }
             else {
+                if(this.DEBUG) {
+                    console.log('snoreTimer: ', this.snoreTimer);
+                    console.log('userInteraction: ', this.userInteraction);
+                }
+                
                 this.world.characterWalking = false;
                 
-                if(!this.isSnoring && !this.isAboveGround()) {
+                if(!this.isSnoring && !this.isAboveGround() && this.userInteraction) {
                     this.setCharacterIdle();
                     this.snoreTimer++;}
             }
             
-        }, 500);
+        }, 250);    // before edit 500
         
         setInterval(() => {
             this.walking_sound.pause();
@@ -203,14 +187,8 @@ class Character extends MovableObject {
 
             if(this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jumpStartTime = new Date();
-                // console.log('Jump start time: ', Math.round(this.jumpStartTime/1000));
                 this.jump();
-                // console.log('ABSPRUNG!');
                 this.jumpAction = true;
-                // this.isSnoring = false;
-                // this.snoreTimer = 0;
-                // this.framerate = 250;
-                // setTimeout(() => {console.log('.')}, 100);
             }
 
             if(this.jumpAction && this.y == 260 && !this.world.keyboard.UP) {
@@ -263,14 +241,10 @@ class Character extends MovableObject {
     }
 
 
-    jump(theSpeed=30) {
-        // if(this.jumpedOnEnemy) {
-        //     console.log('Da vom Hühnchen, nun acceleration: ', this.acceleration);
-        //     this.acceleration = 1.5;
-        // }
+    jump(theSpeed=30, sound_on=true) {
         this.speedY = theSpeed; // original 40
-        this.jump_sound.play();
+        if(sound_on) {this.jump_sound.play();}
+        
         this.jump_sound.currentTime = 0;
-        // this.speedY = 2; // for testing
     }
 }

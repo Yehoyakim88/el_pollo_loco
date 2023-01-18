@@ -1,4 +1,5 @@
 class Cloud extends MovableObject {
+    DEBUG = false;
     y = 20;
     width = 500;
     height = 500;
@@ -15,12 +16,13 @@ class Cloud extends MovableObject {
         this.last_x = this.x;
         this.speed = 0.15;
 
-
-        console.log('Cloud x: ', this.x);
-        console.log('Cloud y: ', this.y);
-        console.log('Cloud width: ', this.width);
-        console.log('Cloud height: ', this.height);
-
+        if(this.DEBUG) {
+            console.log('Cloud x: ', this.x);
+            console.log('Cloud y: ', this.y);
+            console.log('Cloud width: ', this.width);
+            console.log('Cloud height: ', this.height);
+        }
+        
         this.animate();
     }
 

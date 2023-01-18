@@ -1,5 +1,5 @@
 class Chicken extends MovableObject {
-    DEBUG = true;
+    DEBUG = false;
     y = 465;
     height = 90;
     width = 110;
@@ -31,6 +31,8 @@ class Chicken extends MovableObject {
         'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
 
+    chicken_hurt_sound = new Audio('audio/chicken_hurt.mp3');
+
     constructor(x_pos) {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -38,12 +40,14 @@ class Chicken extends MovableObject {
         // this.x = 500 + Math.random() * 1000; // Zufallszahl zwischen 200 und 700
         this.x = x_pos;
         this.speed = 0.15 + Math.random() * 0.5;
-        // console.log('chicken constructor, this.speed: ', this.speed);
-
-        console.log('Chicken x: ', this.x);
-        console.log('Chicken y: ', this.y);
-        console.log('Chicken width: ', this.width);
-        console.log('Chicken height: ', this.height);
+        if(this.DEBUG) {
+            console.log('chicken constructor, this.speed: ', this.speed);
+            console.log('Chicken x: ', this.x);
+            console.log('Chicken y: ', this.y);
+            console.log('Chicken width: ', this.width);
+            console.log('Chicken height: ', this.height);
+        }
+        
         if(!this.DEBUG) {this.animate();}
         
     }
@@ -58,5 +62,9 @@ class Chicken extends MovableObject {
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 200);
+    }
+
+    setChickenDead() {
+
     }
 }

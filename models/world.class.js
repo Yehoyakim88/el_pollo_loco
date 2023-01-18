@@ -13,7 +13,7 @@ class World {
     numCoinsCollected = 0;
     coinBar = new StatusBar('coins');
     throwableObjects = [];
-    DEBUG_COLLISION = true;
+    DEBUG_COLLISION = false;
 
     intervalIds = [];
     
@@ -72,10 +72,8 @@ class World {
 
     run() {
         setInterval(() => {
-            console.log('this.character.y: ', this.character.y);
+            if(this.DEBUG_COLLISION) {console.log('this.character.y: ', this.character.y);}
             // checkCollisions with enemies
-            // console.log('checking for collision...');
-            // this.checkCollisions();  // obsolete
             this.checkCollisionsChicken();
             this.checkThrowObjects();
             this.checkForCoins();
@@ -86,7 +84,7 @@ class World {
         // console.log('Checking for coins...');
         this.level.coins.forEach((coin, index) => {
             if(this.character.isCollecting(coin)) {
-                console.log('Coin collected :)');
+                if(this.DEBUG_COLLISION) {console.log('Coin collected :)');}
                 this.removeCoinFromMap(index);
                 this.numCoinsCollected++;
             }
@@ -94,71 +92,8 @@ class World {
     }
 
 
-    checkCollisions() {
-        // console.log(`this.character.isAboveGround(): ${this.character.isAboveGround()}`);
-        // this.collidingEnemy();
-        // this.collidingEnemyJump();
-        // this.checkCollisionsChicken();
-
-        // from Firat Yildirim
-
-        // setInterval(() => {
-        //     this.checkCollisionsChicken();
-        //     // this.checkCollisionsEndboss();
-        //     // this.checkCollectedCoins();
-        //     // this.checkCollectedBottles();
-        // }, 1000 / 25);
-        // -----------------------
-        
-        
-        
-        // this.collidingBottle();
-        // this.collidingCoin();
-        
-        // approach by F. Caspers
-
-        // end of approach by F. Caspers
-
-
-        // my own approach
-        // this.level.enemies.forEach((enemy, index) => {
-        //     // if(this instanceof Chicken)
-        //     if(!this.character.isAboveGround() && (enemy instanceof Chicken || enemy instanceof EndBoss) && this.character.isColliding(enemy, index) && this.character.timePassed > 1.0) {
-        //         this.character.hit();
-        //         this.healthBar.setPercentage(this.character.energy);
-        //     }
-        // });
-    }
-
-
-    // collidingEnemy() {
-    //     this.level.enemies.forEach((enemy, index) => {
-    //         if (this.character.isColliding(enemy, index) && !this.character.isAboveGround() && (enemy instanceof Chicken || enemy instanceof EndBoss)) {
-    //             this.character.hit();
-    //             this.healthBar.setPercentage(this.character.energy)
-    //         }
-    //     });
-    // }
-
-
-    // collidingEnemyJump() {
-    //     this.level.enemies.forEach((enemy) => {
-    //         if (!this.character.isHurt() && this.character.speedY <0 && this.character.isColliding(enemy) && this.character.isAboveGround() && (enemy instanceof Chicken || enemy instanceof SmallChicken)) {
-    //             console.log('ENEMY HIT!');
-    //             enemy.hit();
-    //             setTimeout(() => {
-    //                 const index = this.level.enemies.indexOf(enemy);
-    //                 console.log(index);
-    //                 this.level.enemies.splice(index, 1);
-    //             }, 200);
-    //             this.character.jump();
-    //             // if (!stopAudio) {
-    //             //     this.jump_sound.play();
-    //             // }
-    //         }
-    //     });
-    // }
-
+    checkCollisions() {}
+     
 
     // code snippet from Firat Yildirim
     checkCollisionsChicken() {
@@ -186,13 +121,17 @@ class World {
         console.log('Jumped on enemy on y: ', y_pos);
         enemy.chickenKilled();
         this.character.acceleration = 2.5;  // perfect acceleration
-        this.character.jump(5);             // speedY match
+        this.character.jump(5, false);             // speedY match
         // audioDeadChicken.play();
         // audioDeadChicken.volume = 0.3
         setTimeout(() => {
             this.eraseEnemyFromArray(index);
+
             this.character.acceleration = 2.5     // reset acceleration after jumped on enemy
         }, 1000 / 60);
+        setTimeout(() => {
+            
+        }, 1000 / 30);
         
     }
 
@@ -204,7 +143,12 @@ class World {
      */
     eraseEnemyFromArray(index) {
         console.log('Enemy to delete is of index: ', index);
-        this.level.enemies.splice(index, 1);
+        // this.level.enemies.splice(index, 1);
+        this.level.enemies[index].chicken_hurt_sound.play();
+        this.level.enemies[index].img.src = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
+        setTimeout(() => {
+            this.level.enemies.splice(index, 1);
+        }, 250);
     }
 
     // -----------------------------------

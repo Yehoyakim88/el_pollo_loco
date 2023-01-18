@@ -8,24 +8,6 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     timePassed;
  
-    // code snippet from  Mihai
-    // offset = {
-    //     top: 120,
-    //     bottom: 30,
-    //     left: 40,
-    //     right: 30
-    // };
-
-    // code-snipped from F.C.
-    // offset = {
-    //     top: 0,
-    //     left: 10,
-    //     right: 10,
-    //     bottom: 0,
-    //   };
-
-    // -----------------------------------
-
     // code snippet from Firat Yildirim
     offset = {
         top: 0,
@@ -103,11 +85,6 @@ class MovableObject extends DrawableObject {
             
         }, 1000);
     }
-
-
-    // jump() {
-    //     this.speedY = 40;
-    // }
 
 
     isCollecting(obj) {

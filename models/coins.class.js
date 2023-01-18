@@ -1,4 +1,5 @@
 class Coin extends MovableObject {
+    DEBUG = false;
     width = 200;
     height = 200;
 
@@ -21,11 +22,13 @@ class Coin extends MovableObject {
         // console.log('coin at x: ', this.x);
         // console.log('and at y: ', this.y);
 
-        console.log('Coin x: ', this.x);
-        console.log('Coin y: ', this.y);
-        console.log('Coin width: ', this.width);
-        console.log('Coin height: ', this.height);
-
+        if(this.DEBUG) {
+            console.log('Coin x: ', this.x);
+            console.log('Coin y: ', this.y);
+            console.log('Coin width: ', this.width);
+            console.log('Coin height: ', this.height);
+        }
+        
         this.animate();
     }
 

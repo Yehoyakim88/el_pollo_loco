@@ -1,4 +1,5 @@
 class StatusBar extends DrawableObject {
+    DEBUG = false;
     height = 50;
     width = 200;
 
@@ -19,25 +20,30 @@ class StatusBar extends DrawableObject {
 
 
     constructor(barType) {
+        super();
         if(barType == 'health') {
-            console.log('statusBar for health to add...');
-            super();
+            
+            // super();
             this.loadImages(this.IMAGES_HEALTHBAR);
             this.x = 40;
             this.y = 20;
             this.setPercentage(100);
+            if(this.DEBUG)  {console.log('statusBar for health to add...');}
         }
         else if(barType == 'bottle') {
-            console.log('statusBar for coins to add...')
-            super().loadImage(this.IMAGE_BOTTLEBAR);
-            // this.setBottleImage();
+            
+            // super().loadImage(this.IMAGE_BOTTLEBAR);
+            this.loadImage(this.IMAGE_BOTTLEBAR);
+            
             this.x = 20;
             this.y = 70;
             this.height = 60;
             this.width = 70;
+            if(this.DEBUG)  {console.log('statusBar for coins to add...');}
         }
         else if(barType == 'coins') {
-            super().loadImage(this.IMAGE_COINBAR);
+            // super().loadImage(this.IMAGE_COINBAR);
+            this.loadImage(this.IMAGE_COINBAR);
             this.x = -18;
             this.y = 90;
             this.width = 150;

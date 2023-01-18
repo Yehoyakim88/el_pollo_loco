@@ -1,4 +1,5 @@
 class BackgroundObject extends MovableObject {
+    DEBUG = false;
     // x= 0; // will be overwritten by constructor anyway
     y;
     width = canvas.width;   // old value: width = 1280;
@@ -11,10 +12,10 @@ class BackgroundObject extends MovableObject {
         super().loadImage(imagePath);
         this.x = x;
         this.y = 0;
-        console.log('Backgroundobject x: ', this.x);
-        console.log('Backgroundobject y: ', this.y);
-        console.log('Backgroundobject width: ', this.width);
-        console.log('Backgroundobject height: ', this.height);
-
+        if(this.DEBUG) {console.log('Backgroundobject x: ', this.x);
+            console.log('Backgroundobject y: ', this.y);
+            console.log('Backgroundobject width: ', this.width);
+            console.log('Backgroundobject height: ', this.height);
+        }
     }
 }
