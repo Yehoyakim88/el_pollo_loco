@@ -37,7 +37,7 @@ class DrawableObject {
 
     drawFrame(ctx) {
         if(this.width < canvas_width) {
-            if(this instanceof Character || this instanceof Chicken || this instanceof EndBoss || this instanceof Coin) {
+            if(this instanceof Character || this instanceof Chicken || this instanceof EndBoss || this instanceof Coin || this instanceof ThrowableObject) {
                 ctx.beginPath();
                 ctx.linewidth = '10px';
                 ctx.strokeStyle = 'red';

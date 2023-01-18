@@ -36,8 +36,12 @@ function initLevel() {
     level1 = new Level(
         [
             new EndBoss(4400),
-            new Chicken(400)
-            
+            new Chicken(400),
+            new Chicken(600),
+            new Chicken(800),
+            new Chicken(1000),
+            new Chicken(1400),
+            new Chicken(2000)
         ],
         [
             new Cloud(1),

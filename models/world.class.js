@@ -23,7 +23,9 @@ class World {
     intervalIds = [];
     approached = false;
     boss_approaching_sound = new Audio('audio/boss_approaching.mp3');
-    bossanova = new Audio('audio/latin-100882.mp3');
+    bossanova = new Audio('audio/latin-100882.mp3');    // source: https://pixabay.com/music/search/salsa/
+
+    chickenKilled = false;
     
 
     //----------------------------------------------------------
@@ -81,6 +83,7 @@ class World {
     run() {
         setInterval(() => {
             // checkCollisions with enemies
+            console.log('this.character.isHurt(): ', this.character.isHurt());
             this.checkCollisionsChicken();
             this.checkThrowObjects();
             this.checkForCoins();
@@ -109,8 +112,9 @@ class World {
             this.boss_approaching_sound.pause();
             this.boss_approaching_sound.currentTime = 0.0;
         }
-        if(this.character.x >= 3300) {
+        if(this.character.x >= 3250) {
             if(!this.boss_seen) {
+                this.bossanova.volume = 0.75;
                 this.bossanova.play();
                 this.boss_seen = true;
             }
@@ -153,12 +157,15 @@ class World {
     checkCollisionsChicken() {
         this.level.enemies.forEach((enemy, index) => {
             if (this.character.HeIsColliding(enemy) && !this.character.isHurt()) {
-                if (this.character.isAboveGround()) {
+                if (this.character.isAboveGround() && !this.chickenKilled) {
+                    this.chickenKilled = true;
                     this.killChickenWithJumpFromTop(enemy, index);
                 } else {
-                    this.character.hit()
-                    this.healthBar.setPercentage(this.character.energy);
-                    this.character.hurt_sound.play();
+                    if(!this.character.isAboveGround()) {
+                        this.character.hit()
+                        this.healthBar.setPercentage(this.character.energy);
+                        this.character.hurt_sound.play();
+                    }
                 }
             }
         });
@@ -202,6 +209,7 @@ class World {
         this.level.enemies[index].img.src = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
         setTimeout(() => {
             this.level.enemies.splice(index, 1);
+            this.chickenKilled = false;
         }, 250);
     }
 

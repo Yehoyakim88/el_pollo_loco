@@ -217,14 +217,6 @@ class Character extends MovableObject {
         }, 500);
 
         setInterval(() => {
-            // console.log('this.framerate: ', this.framerate);
-            // if(this.isDead() && !this.alreadyDead) {
-            //     this.alreadyDead = true;
-            //     this.playAnimation(this.IMAGES_DEAD);
-            //     this.dies_sound.play();
-            //     this.died_sound.play();
-            //     // return;
-            // }
             if(this.isHurt() && !this.jumpAction && !this.world.characterWalking) {
                 this.playAnimation(this.IMAGES_HURT);
             }
