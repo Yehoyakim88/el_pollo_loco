@@ -7,13 +7,11 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    // healthBar = new StatusBar('health');
-    // bottleBar = new StatusBar('bottle');
     healthBar = new HealthBar();
     bottleBar = new BottleBar();
     coinBar = new Coinbar();
 
-    numBottlesCollected = 100;
+    numBottlesCollected = 3;
     bottleThrowing = false;
     numCoinsCollected = 0;
     
@@ -25,7 +23,15 @@ class World {
     boss_approaching_sound = new Audio('audio/boss_approaching.mp3');
     bossanova = new Audio('audio/latin-100882.mp3');    // source: https://pixabay.com/music/search/salsa/
 
+    no_bottle_sound = new Audio('audio/no_bottle.mp3');
+
     chickenKilled = false;
+
+    music = false;
+    backgroundMusic;
+    
+    backgroundMusicPlaying = false;
+    
     
 
     //----------------------------------------------------------
@@ -44,12 +50,13 @@ class World {
     //----------------------------------------------------------
 
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard, backgroundMusic) {
         // console.log('constructor of class World');
         
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.backgroundMusic = backgroundMusic;
 
         // only available in game version 2.0
         // this.getBackgroundImage(2);
@@ -61,6 +68,40 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+    }
+
+
+    toggleMusic(){
+        console.log('toggleMusic() call!');
+        if(!this.music) {
+            document.getElementById('music-on-off').src= './img/musicon.png';
+            this.playLevelMusic();
+            // this.backgroundMusic.volume = 0.75;
+            // this.backgroundMusic.play();
+            // this.music = true;
+        }
+        else if(this.music){
+            document.getElementById('music-on-off').src= './img/musicoff.png';
+            this.pauseLevelMusic();
+            // this.backgroundMusic.pause();
+            // this.backgroundMusic.currentTime = 0.0;
+            // this.music = false;
+        }
+        console.log('music ', music);
+    }
+
+
+    playLevelMusic() {
+        this.backgroundMusic.volume = 0.75;
+        this.backgroundMusic.play();
+        this.music = true;
+    }
+
+
+    pauseLevelMusic(reset=true) {
+        this.backgroundMusic.pause();
+        if(reset) {this.backgroundMusic.currentTime = 0.0;}
+        this.music = false;
     }
 
 
@@ -93,36 +134,46 @@ class World {
     }
 
 
-    
-
-
     checkApproachingBoss() {
         if(this.character.x >= 2700) {
             // console.log('Boss approaching :(')
             if(!this.approached) {
+                // if(this.character.x >= 3250 && this.music) {
+                //     this.pauseLevelMusic(false);
+                // }
                 this.boss_approaching_sound.play();
+                this.backgroundMusic.volume = 0.3;
                 this.approached = true;
             }
-            // this.boss_approaching_sound.play();
-            // this.approached = true;
         }
         else {
             // console.log('Wiedersehen xD');
             this.approached = false;
             this.boss_approaching_sound.pause();
             this.boss_approaching_sound.currentTime = 0.0;
+            this.backgroundMusic.volume = 0.75;
         }
         if(this.character.x >= 3250) {
             if(!this.boss_seen) {
+                this.boss_approaching_sound.pause();
+                this.boss_approaching_sound.currentTime = 0.0;
                 this.bossanova.volume = 0.75;
                 this.bossanova.play();
+                if(this.music) {
+                    this.pauseLevelMusic(false);
+                }
                 this.boss_seen = true;
             }
         }
         else {
             this.bossanova.pause();
             this.bossanova.currentTime = 0.0;
+            if(this.boss_seen) {
+                this.backgroundMusic.volume = 0.3;
+                this.playLevelMusic();}
+                // this.boss_approaching_sound.play();
             this.boss_seen = false;
+            if(this.approached) {this.boss_approaching_sound.play();}
         }
     }
 
@@ -212,18 +263,41 @@ class World {
 
 
     checkThrowObjects() {
-        if(this.keyboard.SPACE && this.numBottlesCollected > 0 && !this.bottleThrowing) {
+        if(this.keyboard.SPACE) {
+            if(this.numBottlesCollected > 0 && !this.bottleThrowing){
             console.log('Flasche werfen :)');
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
             bottle.throw(this.character.x + 100, this.character.y + 100);
             this.numBottlesCollected -= 1;
-            this.bottleThrowing = true;           
+            this.bottleThrowing = true;
+            }
+            else if(this.numBottlesCollected == 0 && !this.bottleThrowing){
+                this.no_bottle_sound.play();
+            }       
         }
         else if(!this.keyboard.SPACE && this.bottleThrowing) {
             this.bottleThrowing = false;
         }
     }
+
+
+    // checkThrowObjects() {
+    //     if(this.keyboard.SPACE && this.numBottlesCollected > 0 && !this.bottleThrowing) {
+    //         console.log('Flasche werfen :)');
+    //         let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+    //         this.throwableObjects.push(bottle);
+    //         bottle.throw(this.character.x + 100, this.character.y + 100);
+    //         this.numBottlesCollected -= 1;
+    //         this.bottleThrowing = true;           
+    //     }
+    //     else if(!this.keyboard.SPACE && this.bottleThrowing) {
+    //         this.bottleThrowing = false;
+    //     }
+    //     else if(!this.keyboard.SPACE && this.numBottlesCollected == 0 && this.bottleThrowing){
+    //         this.no_bottle_sound.play();
+    //     }
+    // }
 
 
     CollidingBottleWithEnemy() {

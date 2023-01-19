@@ -5,6 +5,7 @@ let world;
 let keyboard;
 let music = false;
 let backgroundMusic = new Audio('./audio/cumbia-mexican-banda-2716.mp3');
+backgroundMusicPlaying = false;
 backgroundMusic.volume = 0.75;
 DEBUG = false;
 
@@ -18,7 +19,7 @@ function init() {
     canvas_height = canvas.offsetHeight;
     canvas_width = canvas.offsetWidth;
     keyboard = new Keyboard();
-    world = new World(canvas, keyboard);
+    world = new World(canvas, keyboard, backgroundMusic);
 
     // console.log('My character is', world.character);
     let window_width = window.innerWidth;
@@ -84,21 +85,21 @@ function init() {
 // });
 
 
-function toggleMusic(){
-    console.log('toggleMusic() call!');
-    if(!music) {
-        document.getElementById('music-on-off').src= './img/musicon.png';
+// function toggleMusic(){
+//     console.log('toggleMusic() call!');
+//     if(!music) {
+//         document.getElementById('music-on-off').src= './img/musicon.png';
 
-        backgroundMusic.play();
-        music = true;
-    }
-    else if(music){
-        document.getElementById('music-on-off').src= './img/musicoff.png';
-        backgroundMusic.pause();
-        music = false;
-    }
-    console.log('music ', music);
-}
+//         backgroundMusic.play();
+//         music = true;
+//     }
+//     else if(music){
+//         document.getElementById('music-on-off').src= './img/musicoff.png';
+//         backgroundMusic.pause();
+//         music = false;
+//     }
+//     console.log('music ', music);
+// }
 
 
 // function bindButtonEvents() {
