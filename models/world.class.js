@@ -11,12 +11,14 @@ class World {
     bottleBar = new BottleBar();
     coinBar = new Coinbar();
 
-    numBottlesCollected = 3;
+    numBottlesCollected = 100;
+    bottle;
     bottleThrowing = false;
     numCoinsCollected = 0;
     
     throwableObjects = [];
-    DEBUG_COLLISION = true;
+    has_splashed = false;
+    DEBUG_COLLISION = false;
 
     intervalIds = [];
     approached = false;
@@ -24,6 +26,7 @@ class World {
     bossanova = new Audio('audio/latin-100882.mp3');    // source: https://pixabay.com/music/search/salsa/
 
     no_bottle_sound = new Audio('audio/no_bottle.mp3');
+    throw_sound = new Audio('audio/throw_shout.mp3');
 
     chickenKilled = false;
 
@@ -76,23 +79,16 @@ class World {
         if(!this.music) {
             document.getElementById('music-on-off').src= './img/musicon.png';
             this.playLevelMusic();
-            // this.backgroundMusic.volume = 0.75;
-            // this.backgroundMusic.play();
-            // this.music = true;
         }
         else if(this.music){
             document.getElementById('music-on-off').src= './img/musicoff.png';
             this.pauseLevelMusic();
-            // this.backgroundMusic.pause();
-            // this.backgroundMusic.currentTime = 0.0;
-            // this.music = false;
         }
         console.log('music ', music);
     }
 
 
     playLevelMusic() {
-        this.backgroundMusic.volume = 0.75;
         this.backgroundMusic.play();
         this.music = true;
     }
@@ -101,7 +97,6 @@ class World {
     pauseLevelMusic(reset=true) {
         this.backgroundMusic.pause();
         if(reset) {this.backgroundMusic.currentTime = 0.0;}
-        this.music = false;
     }
 
 
@@ -142,7 +137,7 @@ class World {
                 //     this.pauseLevelMusic(false);
                 // }
                 this.boss_approaching_sound.play();
-                this.backgroundMusic.volume = 0.3;
+                this.backgroundMusic.volume = 0.2;
                 this.approached = true;
             }
         }
@@ -168,8 +163,8 @@ class World {
         else {
             this.bossanova.pause();
             this.bossanova.currentTime = 0.0;
-            if(this.boss_seen) {
-                this.backgroundMusic.volume = 0.3;
+            if(this.boss_seen && this.music) {
+                this.backgroundMusic.volume = 0.2;
                 this.playLevelMusic();}
                 // this.boss_approaching_sound.play();
             this.boss_seen = false;
@@ -251,8 +246,11 @@ class World {
     eraseEnemyFromArray(index) {
         console.log('Enemy to delete is of index: ', index);
         // this.level.enemies.splice(index, 1);
-        this.level.enemies[index].chicken_hurt_sound.play();
-        this.level.enemies[index].img.src = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
+        if(this.level.enemies[index] instanceof Chicken) {
+            this.level.enemies[index].chicken_hurt_sound.play();
+            this.level.enemies[index].img.src = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
+        }
+        // this.level.enemies[index].img.src = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
         setTimeout(() => {
             this.level.enemies.splice(index, 1);
             this.chickenKilled = false;
@@ -263,14 +261,17 @@ class World {
 
 
     checkThrowObjects() {
+        
         if(this.keyboard.SPACE) {
             if(this.numBottlesCollected > 0 && !this.bottleThrowing){
             console.log('Flasche werfen :)');
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            this.throwableObjects.push(bottle);
-            bottle.throw(this.character.x + 100, this.character.y + 100);
+            this.bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.throwableObjects.push(this.bottle);
+            this.throw_sound.play();
+            this.bottle.throw(this.character.x + 100, this.character.y + 100);
             this.numBottlesCollected -= 1;
             this.bottleThrowing = true;
+            
             }
             else if(this.numBottlesCollected == 0 && !this.bottleThrowing){
                 this.no_bottle_sound.play();
@@ -279,6 +280,16 @@ class World {
         else if(!this.keyboard.SPACE && this.bottleThrowing) {
             this.bottleThrowing = false;
         }
+
+        // if(this.bottle) {
+        //     if(this.throwableObjects[0].y <= 260 && !this.has_splashed) {
+        //         this.throwableObjects[0].splash();
+        //         this.has_splashed = true;
+        //     }
+        //     else {
+        //         this.has_splashed = false;
+        //     }
+        // }
     }
 
 
@@ -300,32 +311,57 @@ class World {
     // }
 
 
+    // CollidingBottleWithEnemy() {
+    //     this.level.enemies.forEach((enemy, index1) => {
+    //         this.throwableObjects.forEach((bottle, index2) => {
+    //             if (bottle.isColliding(enemy) && !this.chickenKilled) {
+    //                 this.chickenKilled = true;
+
+    //                 setTimeout(() => {
+    //                     this.eraseEnemyFromArray(index1);
+    //                 }, 1000 / 60);
+
+    //                 setTimeout(() => {
+    //                     this.throwableObjects.splice(index2, 1);
+    //                 }, 100);
+    //             }
+    //         })
+    //     })
+    // }
+
+
     CollidingBottleWithEnemy() {
         this.level.enemies.forEach((enemy, index1) => {
-            this.throwableObjects.forEach((bottle, index2) => {
-                if (bottle.isColliding(enemy) && !this.chickenKilled) {
-                    this.chickenKilled = true;
-
-                    setTimeout(() => {
-                        this.eraseEnemyFromArray(index1);
-                    }, 1000 / 60);
-
-                    setTimeout(() => {
+            if(enemy instanceof Chicken) {
+                this.throwableObjects.forEach((bottle, index2) => {
+                    if (bottle.isColliding(enemy) && !this.chickenKilled) {
+                        this.chickenKilled = true;
+    
+                        setTimeout(() => {
+                            this.eraseEnemyFromArray(index1);
+                        }, 1000 / 60);
+    
+                        setTimeout(() => {
+                            this.throwableObjects.splice(index2, 1);
+                        }, 100);
+                    }
+                })
+            }
+            else if(enemy instanceof EndBoss) {
+                this.throwableObjects.forEach((bottle, index2) => {
+                    if (bottle.isColliding(enemy) && !this.chickenKilled) {
                         this.throwableObjects.splice(index2, 1);
-                    }, 100);
-
-
-
-                    // if (enemy instanceof Endboss) {
-                    //     this.endbossBar.setPercentage(enemy.energy);
-                    // } else {
-                    //     setTimeout(() => {
-                    //         const index = this.level.enemies.indexOf(enemy);
-                    //         this.level.enemies.splice(index, 1);
-                    //     }, 200);
-                    // }
-                }
-            })
+                        enemy.isHurt();
+                        enemy.energy -= 5;
+                    }
+                    if(enemy.energy == 0) {
+                        // enemy.isDead();
+                        setTimeout(() => {
+                            this.eraseEnemyFromArray(index1);
+                        }, 2000);
+                    }
+                })
+            }
         })
     }
 

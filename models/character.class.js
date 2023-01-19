@@ -80,7 +80,8 @@ class Character extends MovableObject {
     ];
 
     world;
-    walking_sound = new Audio('./audio/step.mp3');
+    // walking_sound = new Audio('./audio/step.mp3');
+    walking_sound = new Audio('audio/step_new.mp3');
     hurt_sound = new Audio('./audio/pain.mp3');
     coin_sound = new Audio('./audio/coin.mp3');
     bottle_sound = new Audio('./audio/bottlecollecting.mp3');

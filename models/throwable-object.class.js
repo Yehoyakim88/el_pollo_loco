@@ -17,6 +17,8 @@ class ThrowableObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ];
 
+    splash_sound = new Audio('audio/bottle_splash.mp3');
+
 
     constructor(x, y) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
@@ -30,20 +32,66 @@ class ThrowableObject extends MovableObject {
     }
 
 
-    throw(enemy, index) {
-        console.log('ThrowableObjects.throw()...');
-        if(this.y <= 640) {
-            this.speedY = 15;       // this.speedY = 30; before edit
-            this.applyGravity();
-            setInterval(() => {
-                // check for collision with enemy
-                this.x += 15;
-                this.playAnimation(this.IMAGES)
-                // this.x += 20;
-            }, 25);
-        }
-        else {
-            this.playAnimation(this.BOTTLE_SPLASH_IMAGES);
-        }
+    // throw() {
+    //     console.log('ThrowableObjects.throw()...');
+    //     if(this.y <= 640) {
+    //         this.speedY = 15;       // this.speedY = 30; before edit
+    //         this.applyGravity();
+    //         setInterval(() => {
+    //             // check for collision with enemy
+    //             this.x += 15;
+    //             this.playAnimation(this.IMAGES)
+    //             // this.x += 20;
+    //         }, 25);
+    //     }
+    //     else {
+    //         this.playAnimation(this.BOTTLE_SPLASH_IMAGES);
+    //     }
+    // }
+
+    
+    throw() {
+        this.speedY = 15;
+        this.applyGravity();
+        var id1 = setInterval(() => {
+            this.x += 15;
+        }, 40);
+        var id2 = setInterval(() => {
+            this.playAnimation(this.IMAGES)
+            if(this.y > 475) {
+                this.animate();
+                clearInterval(id2);
+            }
+        }, 40);
+            
+       
+        // this.animate();
+    }
+    
+    
+    
+
+
+    animate() {
+        var id1 = setInterval(() => {
+            if (this.y > 475) {
+                this.playSplashAnimation();
+                clearInterval(id1);
+            } else {
+                this.playAnimation(this.IMAGES);
+            }
+        }, 1000 / 60);
+    }
+
+    playSplashAnimation() {
+        this.playAnimation(this.BOTTLE_SPLASH_IMAGES);
+        this.splash_sound.play();
+        this.speedY = 0;
+    }
+
+
+    splash() {
+        console.log('SPLAAAAAAAAASH !!!');
+        this.playAnimation(this.BOTTLE_SPLASH_IMAGES);
     }
 }
