@@ -13,7 +13,7 @@ class World {
     bottleBar = new BottleBar();
     coinBar = new Coinbar();
 
-    numBottlesCollected = 0;
+    numBottlesCollected = 100;
     bottleThrowing = false;
     numCoinsCollected = 0;
     
@@ -82,10 +82,10 @@ class World {
 
     run() {
         setInterval(() => {
-            // checkCollisions with enemies
-            console.log('this.character.isHurt(): ', this.character.isHurt());
+            // checkCollisions with other objects
             this.checkCollisionsChicken();
             this.checkThrowObjects();
+            this.CollidingBottleWithEnemy();
             this.checkForCoins();
             this.checkForBottles();
             this.checkApproachingBoss();
@@ -98,7 +98,7 @@ class World {
 
     checkApproachingBoss() {
         if(this.character.x >= 2700) {
-            console.log('Boss approaching :(')
+            // console.log('Boss approaching :(')
             if(!this.approached) {
                 this.boss_approaching_sound.play();
                 this.approached = true;
@@ -107,7 +107,7 @@ class World {
             // this.approached = true;
         }
         else {
-            console.log('Wiedersehen xD');
+            // console.log('Wiedersehen xD');
             this.approached = false;
             this.boss_approaching_sound.pause();
             this.boss_approaching_sound.currentTime = 0.0;
@@ -148,15 +148,12 @@ class World {
             }
         });
     }
-
-
-    checkCollisions() {}
      
 
-    // code snippet from Firat Yildirim
+    // code snippet in part from Firat Yildirim
     checkCollisionsChicken() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.HeIsColliding(enemy) && !this.character.isHurt()) {
+            if (this.character.isColliding(enemy) && !this.character.isHurt()) {
                 if (this.character.isAboveGround() && !this.chickenKilled) {
                     this.chickenKilled = true;
                     this.killChickenWithJumpFromTop(enemy, index);
@@ -181,10 +178,8 @@ class World {
         let y_pos = this.character.y;
         console.log('Jumped on enemy on y: ', y_pos);
         enemy.chickenKilled();
-        this.character.acceleration = 2.5;  // perfect acceleration
-        this.character.jump(5, false);             // speedY match
-        // audioDeadChicken.play();
-        // audioDeadChicken.volume = 0.3
+        this.character.acceleration = 2.5;  // perfect 'acceleration'
+        this.character.jump(5, false);      // and 'speedY' match
         setTimeout(() => {
             this.eraseEnemyFromArray(index);
 
@@ -216,46 +211,6 @@ class World {
     // -----------------------------------
 
 
-
-
-
-
-    // // code snippet from F.C.
-
-    // collidingEnemy() {
-    //     this.level.enemies.forEach((enemy) => {
-    //         if (this.character.HeIsColliding(enemy) && !this.character.isAboveGround()) {
-    //             this.character.hit();
-    //             this.healthBar.setPercentage(this.character.energy)
-    //         }
-    //     });
-    // }
-
-    // collidingEnemyJump() {
-    //     // console.log('this.character.isHurt(): ', this.character.isHurt());
-    //     // console.log('this.character.speedY: ', this.character.speedY);
-    //     this.level.enemies.forEach((enemy) => {
-    //         if (this.character.HeIsColliding(enemy) && this.character.speedY < 0 && this.character.isAboveGround() && (enemy instanceof Chicken)) {
-    //             enemy.hit();
-    //             setTimeout(() => {
-    //                 const index = this.level.enemies.indexOf(enemy);
-    //                 // console.log(index);
-    //                 this.level.enemies.splice(index, 1);
-    //             }, 200);
-    //             console.log('Auf Hühnchen gehüpft xD');
-    //             this.character.jumpedOnEnemy = true;
-    //             this.character.jump();
-    //             if (1) {
-    //                 this.character.jump_sound.play();
-    //             }
-    //         }
-    //     });
-    // }
-
-
-    // -----------------------------------------------------------------------
-
-
     checkThrowObjects() {
         if(this.keyboard.SPACE && this.numBottlesCollected > 0 && !this.bottleThrowing) {
             console.log('Flasche werfen :)');
@@ -263,12 +218,45 @@ class World {
             this.throwableObjects.push(bottle);
             bottle.throw(this.character.x + 100, this.character.y + 100);
             this.numBottlesCollected -= 1;
-            this.bottleThrowing = true;
+            this.bottleThrowing = true;           
         }
         else if(!this.keyboard.SPACE && this.bottleThrowing) {
             this.bottleThrowing = false;
         }
     }
+
+
+    CollidingBottleWithEnemy() {
+        this.level.enemies.forEach((enemy, index1) => {
+            this.throwableObjects.forEach((bottle, index2) => {
+                if (bottle.isColliding(enemy) && !this.chickenKilled) {
+                    this.chickenKilled = true;
+
+                    setTimeout(() => {
+                        this.eraseEnemyFromArray(index1);
+                    }, 1000 / 60);
+
+                    setTimeout(() => {
+                        this.throwableObjects.splice(index2, 1);
+                    }, 100);
+
+
+
+                    // if (enemy instanceof Endboss) {
+                    //     this.endbossBar.setPercentage(enemy.energy);
+                    // } else {
+                    //     setTimeout(() => {
+                    //         const index = this.level.enemies.indexOf(enemy);
+                    //         this.level.enemies.splice(index, 1);
+                    //     }, 200);
+                    // }
+                }
+            })
+        })
+    }
+
+
+    
 
 
     draw() {

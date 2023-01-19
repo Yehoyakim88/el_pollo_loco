@@ -104,36 +104,8 @@ class MovableObject extends DrawableObject {
     }
 
 
-    isColliding(obj, i) {
-        if(!this.alreadyDead && obj instanceof Chicken) {
-            let dx1 = obj.x - (this.x + this.width);
-            let dx2 = this.x - (obj.x + obj.width);
-            // let dx3 = obj.x + obj.width - this.x;
-            let dy = obj.y - (this.y+this.height);
-            // let dy = obj.y - this.y;
-            // console.log(`Character\'s bottom: ${this.y + this.height}`);
-            // console.log(`Chicken\'s bottom: ${obj.y + obj.height}`);
-            // console.log(`Character height: ${this.height} y: ${this.y} x: ${this.x}`);
-            // console.log(`Enemy y: ${obj.y}\nx: ${obj.x} `);
-            // console.log(`Abstand in y zwischen Character und Chicken: ${obj.y - this.y}`);
-            // console.log(`dy: ${dy}`);
-            if((dy <=20 && dx1 <= -20) && (dy <=20 && dx2 <= -40)){
-                // this.hurt_sound.play();  
-                return true;      
-            }
-            else {
-                return false;
-            }
-                // return true;
-        }
-            // else {
-            //     return false;
-            // }
-    }
-
-
     // code snipped from Firat Yildirim
-    HeIsColliding (obj) {
+    isColliding (obj) {
         return  this.x + this.width - this.offset.right > obj.x + obj.offset.left && 
                 this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
                 this.x + this.offset.left < obj.x + obj.width -obj.offset.right && 
