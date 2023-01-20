@@ -29,12 +29,37 @@
     <script src="./models/endbossbar-object.class.js"></script>
     <script src="./js/game.js"></script>
 </head>
-<body onload="init()">
-    <!-- <h1 class="gameTitle">El Pollo Loco</h1> -->
+<body onload>
 
-    <div class="gameWindow">
+    <div id="startscreen-container" class="startscreenContainer">
+        <img id="startcreen-image" class="startScreenImage" src="./img/9_intro_outro_screens/start/startscreen_1.png">
+        <img id="startGame-button" class="startGameButton" onmouseover="hoverStartButton(this)" 
+             onmouseout="dishoverStartButton(this)" onclick="init()" src="img/playGame_image.png">
+    </div>
+
+    <div id="helpscreen-container" class="startscreenContainer d-none">
+        <img id="helpscreen-image" class="startScreenImage" src="./img/helpscreen.png">
+    </div>
+
+    <div id="endscreen-container" class="startscreenContainer d-none">
+        <img id="endscreen-image" class="startScreenImage" 
+             src="./img/9_intro_outro_screens/game_over/game over.png">
+        <img id="restartgame-button" class="startGameButton" onmouseover="hoverStartButton(this)" 
+        onmouseout="dishoverStartButton(this)" onclick="init()" src="img/restart.png">
+    </div>
+
+    <div id="youLost-container" class="startscreenContainer d-none">
+        <img id="youLost-image" class="startScreenImage" 
+             src="./img/9_intro_outro_screens/game_over/oh no you lost!.png">
+        <img id="restartgame-button" class="startGameButton" onmouseover="hoverStartButton(this)" 
+        onmouseout="dishoverStartButton(this)" onclick="init()" src="img/restart.png">
+    </div>
+
+
+
+    <div id="game-window" class="gameWindow d-none">
         <!-- before edit and testing with F. Caspers snippets: 1280x640 -->
-        <canvas class="canvas" id="canvas" width="1280px" height="640px"></canvas>
+        <canvas id="game-canvas" class="canvas" id="canvas" width="1280px" height="640px"></canvas>
     <!-- <canvas class="canvas" id="canvas"></canvas> -->
         <img id="music-on-off" class="speakerOnOff" src="./img/musicoff.png" onclick="world.toggleMusic()">
 

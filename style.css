@@ -23,6 +23,45 @@ body {
     /* ---------------- */
 }
 
+.startscreenContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 1280px;
+    height: 640px;
+}
+
+.startScreenImage{
+    width: 1280px;
+    height: 640px;
+    object-fit: cover;
+}
+
+.startGameButton {
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    top: 50px;
+    left: 50%;
+    right: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.restartGameButton {
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    bottom: 50px;
+    left: 50%;
+    right: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
 .gameWindow {
     display: flex;
     flex-direction: column;
@@ -150,5 +189,9 @@ canvas {
     align-items: center;
     font-size: 1.4em;
     order: 3;
+}
+
+.d-none {
+    display: none !important;
 }
 

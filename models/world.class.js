@@ -29,12 +29,22 @@ class World {
     no_bottle_sound = new Audio('audio/no_bottle.mp3');
     throw_sound = new Audio('audio/throw_shout.mp3');
 
+    you_lost_sound = new Audio('audio/miss_8Yfu3Y9.mp3');
+    gameOver = false;
+    you_won_sound = new Audio('');
+
     chickenKilled = false;
 
     music = false;
     backgroundMusic;
     
     backgroundMusicPlaying = false;
+    gameScreen = document.getElementById('game-window');
+    startScreen = document.getElementById('startscreen-container');
+    helpScreen = document.getElementById('helpscreen-container');
+    youWinScreen = document.getElementById('endscreen-container');
+    youLostScreen = document.getElementById('youLost-container');
+    canvasScreen = document.getElementById('game-canvas');
     
     
 
@@ -113,21 +123,51 @@ class World {
 
     
     stopGame() {
+        console.log('stopGame()');
         this.intervalIds.forEach(clearInterval);
     }
 
 
     run() {
-        setInterval(() => {
-            // checkCollisions with other objects
-            this.checkCollisionsChicken();
-            this.checkThrowObjects();
-            this.CollidingBottleWithEnemy();
-            this.checkForCoins();
-            this.checkForBottles();
-            this.checkApproachingBoss();
-        }, 1000/25);   // original 200
+        console.log('run()');
+        if(!this.gameOver) {
+            let id6 = this.setStoppableInterval(() => {
+                this.checkCollisionsChicken();
+                this.checkThrowObjects();
+                this.CollidingBottleWithEnemy();
+                this.checkForCoins();
+                this.checkForBottles();
+                this.checkApproachingBoss();
+                
+            }, 1000/25);
+            
+            let id5 = setInterval(() => {
+                console.log('this.keyboard.HELP ', this.keyboard.HELP);
+                // checkCollisions with other objects
+                if(this.keyboard.HELP) {
+                    this.gameScreen.classList.add('d-none');
+                    this.helpScreen.classList.remove('d-none');
+                }
+                else if(!this.keyboard.HELP) {
+                    this.gameScreen.classList.remove('d-none');
+                    this.helpScreen.classList.add('d-none');
+                }
+            }, 1000/25);   // original 200
+
+        }
     }
+    
+        
+        // setInterval(() => {
+        //     // checkCollisions with other objects
+        //     this.checkCollisionsChicken();
+        //     this.checkThrowObjects();
+        //     this.CollidingBottleWithEnemy();
+        //     this.checkForCoins();
+        //     this.checkForBottles();
+        //     this.checkApproachingBoss();
+        // }, 1000/25);   // original 200
+
 
 
     checkApproachingBoss() {
@@ -209,6 +249,14 @@ class World {
                         this.character.hit()
                         this.healthBar.setPercentage(this.character.energy);
                         this.character.hurt_sound.play();
+                        if(this.character.isDead() && !this.gameOver) {
+                            this.gameOver = true;
+                            this.gameScreen.classList.add('d-none');
+                            this.canvas.setAttribute("hidden", "hidden");
+                            this.youLostScreen.classList.remove('d-none');
+                            this.you_lost_sound.play();
+
+                        }
                     }
                 }
             }
@@ -364,6 +412,10 @@ class World {
                         // enemy.isDead();
                         setTimeout(() => {
                             this.eraseEnemyFromArray(index1);
+                            this.gameScreen.classList.add('d-none');
+                            canvas.setAttribute("hidden", "hidden");
+                            this.youWinScreen.classList.remove('d-none');
+                            this.you_won_sound.play();
                         }, 2000);
                     }
                 })

@@ -1,3 +1,5 @@
+let gamingWindow;
+let startScreen;
 let canvas;
 let canvas_height;
 let canvas_width;
@@ -12,7 +14,10 @@ DEBUG = false;
 
 function init() {
     
-
+    startScreen = document.getElementById('startscreen-container');
+    gamingWindow = document.getElementById('game-window');
+    startScreen.classList.add('d-none');
+    gamingWindow.classList.remove('d-none');
     canvas = document.getElementById('canvas');
     // canvas.setAttribute("height", "600px");
     // canvas.setAttribute("width", "600px");
@@ -30,6 +35,15 @@ function init() {
         console.log('Canvas has a height ( canvas_height ) of ' + canvas_height + ' pixels.');
         console.log('Canvas has a height ( canvas.height ) of ' + canvas.height + ' pixels.');
     } 
+}
+
+
+function hoverStartButton(x) {
+    x.src = 'img/playGameHovered.png';
+}
+
+function dishoverStartButton(x) {
+    x.src = 'img/playGame_image.png';
 }
 
 
