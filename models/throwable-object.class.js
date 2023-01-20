@@ -63,9 +63,23 @@ class ThrowableObject extends MovableObject {
                 clearInterval(id2);
             }
         }, 40);
-            
-       
-        // this.animate();
+    }
+
+
+    throwLeft() {
+        this.speedY = 15;
+        this.applyGravity();
+        var id1 = setInterval(() => {
+            this.x -= 15;
+        }, 40);
+        var id2 = setInterval(() => {
+            this.playAnimation(this.IMAGES)
+            if(this.y > 475) {
+                this.animate();
+                clearInterval(id2);
+            }
+        }, 40);
+
     }
     
     

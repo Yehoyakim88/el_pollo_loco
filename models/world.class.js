@@ -10,6 +10,7 @@ class World {
     healthBar = new HealthBar();
     bottleBar = new BottleBar();
     coinBar = new Coinbar();
+    endBossBar = new EndBossBar();
 
     numBottlesCollected = 100;
     bottle;
@@ -268,7 +269,12 @@ class World {
             this.bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(this.bottle);
             this.throw_sound.play();
-            this.bottle.throw(this.character.x + 100, this.character.y + 100);
+            if(this.character.otherDirection) {
+                this.bottle.throwLeft(this.character.x + 100, this.character.y + 100);
+            }
+            else {
+                this.bottle.throw(this.character.x + 100, this.character.y + 100);
+            }
             this.numBottlesCollected -= 1;
             this.bottleThrowing = true;
             
@@ -351,8 +357,8 @@ class World {
                 this.throwableObjects.forEach((bottle, index2) => {
                     if (bottle.isColliding(enemy) && !this.chickenKilled) {
                         this.throwableObjects.splice(index2, 1);
-                        enemy.isHurt();
-                        enemy.energy -= 5;
+                        enemy.hit();
+                        this.endBossBar.setBossBar(enemy.energy);
                     }
                     if(enemy.energy == 0) {
                         // enemy.isDead();
@@ -395,9 +401,13 @@ class World {
         }
         this.ctx.fillText(coinText, 100, 175);
         this.ctx.fillText(bottleText, 100, 115);
+        if(this.level.enemies[0] instanceof EndBoss) {
+            this.ctx.fillText(this.level.enemies[0].energy, 800, 40);
+        }
         this.addToMap(this.healthBar);
         this.addToMap(this.bottleBar);
         this.addToMap(this.coinBar);
+        this.addToMap(this.endBossBar);
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);

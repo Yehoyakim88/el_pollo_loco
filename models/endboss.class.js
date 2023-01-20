@@ -54,7 +54,7 @@ class EndBoss extends MovableObject {
 
 
     constructor(position) {
-        super().loadImage(this.IMAGES_WALKING[0]);
+        super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_HURT);
@@ -80,12 +80,12 @@ class EndBoss extends MovableObject {
             // this.moveLeft();
             this.playAnimation(this.IMAGES_WALKING);
           }
-        }, 100);
+        }, 250);
       }
     
       endbossAlert() {
         setInterval(() => {
-          if (this.energy == 25) {
+          if (this.energy > 25) {
             this.playAnimation(this.IMAGES_ALERT);
           }
         }, 400);
