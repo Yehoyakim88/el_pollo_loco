@@ -12,7 +12,7 @@ class World {
     coinBar = new Coinbar();
     endBossBar = new EndBossBar();
 
-    numBottlesCollected = 100;
+    numBottlesCollected = 3;
     bottle;
     bottleThrowing = false;
     numCoinsCollected = 0;
