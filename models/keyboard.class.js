@@ -7,6 +7,8 @@ class Keyboard {
   D = false;
   HELP = false;
 
+  DEBUG = false;
+
   constructor() {
     this.bindKeyboardPressEvents();
     this.bindButtonsPressEvents();
@@ -53,7 +55,7 @@ class Keyboard {
 
   bindKeyboardPressEvents() {
     window.addEventListener("keydown", (e) => {
-      console.log(e.keyCode);
+      if(this.DEBUG) {console.log(e.keyCode);}
 
       if (e.keyCode == 72) {
         this.HELP = true;

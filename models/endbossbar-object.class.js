@@ -1,4 +1,5 @@
 class EndBossBar extends StatusBar {
+    DEBUG = false;
 
     x = 700;
     y = 10;
@@ -22,11 +23,15 @@ class EndBossBar extends StatusBar {
 
 
     setBossBar(percentage) {
-        console.log('Calling setBossBar()');
+        // 
         this.percentage = percentage;
         let imagePath = this.IMAGES_BOSSBAR[this.resolveImageIndex()];
-        console.log('Index: ', this.resolveImageIndex());
-        console.log('Image to display: ', imagePath);
+        if(DEBUG) {
+            console.log('Calling setBossBar()');
+            console.log('Index: ', this.resolveImageIndex());
+            console.log('Image to display: ', imagePath);
+        }
+        
         this.img = this.imageCache[imagePath];
     }
 

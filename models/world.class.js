@@ -132,7 +132,6 @@ class World {
 
 
     run() {
-        console.log('run()');
         if(!this.gameOver) {
             let id6 = this.setStoppableInterval(() => {
                 this.checkCollisionsChicken();
@@ -244,7 +243,7 @@ class World {
     checkCollisionsChicken() {
         this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy) && !this.character.isHurt()) {
-                if (this.character.isAboveGround() && !this.chickenKilled && !enemy instanceof EndBoss) {
+                if (this.character.isAboveGround() && !this.chickenKilled && enemy instanceof Chicken) {
                     this.chickenKilled = true;
                     this.killChickenWithJumpFromTop(enemy, index);
                 } else {
@@ -283,7 +282,7 @@ class World {
      */
     killChickenWithJumpFromTop(enemy, index) {
         let y_pos = this.character.y;
-        console.log('Jumped on enemy on y: ', y_pos);
+        if(this.DEBUG_COLLISION) {console.log('Jumped on enemy on y: ', y_pos);}
         enemy.chickenKilled();
         this.character.acceleration = 2.5;  // perfect 'acceleration'
         this.character.jump(5, false);      // and 'speedY' match
@@ -305,13 +304,11 @@ class World {
      * @param {string} index 
      */
     eraseEnemyFromArray(index) {
-        console.log('Enemy to delete is of index: ', index);
-        // this.level.enemies.splice(index, 1);
+        if(this.DEBUG_COLLISION) {console.log('Enemy to delete is of index: ', index);}
         if(this.level.enemies[index] instanceof Chicken) {
             this.level.enemies[index].chicken_hurt_sound.play();
             this.level.enemies[index].img.src = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
         }
-        // this.level.enemies[index].img.src = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
         setTimeout(() => {
             this.level.enemies.splice(index, 1);
             this.chickenKilled = false;

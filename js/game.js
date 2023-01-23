@@ -2,6 +2,8 @@ let gamingWindow;
 let startScreen;
 let endScreen;
 let youLostScreen;
+let touchControls;
+let musicToggleButton;
 let canvas;
 let canvas_height;
 let canvas_width;
@@ -14,77 +16,112 @@ backgroundMusic.volume = 0.75;
 DEBUG = false;
 
 
+
+function setup_canvas() {
+    gamingWindow = document.getElementById('game-window');
+    gamingWindow.classList.remove('d-none');
+    canvas = document.getElementById('game-canvas');
+    canvas.removeAttribute('hidden');
+    canvas_height = canvas.offsetHeight;
+    canvas_width = canvas.offsetWidth;
+    keyboard = new Keyboard();
+    world = new World(canvas, keyboard, backgroundMusic);
+    let window_width = window.innerWidth;
+    let window_height = window.innerHeight;
+    if(DEBUG) {
+        console.log(`Browser height: ${window_height}\nBrowser width: ${window_width}`);
+        console.log('canvas_height: ', canvas_height);
+        console.log('canvas.height ', canvas.height);
+    } 
+}
+
 function init() {
     
     startScreen = document.getElementById('startscreen-container');
     gamingWindow = document.getElementById('game-window');
     startScreen.classList.add('d-none');
-    gamingWindow.classList.remove('d-none');
-    canvas = document.getElementById('game-canvas');
-    // canvas.setAttribute("height", "600px");
-    // canvas.setAttribute("width", "600px");
-    canvas_height = canvas.offsetHeight;
-    canvas_width = canvas.offsetWidth;
-    keyboard = new Keyboard();
-    world = new World(canvas, keyboard, backgroundMusic);
 
-    // console.log('My character is', world.character);
-    let window_width = window.innerWidth;
-    let window_height = window.innerHeight;
-    if(DEBUG) {
-        console.log('Browser height: ', window_height);
-        console.log('Browser width: ', window_width);
-        console.log('Canvas has a height ( canvas_height ) of ' + canvas_height + ' pixels.');
-        console.log('Canvas has a height ( canvas.height ) of ' + canvas.height + ' pixels.');
-    } 
+    touchControls = document.getElementById('touch-controls');
+    musicToggleButton = document.getElementById('music-on-off');
+
+    setup_canvas();
+
+    // gamingWindow.classList.remove('d-none');
+    // canvas = document.getElementById('game-canvas');
+    // canvas_height = canvas.offsetHeight;
+    // canvas_width = canvas.offsetWidth;
+    // keyboard = new Keyboard();
+    // world = new World(canvas, keyboard, backgroundMusic);
+    // let window_width = window.innerWidth;
+    // let window_height = window.innerHeight;
+    // if(DEBUG) {
+    //     console.log(`Browser height: ${window_height}\nBrowser width: ${window_width}`);
+    //     console.log('canvas_height: ', canvas_height);
+    //     console.log('canvas.height ', canvas.height);
+    // } 
 }
 
 
 function restartAfterWon() {
     endScreen = document.getElementById('endscreen-container');
-    gamingWindow = document.getElementById('game-window');
+    
     endScreen.classList.add('d-none');
-    gamingWindow.classList.remove('d-none');
-    canvas = document.getElementById('game-canvas');
-    canvas.removeAttribute("hidden");
-    canvas_height = canvas.offsetHeight;
-    canvas_width = canvas.offsetWidth;
-    keyboard = new Keyboard();
-    world = new World(canvas, keyboard, backgroundMusic);
+    
 
-    // console.log('My character is', world.character);
-    let window_width = window.innerWidth;
-    let window_height = window.innerHeight;
-    if(DEBUG) {
-        console.log('Browser height: ', window_height);
-        console.log('Browser width: ', window_width);
-        console.log('Canvas has a height ( canvas_height ) of ' + canvas_height + ' pixels.');
-        console.log('Canvas has a height ( canvas.height ) of ' + canvas.height + ' pixels.');
-    } 
+    setup_canvas();
+    touchControls.classList.remove('d-none');
+    musicToggleButton.classList.remove('d-none');
+
+    // gamingWindow = document.getElementById('game-window');
+    // gamingWindow.classList.remove('d-none');
+    // canvas = document.getElementById('game-canvas');
+    // canvas.removeAttribute("hidden");
+    // canvas_height = canvas.offsetHeight;
+    // canvas_width = canvas.offsetWidth;
+    // keyboard = new Keyboard();
+    // world = new World(canvas, keyboard, backgroundMusic);
+
+    // // console.log('My character is', world.character);
+    // let window_width = window.innerWidth;
+    // let window_height = window.innerHeight;
+    // if(DEBUG) {
+    //     console.log('Browser height: ', window_height);
+    //     console.log('Browser width: ', window_width);
+    //     console.log('Canvas has a height ( canvas_height ) of ' + canvas_height + ' pixels.');
+    //     console.log('Canvas has a height ( canvas.height ) of ' + canvas.height + ' pixels.');
+    // } 
 }
 
 
 function restartAfterLost() {
     youLostScreen = document.getElementById('youLost-container');
-    gamingWindow = document.getElementById('game-window');
+    
     youLostScreen.classList.add('d-none');
-    gamingWindow.classList.remove('d-none');
-    canvas = document.getElementById('game-canvas');
-    canvas.removeAttribute("hidden");
-    canvas_height = canvas.offsetHeight;
-    canvas_width = canvas.offsetWidth;
-    keyboard = new Keyboard();
-    world = new World(canvas, keyboard, backgroundMusic);
+    touchControls.classList.remove('d-none');
+    musicToggleButton.classList.remove('d-none');
 
-    // console.log('My character is', world.character);
-    let window_width = window.innerWidth;
-    let window_height = window.innerHeight;
-    if(DEBUG) {
-        console.log('Browser height: ', window_height);
-        console.log('Browser width: ', window_width);
-        console.log('Canvas has a height ( canvas_height ) of ' + canvas_height + ' pixels.');
-        console.log('Canvas has a height ( canvas.height ) of ' + canvas.height + ' pixels.');
-    } 
+    setup_canvas();
+
+    // gamingWindow = document.getElementById('game-window');
+    // gamingWindow.classList.remove('d-none');
+    // touchControls.classList.remove('d-none');
+    // musicToggleButton.classList.remove('d-none');
+    // canvas = document.getElementById('game-canvas');
+    // canvas.removeAttribute("hidden");
+    // canvas_height = canvas.offsetHeight;
+    // canvas_width = canvas.offsetWidth;
+    // keyboard = new Keyboard();
+    // world = new World(canvas, keyboard, backgroundMusic);
+
+    // // console.log('My character is', world.character);
+    // let window_width = window.innerWidth;
+    // let window_height = window.innerHeight;
+    // if(DEBUG) {
+    //     console.log('Browser height: ', window_height);
+    //     console.log('Browser width: ', window_width);
+    //     console.log('Canvas has a height ( canvas_height ) of ' + canvas_height + ' pixels.');
+    //     console.log('Canvas has a height ( canvas.height ) of ' + canvas.height + ' pixels.');
+    // } 
 }
 
 
