@@ -31,7 +31,8 @@ class World {
 
     you_lost_sound = new Audio('audio/miss_8Yfu3Y9.mp3');
     gameOver = false;
-    you_won_sound = new Audio('');
+    you_lost = false;
+    you_won_sound = new Audio('audio/won.mp3');
 
     chickenKilled = false;
 
@@ -45,6 +46,8 @@ class World {
     youWinScreen = document.getElementById('endscreen-container');
     youLostScreen = document.getElementById('youLost-container');
     canvasScreen = document.getElementById('game-canvas');
+    touchControls = document.getElementById('touch-controls');
+    musicToggleButton = document.getElementById('music-on-off');
     
     
 
@@ -142,9 +145,9 @@ class World {
             }, 1000/25);
             
             let id5 = setInterval(() => {
-                console.log('this.keyboard.HELP ', this.keyboard.HELP);
+                // console.log('this.keyboard.HELP ', this.keyboard.HELP);
                 // checkCollisions with other objects
-                if(this.keyboard.HELP) {
+                if(this.keyboard.HELP && !this.you_lost && !this.gameOver) {
                     this.gameScreen.classList.add('d-none');
                     this.helpScreen.classList.remove('d-none');
                 }
@@ -241,7 +244,7 @@ class World {
     checkCollisionsChicken() {
         this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy) && !this.character.isHurt()) {
-                if (this.character.isAboveGround() && !this.chickenKilled) {
+                if (this.character.isAboveGround() && !this.chickenKilled && !enemy instanceof EndBoss) {
                     this.chickenKilled = true;
                     this.killChickenWithJumpFromTop(enemy, index);
                 } else {
@@ -253,8 +256,17 @@ class World {
                             this.gameOver = true;
                             this.gameScreen.classList.add('d-none');
                             this.canvas.setAttribute("hidden", "hidden");
+                            this.touchControls.classList.add('d-none');
+                            this.musicToggleButton.classList.add('d-none');
+                            this.bossanova.pause();
+                            clearAllIntervals();
+                            if(this.music) {
+                                this.backgroundMusic.pause();
+                                this.backgroundMusic.currentTime = 0.0;
+                            }
                             this.youLostScreen.classList.remove('d-none');
                             this.you_lost_sound.play();
+                            this.you_lost = true;
 
                         }
                     }
@@ -414,7 +426,16 @@ class World {
                             this.eraseEnemyFromArray(index1);
                             this.gameScreen.classList.add('d-none');
                             canvas.setAttribute("hidden", "hidden");
+                            this.touchControls.classList.add('d-none');
+                            this.musicToggleButton.classList.add('d-none');
                             this.youWinScreen.classList.remove('d-none');
+                            this.gameOver = true;
+                            clearAllIntervals();
+                            this.bossanova.pause();
+                            if(this.music) {
+                                this.backgroundMusic.pause();
+                                this.backgroundMusic.currentTime = 0.0;
+                            }
                             this.you_won_sound.play();
                         }, 2000);
                     }

@@ -29,7 +29,7 @@
     <script src="./models/endbossbar-object.class.js"></script>
     <script src="./js/game.js"></script>
 </head>
-<body onload>
+<body>
 
     <div id="startscreen-container" class="startscreenContainer">
         <img id="startcreen-image" class="startScreenImage" src="./img/9_intro_outro_screens/start/startscreen_1.png">
@@ -44,15 +44,15 @@
     <div id="endscreen-container" class="startscreenContainer d-none">
         <img id="endscreen-image" class="startScreenImage" 
              src="./img/9_intro_outro_screens/game_over/game over.png">
-        <img id="restartgame-button" class="startGameButton" onmouseover="hoverStartButton(this)" 
-        onmouseout="dishoverStartButton(this)" onclick="init()" src="img/restart.png">
+        <img id="restartgame-button" class="startGameButton" onmouseover="hoverRestartButton(this)" 
+        onmouseout="dishoverRestartButton(this)" onclick="restartAfterWon()" src="img/restart.png">
     </div>
 
     <div id="youLost-container" class="startscreenContainer d-none">
         <img id="youLost-image" class="startScreenImage" 
              src="./img/9_intro_outro_screens/game_over/oh no you lost!.png">
-        <img id="restartgame-button" class="startGameButton" onmouseover="hoverStartButton(this)" 
-        onmouseout="dishoverStartButton(this)" onclick="init()" src="img/restart.png">
+        <img id="restartgame-button" class="startGameButton" onmouseover="hoverRestartButton(this)" 
+        onmouseout="dishoverRestartButton(this)" onclick="restartAfterLost()" src="img/restart.png">
     </div>
 
 

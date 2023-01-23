@@ -1,5 +1,7 @@
 let gamingWindow;
 let startScreen;
+let endScreen;
+let youLostScreen;
 let canvas;
 let canvas_height;
 let canvas_width;
@@ -18,9 +20,57 @@ function init() {
     gamingWindow = document.getElementById('game-window');
     startScreen.classList.add('d-none');
     gamingWindow.classList.remove('d-none');
-    canvas = document.getElementById('canvas');
+    canvas = document.getElementById('game-canvas');
     // canvas.setAttribute("height", "600px");
     // canvas.setAttribute("width", "600px");
+    canvas_height = canvas.offsetHeight;
+    canvas_width = canvas.offsetWidth;
+    keyboard = new Keyboard();
+    world = new World(canvas, keyboard, backgroundMusic);
+
+    // console.log('My character is', world.character);
+    let window_width = window.innerWidth;
+    let window_height = window.innerHeight;
+    if(DEBUG) {
+        console.log('Browser height: ', window_height);
+        console.log('Browser width: ', window_width);
+        console.log('Canvas has a height ( canvas_height ) of ' + canvas_height + ' pixels.');
+        console.log('Canvas has a height ( canvas.height ) of ' + canvas.height + ' pixels.');
+    } 
+}
+
+
+function restartAfterWon() {
+    endScreen = document.getElementById('endscreen-container');
+    gamingWindow = document.getElementById('game-window');
+    endScreen.classList.add('d-none');
+    gamingWindow.classList.remove('d-none');
+    canvas = document.getElementById('game-canvas');
+    canvas.removeAttribute("hidden");
+    canvas_height = canvas.offsetHeight;
+    canvas_width = canvas.offsetWidth;
+    keyboard = new Keyboard();
+    world = new World(canvas, keyboard, backgroundMusic);
+
+    // console.log('My character is', world.character);
+    let window_width = window.innerWidth;
+    let window_height = window.innerHeight;
+    if(DEBUG) {
+        console.log('Browser height: ', window_height);
+        console.log('Browser width: ', window_width);
+        console.log('Canvas has a height ( canvas_height ) of ' + canvas_height + ' pixels.');
+        console.log('Canvas has a height ( canvas.height ) of ' + canvas.height + ' pixels.');
+    } 
+}
+
+
+function restartAfterLost() {
+    youLostScreen = document.getElementById('youLost-container');
+    gamingWindow = document.getElementById('game-window');
+    youLostScreen.classList.add('d-none');
+    gamingWindow.classList.remove('d-none');
+    canvas = document.getElementById('game-canvas');
+    canvas.removeAttribute("hidden");
     canvas_height = canvas.offsetHeight;
     canvas_width = canvas.offsetWidth;
     keyboard = new Keyboard();
@@ -42,9 +92,26 @@ function hoverStartButton(x) {
     x.src = 'img/playGameHovered.png';
 }
 
+
 function dishoverStartButton(x) {
     x.src = 'img/playGame_image.png';
 }
+
+
+function hoverRestartButton(x) {
+    x.src = 'img/restart_hovered.png';
+}
+
+
+function dishoverRestartButton(x) {
+    x.src = 'img/restart.png';
+}
+
+
+function clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+  };
+
 
 
 // window.addEventListener("keydown", (e) => {

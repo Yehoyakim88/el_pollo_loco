@@ -18,6 +18,7 @@ class ThrowableObject extends MovableObject {
     ];
 
     splash_sound = new Audio('audio/bottle_splash.mp3');
+    bottleCollideWithEnemy = false;
 
 
     constructor(x, y) {
@@ -88,7 +89,7 @@ class ThrowableObject extends MovableObject {
 
     animate() {
         var id1 = setInterval(() => {
-            if (this.y > 475) {
+            if (this.y > 475 || this.bottleCollideWithEnemy) {
                 this.playSplashAnimation();
                 clearInterval(id1);
             } else {
