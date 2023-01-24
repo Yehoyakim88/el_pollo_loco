@@ -1,5 +1,5 @@
 class HealthBar extends StatusBar {
-    DEBUG = false;
+
     IMAGES_HEALTHBAR = [
         './img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png',   // 0
         './img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
@@ -22,7 +22,6 @@ class HealthBar extends StatusBar {
         this.x = 40;
         this.y = 20;
         this.setPercentage(100);
-        if(this.DEBUG)  {console.log('statusBar for health to add...');}
     }
 
 

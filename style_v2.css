@@ -48,6 +48,7 @@ body {
     height: 640px;
     object-fit: cover; */
     width: 100vw;
+    height: 100vh;
 }
 
 .startGameButton {
@@ -57,7 +58,7 @@ body {
     top: 50px;
     left: 50%;
     right: 50%;
-    width: calc(100vw / 10);
+    width: calc(100vw/10);
     /* height: 100px; */
     object-fit: cover;
 }
@@ -69,8 +70,8 @@ body {
     bottom: 50px;
     left: 50%;
     right: 50%;
-    width: calc(100vw / 10);
-    /* height: 100px; */
+    width: 100px;
+    height: 100px;
     object-fit: cover;
 }
 
@@ -82,6 +83,39 @@ body {
 
 canvas {
     background-color: black;
+}
+
+/* Smartphones ----------   before edit canvas { width: 100vw;}----------*/
+@media only screen and (max-width: 1280px) {
+    .mainContainer {
+        width: 100vw;
+    }
+    .touch-controls {
+        bottom: 20px;
+    }
+    .gameWindow {
+        width: 100vw;
+    }
+    .canvas {
+        width: 100vw;
+    }
+}
+
+
+/* Smartphones -----before edit canvas { height: 100vh;}---------------*/
+@media only screen and (max-height: 480px) {
+    .mainContainer {
+        height: 100vh;
+    }
+    .touch-controls {
+        bottom: 20px;
+    }
+    .gameWindow {
+        height: 100vh;
+    }
+    .canvas {
+        height: 100vh;
+    }
 }
 
 .gameTitle {
@@ -118,8 +152,8 @@ canvas {
 }
 
 .touchIcon {
-    height: 10vh;
-    width: 8vw;
+    height: 8vh;
+    width: 7vw;
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -190,37 +224,20 @@ canvas {
     display: none !important;
 }
 
-
-@media (max-width: 800) {
-    .touch-controls {
-        display: none !important;
-    }
+.turnphone {
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-
-/* Smartphones ----------   before edit canvas { width: 100vw;}----------*/
-@media only screen and (max-width: 1280px) {
-    .mainContainer {
-        width: 100vw;
-    }
-    .touch-controls {
-        bottom: 20px;
-    }
-    .gameWindow {
-        width: 100vw;
-    }
+.turnphone img {
+    width: 40px;
+    height: 40px;
 }
 
-
-/* Smartphones -----before edit canvas { height: 100vh;}---------------*/
-@media only screen and (max-height: 480px) {
-    .mainContainer {
-        height: 100vh;
-    }
-    .touch-controls {
-        bottom: 20px;
-    }
-    .gameWindow {
-        width: 100vw;
-    }
-}

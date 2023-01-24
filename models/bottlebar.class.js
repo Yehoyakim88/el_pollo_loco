@@ -10,11 +10,9 @@ class BottleBar extends StatusBar{
     constructor() {
         super();
         this.loadImage(this.IMAGE_BOTTLEBAR);
-            
-            this.x = 20;
-            this.y = 70;
-            this.height = 60;
-            this.width = 70;
-            if(this.DEBUG)  {console.log('statusBar for coins to add...');}
+        this.x = 20;
+        this.y = 70;
+        this.height = 60;
+        this.width = 70;
     }
 } 

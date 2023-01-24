@@ -1,4 +1,5 @@
 class MovableObject extends DrawableObject {    
+    
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
@@ -61,18 +62,15 @@ class MovableObject extends DrawableObject {
 
     moveLeft() {
         this.x -= this.speed;
-        this.otherDirection = true;
+        if(this instanceof Character) {this.otherDirection = true;}
     }
 
 
     playAnimation(images) {
-        // console.log('playAnimation, images: ', images);
         let i = this.currentImage % images.length; // let i = 7 % 6; => 1, Rest 1
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
-        // console.log('path', path);
-        // console.log('this.img', this.img);
     }
 
 
@@ -90,13 +88,9 @@ class MovableObject extends DrawableObject {
     isCollecting(obj) {
         let dx = obj.x - this.x;    //obj is coin and this points to character
         let dy = obj.y - this.y;
-        // console.log('dy = ', dy);
-        // console.log('movObject.isCollecting()');
-        // console.log('dx = ', dx);
         if((dx >= -80 && dx <= 80 && dy >= 0 && dy <= 200))
         // if((dx >= -80 && dx <= 60 && dy >= 0 && dy <= 200)) // first values tried
         {
-            // console.log('Coin geeeeeeeeeeesammelt');
             if(obj instanceof Coin) {this.coin_sound.play();}
             else if(obj instanceof Bottle) {this.bottle_sound.play();}
             return true;
@@ -131,9 +125,7 @@ class MovableObject extends DrawableObject {
         else {
             this.lastHit = new Date().getTime();
         }
-        // console.log('energy: ', this.energy);
     }
-
 
 
     isDead() {
@@ -144,6 +136,6 @@ class MovableObject extends DrawableObject {
     isHurt() {
         this.timePassed = new Date().getTime() - this.lastHit; // Difference in ms
         this.timePassed = this.timePassed / 1000;
-        return this.timePassed < 1.5;   // Firat Yildirim's value would be 1
+        return this.timePassed < 1.0;
     }
 }

@@ -15,14 +15,6 @@ class Cloud extends MovableObject {
         this.x = 50 + 100*Math.random() * 10;
         this.last_x = this.x;
         this.speed = 0.15;
-
-        if(this.DEBUG) {
-            console.log('Cloud x: ', this.x);
-            console.log('Cloud y: ', this.y);
-            console.log('Cloud width: ', this.width);
-            console.log('Cloud height: ', this.height);
-        }
-        
         this.animate();
     }
 

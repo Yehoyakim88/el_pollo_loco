@@ -10,14 +10,7 @@ class DrawableObject {
     // ---------------------------------------------------------------------
     statusBarX = 50;
 
-    // code snippet from F. Caspers
-    // x = 50;
-    // y = 230;
-    // height = 200;
-    // width = 150;
-    // --------------------------------
-
-
+    
     // outsourced from movable-object.class.js
     loadImage(path) {
         this.img = new Image();
@@ -50,9 +43,6 @@ class DrawableObject {
 
     // outsourced from movable-object.class.js
     draw(ctx) {
-        // if(this instanceof BackgroundObject) {
-        //     console.log('this.img :', this.img);
-        // }
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 }

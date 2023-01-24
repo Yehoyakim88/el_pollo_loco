@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Pollo Loco</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/x-icon" href="./img/sombrero-24.ico">
+    <script src="./models/keyboard.class.js"></script>
+    <script src="./models/drawable-object.class.js"></script>
+    <!-- <script src="./models/status-bar.class.js"></script> -->
+    <script src="./models/movable-object.class.js"></script>
+    <script src="./models/throwable-object.class.js"></script>
+    <script src="./models/character.class.js"></script>
+    <script src="./models/chicken.class.js"></script>
+    <script src="./models/world.class.js"></script>
+    <script src="./models/cloud.class.js"></script>
+    <script src="./models/background-object.class.js"></script>
+    <script src="./models/endboss.class.js"></script>
+    <script src="./models/level.class.js"></script>
+    <script src="./levels/level1.js"></script>
+    <script src="./models/status-bar.class.js"></script>
+    <script src="./models/bottlebar.class.js"></script>
+    <script src="./models/coinbar.class.js"></script>
+    <script src="./models/healthbar.class.js"></script>
+    <script src="./models/coins.class.js"></script>
+    <script src="./models/bottle.class.js"></script>
+    <script src="./models/endbossbar-object.class.js"></script>
+    <script src="./js/game.js"></script>
+</head>
+<body>
+
+    <div id="startscreen-container" class="startscreenContainer">
+        <img id="startcreen-image" class="startScreenImage" src="./img/9_intro_outro_screens/start/startscreen_1.png">
+        <img id="startGame-button" class="startGameButton" onmouseover="hoverStartButton(this)" 
+             onmouseout="dishoverStartButton(this)" onclick="init()" src="img/playGame_image.png">
+    </div>
+
+    <div id="helpscreen-container" class="startscreenContainer d-none">
+        <img id="helpscreen-image" class="startScreenImage" src="./img/helpscreen.png">
+    </div>
+
+    <div id="endscreen-container" class="startscreenContainer d-none">
+        <img id="endscreen-image" class="startScreenImage" 
+             src="./img/9_intro_outro_screens/game_over/game over.png">
+        <img id="restartgame-button" class="startGameButton" onmouseover="hoverRestartButton(this)" 
+        onmouseout="dishoverRestartButton(this)" onclick="restartAfterWon()" src="img/restart.png">
+    </div>
+
+    <div id="youLost-container" class="startscreenContainer d-none">
+        <img id="youLost-image" class="startScreenImage" 
+             src="./img/9_intro_outro_screens/game_over/oh no you lost!.png">
+        <img id="restartgame-button" class="startGameButton" onmouseover="hoverRestartButton(this)" 
+        onmouseout="dishoverRestartButton(this)" onclick="restartAfterLost()" src="img/restart.png">
+    </div>
+
+
+
+    <div id="game-window" class="gameWindow d-none">
+        <!-- before edit and testing with F. Caspers snippets: 1280x640 -->
+        <canvas id="game-canvas" class="canvas" id="canvas" width="1280px" height="640px"></canvas>
+    <!-- <canvas class="canvas" id="canvas"></canvas> -->
+        <img id="music-on-off" class="speakerOnOff" src="./img/musicoff.png" onclick="world.toggleMusic()">
+
+        <div id="touch-controls" class="touch-controls">
+        
+            <div class="touch-controls-left-hand">
+                <img id="btnLeft" class="touchIcon" src="img/arrow_left.png" alt="arrow-left">
+                <img id="btnUp" class="touchIcon" src="img/arrow_up.png" alt="arrow-up">
+            </div>
+            
+            <div class="touch-controls-right-hand">
+                <img id="btnSpace" class="touchIcon" src="img/arrow_throw_bottle.png" alt="arrow-throw">
+                <img id="btnRight" class="touchIcon" src="img/arrow_right.png" alt="arrow-right">
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- <script src="./models/world.class.js"></script> -->
+    
+    
+</body>
+</html>

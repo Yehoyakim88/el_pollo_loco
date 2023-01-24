@@ -6,16 +6,9 @@ class BackgroundObject extends MovableObject {
     height = canvas.height; // old cvalue:  // height = 640;
 
 
-    constructor(imagePath, x, canvas_height) {
-        // console.log('constructor of class BackgroundObject');
-        // console.log('height of canvas: ', canvas_height);
+    constructor(imagePath, x) {
         super().loadImage(imagePath);
         this.x = x;
         this.y = 0;
-        if(this.DEBUG) {console.log('Backgroundobject x: ', this.x);
-            console.log('Backgroundobject y: ', this.y);
-            console.log('Backgroundobject width: ', this.width);
-            console.log('Backgroundobject height: ', this.height);
-        }
     }
 }

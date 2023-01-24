@@ -1,6 +1,5 @@
 class ThrowableObject extends MovableObject {
     
-
     IMAGES = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -29,26 +28,7 @@ class ThrowableObject extends MovableObject {
         this.height = 80;
         this.x = x;
         this.y = y;
-        // this.throw();
     }
-
-
-    // throw() {
-    //     console.log('ThrowableObjects.throw()...');
-    //     if(this.y <= 640) {
-    //         this.speedY = 15;       // this.speedY = 30; before edit
-    //         this.applyGravity();
-    //         setInterval(() => {
-    //             // check for collision with enemy
-    //             this.x += 15;
-    //             this.playAnimation(this.IMAGES)
-    //             // this.x += 20;
-    //         }, 25);
-    //     }
-    //     else {
-    //         this.playAnimation(this.BOTTLE_SPLASH_IMAGES);
-    //     }
-    // }
 
     
     throw() {
@@ -84,9 +64,6 @@ class ThrowableObject extends MovableObject {
     }
     
     
-    
-
-
     animate() {
         var id1 = setInterval(() => {
             if (this.y > 475 || this.bottleCollideWithEnemy) {
@@ -98,6 +75,7 @@ class ThrowableObject extends MovableObject {
         }, 1000 / 60);
     }
 
+
     playSplashAnimation() {
         this.playAnimation(this.BOTTLE_SPLASH_IMAGES);
         this.splash_sound.play();
@@ -106,7 +84,6 @@ class ThrowableObject extends MovableObject {
 
 
     splash() {
-        console.log('SPLAAAAAAAAASH !!!');
         this.playAnimation(this.BOTTLE_SPLASH_IMAGES);
     }
 }
