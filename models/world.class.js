@@ -18,6 +18,8 @@ class World {
     numCoinsCollected = 0;
     
     throwableObjects = [];
+    no_bottle_sound = new Audio('audio/no_bottle.mp3');
+    throw_sound = new Audio('audio/throw_shout.mp3');
     has_splashed = false;
     DEBUG_COLLISION = false;
     DO_NOT_CANCEL_THIS;
@@ -26,9 +28,6 @@ class World {
     approached = false;
     boss_approaching_sound = new Audio('audio/boss_approaching.mp3');
     bossanova = new Audio('audio/latin-100882.mp3');    // source: https://pixabay.com/music/search/salsa/
-
-    no_bottle_sound = new Audio('audio/no_bottle.mp3');
-    throw_sound = new Audio('audio/throw_shout.mp3');
 
     you_lost_sound = new Audio('audio/miss_8Yfu3Y9.mp3');
     gameOver = false;
@@ -108,11 +107,8 @@ class World {
 
     run() {
         if(!this.gameOver) {
-            
             this,this.checkForCollisions();
             this.checkForHelp();
-            
-            
         }
     }
 
@@ -126,7 +122,6 @@ class World {
             this.checkForCoins();
             this.checkForBottles();
             this.checkApproachingBoss();
-            
         }, 1000/25);
     }
 
@@ -152,6 +147,19 @@ class World {
     
 
     checkApproachingBoss() {
+        this.checkCharacterPosition();
+        this.level.enemies.forEach((enemy) => {
+            if(enemy instanceof EndBoss) {
+                if(enemy.x - this.character.x <= 1100){
+                    if(!this.boss_seen) {this.gettingSerious();}
+                }
+                else {this.heIsApproaching();}
+            }
+        });
+    }
+
+
+    checkCharacterPosition() {
         if(this.character.x >= 2700) {
             if(!this.approached) {
                 this.boss_approaching_sound.play();
@@ -165,54 +173,30 @@ class World {
             this.boss_approaching_sound.currentTime = 0.0;
             this.backgroundMusic.volume = 0.75;
         }
-        this.level.enemies.forEach((enemy) => {
-            if(enemy instanceof EndBoss) {
-                if(enemy.x - this.character.x <= 1100){
-                    if(!this.boss_seen) {
-                        this.boss_approaching_sound.pause();
-                        this.boss_approaching_sound.currentTime = 0.0;
-                        this.bossanova.volume = 0.75;
-                        this.bossanova.play();
-                        if(this.music) {
-                            this.pauseLevelMusic(false);
-                        }
-                        this.boss_seen = true;
-                    }
-                }
-                else {
-                    this.bossanova.pause();
-                    this.bossanova.currentTime = 0.0;
-                    if(this.boss_seen && this.music) {
-                        this.backgroundMusic.volume = 0.2;
-                        this.playLevelMusic();
-                    }
-                    this.boss_seen = false;
-                    if(this.approached) {this.boss_approaching_sound.play();}
-                    }
-            }
-        });
-        // if(this.character.x >= 3250) {
-        //     if(!this.boss_seen) {
-        //         this.boss_approaching_sound.pause();
-        //         this.boss_approaching_sound.currentTime = 0.0;
-        //         this.bossanova.volume = 0.75;
-        //         this.bossanova.play();
-        //         if(this.music) {
-        //             this.pauseLevelMusic(false);
-        //         }
-        //         this.boss_seen = true;
-        //     }
-        // }
-        // else {
-        //     this.bossanova.pause();
-        //     this.bossanova.currentTime = 0.0;
-        //     if(this.boss_seen && this.music) {
-        //         this.backgroundMusic.volume = 0.2;
-        //         this.playLevelMusic();}
-        //         // this.boss_approaching_sound.play();
-        //     this.boss_seen = false;
-        //     if(this.approached) {this.boss_approaching_sound.play();}
-        // }
+    }
+
+
+    gettingSerious() {
+        this.boss_approaching_sound.pause();
+        this.boss_approaching_sound.currentTime = 0.0;
+        this.bossanova.volume = 0.75;
+        this.bossanova.play();
+        if(this.music) {
+            this.pauseLevelMusic(false);
+        }
+        this.boss_seen = true;
+    }
+
+
+    heIsApproaching() {
+        this.bossanova.pause();
+        this.bossanova.currentTime = 0.0;
+        if(this.boss_seen && this.music) {
+            this.backgroundMusic.volume = 0.2;
+            this.playLevelMusic();
+        }
+        this.boss_seen = false;
+        if(this.approached) {this.boss_approaching_sound.play();}
     }
 
 
@@ -227,7 +211,6 @@ class World {
 
 
     checkForCoins() {
-        // console.log('Checking for coins...');
         this.level.coins.forEach((coin, index) => {
             if(this.character.isCollecting(coin)) {
                 this.removeCoinFromMap(index);
@@ -320,13 +303,8 @@ class World {
             if(this.numBottlesCollected > 0 && !this.bottleThrowing){
             this.bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(this.bottle);
+            this.checkCharacterDirection();
             this.throw_sound.play();
-            if(this.character.otherDirection) {
-                this.bottle.throwLeft(this.character.x + 100, this.character.y + 100);
-            }
-            else {
-                this.bottle.throw(this.character.x + 100, this.character.y + 100);
-            }
             this.numBottlesCollected -= 1;
             this.bottleThrowing = true;
             }
@@ -336,6 +314,16 @@ class World {
         }
         else if(!this.keyboard.SPACE && this.bottleThrowing) {
             this.bottleThrowing = false;
+        }
+    }
+
+
+    checkCharacterDirection() {
+        if(this.character.otherDirection) {
+            this.bottle.throwLeft(this.character.x + 100, this.character.y + 100);
+        }
+        else {
+            this.bottle.throw(this.character.x + 100, this.character.y + 100);
         }
     }
 
@@ -362,28 +350,56 @@ class World {
                         enemy.hit();
                         this.endBossBar.setBossBar(enemy.energy);
                     }
-                    if(enemy.energy == 0) {
-                        // enemy.isDead();
-                        setTimeout(() => {
-                            this.eraseEnemyFromArray(index1);
-                            this.gameScreen.classList.add('d-none');
-                            canvas.setAttribute("hidden", "hidden");
-                            this.touchControls.classList.add('d-none');
-                            this.musicToggleButton.classList.add('d-none');
-                            this.youWinScreen.classList.remove('d-none');
-                            this.gameOver = true;
-                            clearAllIntervals();
-                            this.bossanova.pause();
-                            if(this.music) {
-                                this.backgroundMusic.pause();
-                                this.backgroundMusic.currentTime = 0.0;
-                            }
-                            this.you_won_sound.play();
-                        }, 2000);
-                    }
+                    this.checkForEnemyDeath(enemy, index1);
+                    // if(enemy.energy == 0) {
+                    //     // enemy.isDead();
+                    //     setTimeout(() => {
+                    //         this.eraseEnemyFromArray(index1);
+                    //         this.gameScreen.classList.add('d-none');
+                    //         canvas.setAttribute("hidden", "hidden");
+                    //         this.touchControls.classList.add('d-none');
+                    //         this.musicToggleButton.classList.add('d-none');
+                    //         this.youWinScreen.classList.remove('d-none');
+                    //         this.gameOver = true;
+                    //         clearAllIntervals();
+                    //         this.bossanova.pause();
+                    //         if(this.music) {
+                    //             this.backgroundMusic.pause();
+                    //             this.backgroundMusic.currentTime = 0.0;
+                    //         }
+                    //         this.you_won_sound.play();
+                    //     }, 2000);
+                    // }
                 })
             }
         })
+    }
+
+
+    checkForEnemyDeath(enemy, index1) {
+        if(enemy.energy == 0) {
+            setTimeout(() => {
+                this.eraseEnemyFromArray(index1);
+                this.setGameOverScreen();
+                this.gameOver = true;
+                clearAllIntervals();
+                this.bossanova.pause();
+                if(this.music) {
+                    this.backgroundMusic.pause();
+                    this.backgroundMusic.currentTime = 0.0;
+                }
+                this.you_won_sound.play();
+            }, 2000);
+        }
+    }
+
+
+    setGameOverScreen() {
+        this.gameScreen.classList.add('d-none');
+        canvas.setAttribute("hidden", "hidden");
+        this.touchControls.classList.add('d-none');
+        this.musicToggleButton.classList.add('d-none');
+        this.youWinScreen.classList.remove('d-none');
     }
 
 
