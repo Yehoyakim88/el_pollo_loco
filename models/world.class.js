@@ -1,5 +1,4 @@
 class World {
-
     character = new Character();
     // level = level1; // code-loesung von developer akademie, obsolet
     level = initLevel();
@@ -351,25 +350,6 @@ class World {
                         this.endBossBar.setBossBar(enemy.energy);
                     }
                     this.checkForEnemyDeath(enemy, index1);
-                    // if(enemy.energy == 0) {
-                    //     // enemy.isDead();
-                    //     setTimeout(() => {
-                    //         this.eraseEnemyFromArray(index1);
-                    //         this.gameScreen.classList.add('d-none');
-                    //         canvas.setAttribute("hidden", "hidden");
-                    //         this.touchControls.classList.add('d-none');
-                    //         this.musicToggleButton.classList.add('d-none');
-                    //         this.youWinScreen.classList.remove('d-none');
-                    //         this.gameOver = true;
-                    //         clearAllIntervals();
-                    //         this.bossanova.pause();
-                    //         if(this.music) {
-                    //             this.backgroundMusic.pause();
-                    //             this.backgroundMusic.currentTime = 0.0;
-                    //         }
-                    //         this.you_won_sound.play();
-                    //     }, 2000);
-                    // }
                 })
             }
         })

@@ -1,5 +1,4 @@
 class MovableObject extends DrawableObject {    
-    
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
@@ -42,8 +41,7 @@ class MovableObject extends DrawableObject {
             return true;
         }
         else {
-            // console.log('this.y: ', this.y);
-            return this.y < 260;    // with Firats Code 360
+            return this.y < 260;
         }   
     }
 

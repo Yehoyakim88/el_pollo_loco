@@ -1,5 +1,4 @@
 class Keyboard {
-
   LEFT = false;
   RIGHT = false;
   UP = false;
@@ -14,6 +13,7 @@ class Keyboard {
     this.bindKeyboardPressEvents();
     this.bindButtonsPressEvents();
   }
+
 
   bindButtonsPressEvents() {
     document.getElementById("btnLeft").addEventListener("touchstart", (e) => {
@@ -53,6 +53,7 @@ class Keyboard {
     });
   }
 
+  
   bindKeyboardPressEvents() {
     window.addEventListener("keydown", (e) => {
       if(this.DEBUG) {console.log(e.keyCode);}

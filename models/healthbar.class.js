@@ -1,5 +1,4 @@
 class HealthBar extends StatusBar {
-
     IMAGES_HEALTHBAR = [
         './img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png',   // 0
         './img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',

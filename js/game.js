@@ -16,7 +16,6 @@ backgroundMusic.volume = 0.75;
 DEBUG = false;
 
 
-
 function setup_canvas() {
     gamingWindow = document.getElementById('game-window');
     gamingWindow.classList.remove('d-none');
@@ -26,30 +25,22 @@ function setup_canvas() {
     canvas_width = canvas.offsetWidth;
     keyboard = new Keyboard();
     world = new World(canvas, keyboard, backgroundMusic);
-    let window_width = window.innerWidth;
-    let window_height = window.innerHeight;
     checkScreen();
 }
 
 function init() {
-    
     startScreen = document.getElementById('startscreen-container');
     gamingWindow = document.getElementById('game-window');
     startScreen.classList.add('d-none');
-
     touchControls = document.getElementById('touch-controls');
     musicToggleButton = document.getElementById('music-on-off');
-
     setup_canvas();
 }
 
 
 function restartAfterWon() {
     endScreen = document.getElementById('endscreen-container');
-    
     endScreen.classList.add('d-none');
-    
-
     setup_canvas();
     touchControls.classList.remove('d-none');
     musicToggleButton.classList.remove('d-none');
@@ -58,11 +49,9 @@ function restartAfterWon() {
 
 function restartAfterLost() {
     youLostScreen = document.getElementById('youLost-container');
-    
     youLostScreen.classList.add('d-none');
     touchControls.classList.remove('d-none');
     musicToggleButton.classList.remove('d-none');
-
     setup_canvas();
 }
 
@@ -92,14 +81,6 @@ function clearAllIntervals() {
         window.clearInterval(i);
     }
   };
-
-
-// function resetAllIntervals() {
-//     for (let i = 1; i < 200; i++){
-//         window.setInterval(i);
-//         console.log(i);
-//     }
-// }
 
 
 function checkScreen() {

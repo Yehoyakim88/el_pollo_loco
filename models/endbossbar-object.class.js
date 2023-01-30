@@ -1,5 +1,4 @@
 class EndBossBar extends StatusBar {
-
     x = 700;
     y = 10;
     height = 100;

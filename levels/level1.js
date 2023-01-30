@@ -26,59 +26,74 @@ function generateCoins(){
 }
 
 
+function generateEnemies(EndbossPosition) {
+    return [
+        new EndBoss(4400),
+        new Chicken(400),
+        new Chicken(600),
+        new Chicken(800),
+        new Chicken(1000),
+        new Chicken(1400),
+        new Chicken(2000)
+    ];
+}
+
+
+function generateClouds() {
+    return [
+        new Cloud(1),
+        new Cloud(2),
+        new Cloud(1),
+        new Cloud(2),
+        new Cloud(1),
+        new Cloud(2)
+    ];
+}
+
+
+function placeBottles() {
+    return [
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+    ];
+}
+
+
 function initLevel() {
     generateBackground();
     generateCoins();
-    let bossPosition;
+    let EndbossPosition;
     tmp = new Level();
-    bossPosition = tmp.level_end_x - 600;
+    EndbossPosition = tmp.level_end_x - 600;
 
     level1 = new Level(
-        [
-            new EndBoss(4400),
-            new Chicken(400),
-            new Chicken(600),
-            new Chicken(800),
-            new Chicken(1000),
-            new Chicken(1400),
-            new Chicken(2000)
-        ],
-        [
-            new Cloud(1),
-            new Cloud(2),
-            new Cloud(1),
-            new Cloud(2),
-            new Cloud(1),
-            new Cloud(2)
-        ],
+        generateEnemies(EndbossPosition),
+        generateClouds(),
         bg,
         levelCoins,
-        [
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-            new Bottle(),
-        ]
+        placeBottles()        
     );
     return level1;
 }

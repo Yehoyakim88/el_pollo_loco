@@ -1,5 +1,12 @@
 # el_pollo_loco
 
+## To implement:
+function resetAllIntervals() {
+    for (let i = 1; i < 200; i++){
+        window.setInterval(i);
+        console.log(i);
+    }
+}
 
 
 

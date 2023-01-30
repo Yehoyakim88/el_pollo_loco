@@ -80,7 +80,6 @@ class Character extends MovableObject {
     ];
 
     world;
-    // walking_sound = new Audio('./audio/step.mp3');
     walking_sound = new Audio('audio/step_new.mp3');
     hurt_sound = new Audio('./audio/pain.mp3');
     coin_sound = new Audio('./audio/coin.mp3');
@@ -109,7 +108,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);
-        this.applyGravity();    // implemented for testing       
+        this.applyGravity();            // implemented for testing       
         this.animate();
     }
 
@@ -117,11 +116,11 @@ class Character extends MovableObject {
     animate() {
         setInterval(() => {
             this.snoreFunctionality();
-        }, 250);    // before edit 500
+        }, 250);                        // before edit 500
         setInterval(() => {
             this.checkForPepeMove();
             this.world.camera_x = - this.x + 100;            
-        }, 1000 / 60);   // original: 1000 / 60
+        }, 1000 / 60);                  // original: 1000 / 60
 
         this.checkForDeath();
         this.checkForHurt();
