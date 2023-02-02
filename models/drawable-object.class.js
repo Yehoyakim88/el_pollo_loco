@@ -30,7 +30,7 @@ class DrawableObject {
 
     drawFrame(ctx) {
         if(this.width < canvas_width) {
-            if(this instanceof Character || this instanceof Chicken || this instanceof EndBoss || this instanceof Coin || this instanceof ThrowableObject) {
+            if(this.canDrawFrame()) {
                 ctx.beginPath();
                 ctx.linewidth = '10px';
                 ctx.strokeStyle = 'red';
@@ -44,5 +44,13 @@ class DrawableObject {
     // outsourced from movable-object.class.js
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    canDrawFrame() {
+        return this instanceof Character ||
+        this instanceof Chicken ||
+        this instanceof EndBoss || 
+        this instanceof Coin || 
+        this instanceof ThrowableObject;
     }
 }

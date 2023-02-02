@@ -392,6 +392,7 @@ class World {
         this.setupStatusTexts();
         this.addGameFigures();
         this.ctx.translate(-this.camera_x, 0);
+        
         // draw() wird immer wieder aufgerufen
         let self = this;
         this.idd = requestAnimationFrame(function() {

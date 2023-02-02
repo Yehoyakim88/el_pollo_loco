@@ -31,10 +31,10 @@ class ThrowableObject extends MovableObject {
     throw() {
         this.speedY = 15;
         this.applyGravity();
-        var id1 = setInterval(() => {
+        let id1 = setInterval(() => {
             this.x += 15;
         }, 40);
-        var id2 = setInterval(() => {
+        let id2 = setInterval(() => {
             this.playAnimation(this.IMAGES)
             if(this.y > 475) {
                 this.animate();
@@ -47,10 +47,10 @@ class ThrowableObject extends MovableObject {
     throwLeft() {
         this.speedY = 15;
         this.applyGravity();
-        var id1 = setInterval(() => {
+        let id1 = setInterval(() => {
             this.x -= 15;
         }, 40);
-        var id2 = setInterval(() => {
+        let id2 = setInterval(() => {
             this.playAnimation(this.IMAGES)
             if(this.y > 475) {
                 this.animate();
@@ -62,7 +62,7 @@ class ThrowableObject extends MovableObject {
     
     
     animate() {
-        var id1 = setInterval(() => {
+        let id1 = setInterval(() => {
             if (this.y > 475 || this.bottleCollideWithEnemy) {
                 this.playSplashAnimation();
                 clearInterval(id1);
