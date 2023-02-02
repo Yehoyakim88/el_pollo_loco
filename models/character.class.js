@@ -145,22 +145,43 @@ class Character extends MovableObject {
 
 
     checkForDisruptionOfSnoring() {
-        if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT ||this.world.keyboard.SPACE || this.world.keyboard.UP) {
+        if(this.checkForUserRequest()) {
             this.userInteraction = true;
             this.snoreTimer = 0;
             this.isSnoring = false;
             this.snore_sound.pause();
             this.snore_sound.currentTime = 0;
         }
-        if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+        if(this.checkForMoveLeftRight()) {
             this.world.characterWalking = true;
         }
         else {
             this.world.characterWalking = false;
-            if(!this.isSnoring && !this.isAboveGround() && this.userInteraction) {
+            if(this.checkForIdleConditions()) {
                 this.setCharacterIdle();
                 this.snoreTimer++;}
         }
+    }
+
+
+    checkForIdleConditions() {
+        return !this.isSnoring 
+        && !this.isAboveGround() 
+        && this.userInteraction;
+    }
+
+
+    checkForMoveLeftRight() {
+        return this.world.keyboard.RIGHT || 
+        this.world.keyboard.LEFT;
+    }
+
+
+    checkForUserRequest() {
+        return this.world.keyboard.RIGHT || 
+        this.world.keyboard.LEFT ||
+        this.world.keyboard.SPACE || 
+        this.world.keyboard.UP;
     }
 
 
