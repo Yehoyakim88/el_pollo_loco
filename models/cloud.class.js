@@ -1,14 +1,11 @@
 class Cloud extends MovableObject {
     DEBUG = false;
     y = 20;
-    width = 500;
-    height = 500;
-    // width = 0.78125*canvas.width;
-    // height = 0.78125*canvas.height;
-    
-    
+    width = 500;    // or 0.78125*canvas.width;
+    height = 500;   // or 0.78125*canvas.height;
     last_x = 0;
 
+    
     constructor(cloudType) {
         super().loadImage(`img/5_background/layers/4_clouds/${cloudType}.png`);
         

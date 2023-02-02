@@ -49,6 +49,7 @@ class EndBoss extends MovableObject {
     "img/4_enemie_boss_chicken/5_dead/G26.png",
   ];
 
+
   constructor(position) {
     super().loadImage(this.IMAGES_ALERT[0]);
     this.loadImages(this.IMAGES_WALKING);
@@ -61,12 +62,14 @@ class EndBoss extends MovableObject {
     this.animate();
   }
 
+
   animate() {
     this.intervalMoveLeft();
     this.endbossAlert();
     this.endbossHurt();
     this.enbossIsDead();
   }
+
 
   intervalMoveLeft() {
     setInterval(() => {
@@ -82,6 +85,7 @@ class EndBoss extends MovableObject {
     }, 250);
   }
 
+
   endbossAlert() {
     setInterval(() => {
       if (this.energy > 25) {
@@ -89,6 +93,7 @@ class EndBoss extends MovableObject {
       }
     }, 400);
   }
+
 
   endbossHurt() {
     setInterval(() => {
@@ -98,6 +103,7 @@ class EndBoss extends MovableObject {
     }, 100);
   }
 
+  
   enbossIsDead() {
     setInterval(() => {
       if (this.isDead()) {

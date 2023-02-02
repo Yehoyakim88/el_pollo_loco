@@ -4,7 +4,6 @@ class EndBossBar extends StatusBar {
     height = 100;
     width = 400;
     percentage = 50;
-
     IMAGES_BOSSBAR = [
         'img/7_statusbars/2_statusbar_endboss/boss-bar-1.png',
         'img/7_statusbars/2_statusbar_endboss/boss-bar-2.png',
@@ -14,6 +13,7 @@ class EndBossBar extends StatusBar {
         'img/7_statusbars/2_statusbar_endboss/boss-bar-6.png'
     ];
 
+    
     constructor() {
         super().loadImage(this.IMAGES_BOSSBAR[0]);
         this.loadImages(this.IMAGES_BOSSBAR);

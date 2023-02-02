@@ -50,6 +50,7 @@ class MovableObject extends DrawableObject {
         this.playAnimation(this.IMAGES_IDLE);
     }
 
+
     setCharacterLongIdle() {
         this.playAnimation(this.IMAGES_LONG_IDLE);
     }
@@ -107,6 +108,7 @@ class MovableObject extends DrawableObject {
                 this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
    }
 
+   
    /**
      * This Function put the energy to 0, for kill the Chicken enemies.
      * 

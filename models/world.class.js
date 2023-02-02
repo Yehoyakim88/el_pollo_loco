@@ -1,6 +1,5 @@
 class World {
     character = new Character();
-    // level = level1; // code-loesung von developer akademie, obsolet
     level = initLevel();
     canvas;
     ctx;

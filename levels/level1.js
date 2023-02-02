@@ -1,6 +1,8 @@
 let bg = [];
 let levelCoins = [];
 let level1;
+let level_end_x;
+let EndbossPosition;
 
 function generateBackground() {
     for(let i = 0; i < 20; i++) {
@@ -84,16 +86,16 @@ function placeBottles() {
 function initLevel() {
     generateBackground();
     generateCoins();
-    let EndbossPosition;
-    tmp = new Level();
-    EndbossPosition = tmp.level_end_x - 600;
+    level_end_x = 5000;
+    EndbossPosition = level_end_x - 600;
 
     level1 = new Level(
         generateEnemies(EndbossPosition),
         generateClouds(),
         bg,
         levelCoins,
-        placeBottles()        
+        placeBottles(),
+        level_end_x        
     );
     return level1;
 }

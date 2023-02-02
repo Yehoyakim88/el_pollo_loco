@@ -5,7 +5,6 @@ class ThrowableObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
     ];
-
     BOTTLE_SPLASH_IMAGES = [
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
@@ -14,7 +13,6 @@ class ThrowableObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ];
-
     splash_sound = new Audio('audio/bottle_splash.mp3');
     bottleCollideWithEnemy = false;
 

@@ -9,6 +9,7 @@ class Keyboard {
 
   DEBUG = false;
 
+  
   constructor() {
     this.bindKeyboardPressEvents();
     this.bindButtonsPressEvents();

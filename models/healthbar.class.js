@@ -7,7 +7,6 @@ class HealthBar extends StatusBar {
         './img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
         './img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png'      // 5
     ];
-
     height = 50;
     width = 200;
     x;
