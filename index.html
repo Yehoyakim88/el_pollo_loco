@@ -9,7 +9,6 @@
     <link rel="icon" type="image/x-icon" href="./img/sombrero-24.ico">
     <script src="./models/keyboard.class.js"></script>
     <script src="./models/drawable-object.class.js"></script>
-    <!-- <script src="./models/status-bar.class.js"></script> -->
     <script src="./models/movable-object.class.js"></script>
     <script src="./models/throwable-object.class.js"></script>
     <script src="./models/character.class.js"></script>
@@ -60,12 +59,12 @@
         <div id="game-window" class="gameWindow d-none">
             <canvas id="game-canvas" class="canvas" id="canvas" width="1280px" height="640px"></canvas>
             <img id="music-on-off" class="speakerOnOff" src="./img/musicoff.png" onclick="world.toggleMusic()">
-            <div id="touch-controls" class="touch-controls">
-                <div class="touch-controls-right-hand">
+            <div id="touch-controls" class="touch-controls d-none">
+                <div id="id-touch-right" class="touch-controls-right-hand">
                     <img id="btnUp" class="touchIcon" src="img/arrow_up.png" alt="arrow-up">
                     <img id="btnSpace" class="touchIcon" src="img/arrow_throw_bottle.png" alt="arrow-throw">
                 </div>
-                <div class="touch-controls-left-hand">
+                <div id="id-touch-left" class="touch-controls-left-hand">
                     <img id="btnLeft" class="touchIcon" src="img/arrow_left.png" alt="arrow-left">
                     <img id="btnRight" class="touchIcon" src="img/arrow_right.png" alt="arrow-right">
                 </div>
