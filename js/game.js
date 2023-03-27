@@ -91,6 +91,7 @@ function checkScreen() {
         document.getElementById('turnPhone').classList.remove('d-none');
       }
     }, 10)
+    checkForMobileDevice();
 }
 
 function checkForMobileDevice() {
@@ -101,8 +102,8 @@ function checkForMobileDevice() {
         navigator.userAgent.match(/iPhone/i) ||
         navigator.userAgent.match(/iPad/i) ||
         navigator.userAgent.match(/iPod/i) ||
-        navigator.userAgent.match(/BlackBerry/i) ||
-        navigator.userAgent.match(/Windows Phone/i)
+        navigator.userAgent.match(/BlackBerry/i)
+        // || navigator.userAgent.match(/Windows Phone/i)
       ) {
         touchControls.classList.remove('d-none');
       }
