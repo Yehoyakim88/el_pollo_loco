@@ -1,4 +1,5 @@
 let gamingWindow;
+let helpScreenSeen = false;
 let startScreen;
 let endScreen;
 let youLostScreen;
@@ -31,10 +32,22 @@ function setup_canvas() {
 function init() {
     startScreen = document.getElementById('startscreen-container');
     gamingWindow = document.getElementById('game-window');
-    startScreen.classList.add('d-none');
     touchControls = document.getElementById('touch-controls');
     musicToggleButton = document.getElementById('music-on-off');
-    setup_canvas();
+    if(!helpScreenSeen) {
+        showHelpScreen();
+    }
+    else {
+        startScreen.classList.add('d-none');
+        setup_canvas();
+    }
+}
+
+
+function showHelpScreen() {
+    let startScreen = document.getElementById('startcreen-image');
+    startScreen.src = "./img/helpscreen_v2.png";
+    helpScreenSeen = true;
 }
 
 
